@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=390, height=844, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>StockPilot AI - Onboarding</title>
+<!-- Material Symbols Outlined font -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS Play CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-container": "#ade9d8",
+            "secondary-fixed": "#ffdeaa",
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#fdc254",
+            "primary-fixed-dim": "#83d6c0",
+            "on-error": "#ffffff",
+            "primary-container": "#0b6e5c",
+            "outline": "#6e7975",
+            "surface-tint": "#036b59",
+            "inverse-surface": "#293041",
+            "surface-container": "#e9edff",
+            "background": "#f9f9ff",
+            "secondary-fixed-dim": "#f7bd4f",
+            "surface-container-low": "#f1f3ff",
+            "on-surface-variant": "#3e4945",
+            "surface-container-high": "#e0e8ff",
+            "inverse-on-surface": "#edf0ff",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#00201a",
+            "tertiary": "#135346",
+            "on-secondary-fixed-variant": "#5f4100",
+            "surface-container-highest": "#dbe2f9",
+            "on-background": "#141b2c",
+            "primary": "#005445",
+            "surface": "#f9f9ff",
+            "on-error-container": "#93000a",
+            "on-surface": "#141b2c",
+            "on-primary-container": "#9aedd6",
+            "surface-variant": "#dbe2f9",
+            "on-secondary-fixed": "#271900",
+            "outline-variant": "#bec9c4",
+            "tertiary-fixed-dim": "#97d2c2",
+            "surface-bright": "#f9f9ff",
+            "on-secondary-container": "#725000",
+            "tertiary-fixed": "#b2efde",
+            "surface-dim": "#d2daf0",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed-variant": "#0f5044",
+            "secondary": "#7d5700",
+            "tertiary-container": "#306b5e",
+            "on-primary-fixed-variant": "#005143",
+            "primary-fixed": "#9ff2db",
+            "on-primary-fixed": "#002019",
+            "inverse-primary": "#83d6c0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "space-md": "1rem",
+            "margin": "1rem"
+          },
+          "fontFamily": {
+            "title-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "currency-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "label-lg": ["Inter"],
+            "currency-display": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "currency-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+            "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+            "currency-display": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+            "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "700"}],
+            "title-md": ["16px", {"lineHeight": "22px", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Hide scrollbar for carousel track */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface antialiased flex justify-center items-center min-h-screen p-0 m-0">
+<!-- Mobile Viewport Container (Android 390px x 844px) -->
+<main class="w-full max-w-[390px] h-[844px] bg-surface relative flex flex-col justify-between overflow-hidden shadow-2xl border border-outline-variant/30 select-none">
+<!-- Top System & Action Bar -->
+<header class="w-full pt-4 px-gutter pb-2 flex flex-col gap-2 z-20">
+<!-- Android Status Indicator Bar simulation -->
+<div class="w-full flex justify-between items-center text-on-surface-variant font-label-md text-label-md px-1">
+<span class="font-title-md text-title-md font-bold text-on-surface">12:30</span>
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-[16px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[16px]">wifi</span>
+<span class="material-symbols-outlined text-[18px]">battery_full</span>
+</div>
+</div>
+<!-- Navigation & Skip Bar -->
+<div class="w-full flex items-center justify-between mt-1 h-12">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-xl bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">speed</span>
+</div>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight">StockPilot</span>
+</div>
+<button class="px-3 py-1.5 rounded-lg text-outline hover:text-on-surface font-label-lg text-label-lg transition-colors active:scale-95 duration-150 flex items-center gap-1" id="skip-btn">
+          Skip
+        </button>
+</div>
+</header>
+<!-- Carousel Viewport & Cards Section -->
+<div class="relative w-full flex-1 flex flex-col justify-center overflow-hidden px-gutter">
+<!-- Horizontal Carousel Slider Container -->
+<div class="w-full flex transition-transform duration-300 ease-out" id="carousel-track">
+<!-- CARD 1: ACTIVE (Sell faster) -->
+<div class="w-full flex-shrink-0 flex flex-col items-center">
+<!-- Bento Illustration Card -->
+<div class="w-full aspect-[4/3] max-h-[300px] bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 relative shadow-[0px_2px_4px_rgba(16,24,40,0.04),0px_1px_2px_rgba(16,24,40,0.02)] flex items-center justify-center overflow-hidden group">
+<!-- Subtle Grid Background -->
+<div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#005445_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<!-- Ambient Glow Accent -->
+<div class="absolute -right-10 -top-10 w-36 h-36 bg-primary-fixed rounded-full blur-3xl opacity-40 pointer-events-none"></div>
+<div class="absolute -left-10 -bottom-10 w-32 h-32 bg-secondary-fixed-dim rounded-full blur-2xl opacity-30 pointer-events-none"></div>
+<!-- Stylized Fintech Vector Illustration -->
+<svg class="w-full h-full max-h-[220px] relative z-10" fill="none" viewbox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+<!-- Counter Base -->
+<rect fill="#bec9c4" fill-opacity="0.3" height="12" rx="4" width="272" x="24" y="174"></rect>
+<line stroke="#005445" stroke-linecap="round" stroke-width="1.75" x1="16" x2="304" y1="186" y2="186"></line>
+<!-- Speed Action Lines -->
+<path d="M38 78L64 78" stroke="#fdc254" stroke-dasharray="4 4" stroke-linecap="round" stroke-width="2.5"></path>
+<path d="M26 94L70 94" stroke="#fdc254" stroke-linecap="round" stroke-width="2.5"></path>
+<path d="M42 110L60 110" stroke="#fdc254" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Barcode Scanner Beam -->
+<path d="M120 46L210 120" opacity="0.8" stroke="#ffdeaa" stroke-dasharray="3 3" stroke-width="1.5"></path>
+<path d="M106 58L196 132" opacity="0.8" stroke="#ffdeaa" stroke-dasharray="3 3" stroke-width="1.5"></path>
+<!-- Fast POS Terminal Handheld Device -->
+<rect fill="#ffffff" height="154" rx="14" stroke="#005445" stroke-width="2" width="94" x="156" y="24"></rect>
+<!-- Screen Notch & Header -->
+<rect fill="#bec9c4" height="4" rx="2" width="46" x="180" y="30"></rect>
+<rect fill="#e9edff" height="24" rx="6" width="78" x="164" y="40"></rect>
+<text fill="#005445" font-family="Plus Jakarta Sans" font-size="10" font-weight="700" x="170" y="56">FAST POS</text>
+<circle cx="232" cy="52" fill="#12B76A" r="3.5"></circle>
+<!-- Cart Item Rows Simulation -->
+<rect fill="#3e4945" fill-opacity="0.7" height="6" rx="3" width="52" x="164" y="70"></rect>
+<rect fill="#005445" height="6" rx="3" width="20" x="222" y="70"></rect>
+<rect fill="#bec9c4" height="6" rx="3" width="44" x="164" y="82"></rect>
+<rect fill="#005445" height="6" rx="3" width="20" x="222" y="82"></rect>
+<!-- Barcode Graphic on Screen -->
+<g transform="translate(166, 96)">
+<line stroke="#141b2c" stroke-width="2" x1="2" x2="2" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="1" x1="8" x2="8" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="3" x1="13" x2="13" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="1.5" x1="20" x2="20" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="2" x1="26" x2="26" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="1" x1="33" x2="33" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="3" x1="38" x2="38" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="1.5" x1="46" x2="46" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="2" x1="52" x2="52" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="1" x1="58" x2="58" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="2.5" x1="64" x2="64" y1="0" y2="16"></line>
+<line stroke="#141b2c" stroke-width="1" x1="70" x2="70" y1="0" y2="16"></line>
+</g>
+<!-- Instant Pay Button Simulation on Terminal -->
+<rect fill="#0b6e5c" height="22" rx="6" width="78" x="164" y="122"></rect>
+<text fill="#ffffff" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" x="176" y="137">PAID: Rs. 2,450</text>
+<circle cx="232" cy="133" fill="#9ff2db" r="4"></circle>
+<!-- Floating Micro-Badge: 3 Seconds Checkout -->
+<g transform="translate(68, 64)">
+<rect fill="#ffffff" height="34" rx="10" stroke="#005445" stroke-width="1.5" width="86" x="0" y="0"></rect>
+<circle cx="16" cy="17" fill="#e6f4f1" r="9"></circle>
+<path d="M16 11V17L20 19" stroke="#0b6e5c" stroke-linecap="round" stroke-width="1.5"></path>
+<text fill="#141b2c" font-family="Plus Jakarta Sans" font-size="10" font-weight="800" x="30" y="16">&lt; 5 secs</text>
+<text fill="#6e7975" font-family="Inter" font-size="7.5" font-weight="600" x="30" y="25">Checkout</text>
+</g>
+<!-- Product Item Mockup with Instant Checkmark -->
+<g transform="translate(74, 116)">
+<rect fill="#ffffff" height="48" rx="8" stroke="#bec9c4" stroke-width="1.5" width="76" x="0" y="0"></rect>
+<rect fill="#3e4945" height="6" rx="2" width="34" x="8" y="10"></rect>
+<rect fill="#bec9c4" height="5" rx="2" width="26" x="8" y="20"></rect>
+<text fill="#0b6e5c" font-family="Plus Jakarta Sans" font-size="9" font-weight="700" x="8" y="38">Rs. 850</text>
+<!-- Floating Success Pill -->
+<circle cx="62" cy="24" fill="#0b6e5c" r="9"></circle>
+<path d="M59 24L61.5 26.5L66 21" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</g>
+</svg>
+<!-- Pill Tag -->
+<div class="absolute bottom-3 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-low border border-outline-variant/30 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-primary font-bold">1-Thumb POS</span>
+</div>
+</div>
+<!-- Text Block: Value Proposition -->
+<div class="w-full mt-6 text-center px-2">
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+              Sell faster
+            </h2>
+<p class="mt-2.5 font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-[320px] mx-auto">
+              One-handed checkout designed for busy counters. Add items, apply discounts, and complete sales in 3 taps.
+            </p>
+</div>
+</div>
+<!-- CARD 2: PREVIEW (Never run out) -->
+<div class="w-full flex-shrink-0 flex flex-col items-center">
+<div class="w-full aspect-[4/3] max-h-[300px] bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 relative shadow-[0px_2px_4px_rgba(16,24,40,0.04),0px_1px_2px_rgba(16,24,40,0.02)] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#005445_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<!-- Card 2 Graphic Concept -->
+<div class="w-full h-full flex flex-col items-center justify-center p-4">
+<div class="w-20 h-20 rounded-2xl bg-secondary-fixed/30 border border-secondary-container flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-secondary text-[40px]" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+</div>
+<div class="flex items-center gap-2 bg-error-container text-error px-3 py-1.5 rounded-lg border border-error/20">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+<span class="font-label-md text-label-md font-bold">Low Stock: 3 units remaining</span>
+</div>
+</div>
+<div class="absolute bottom-3 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-low border border-outline-variant/30 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">Smart Inventory</span>
+</div>
+</div>
+<div class="w-full mt-6 text-center px-2">
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+              Never run out
+            </h2>
+<p class="mt-2.5 font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-[320px] mx-auto">
+              Intelligent stock alerts &amp; low inventory tracking keep your best-sellers always on the shelf.
+            </p>
+</div>
+</div>
+<!-- CARD 3: PREVIEW (Works offline) -->
+<div class="w-full flex-shrink-0 flex flex-col items-center">
+<div class="w-full aspect-[4/3] max-h-[300px] bg-surface-container-lowest border border-outline-variant/40 rounded-3xl p-5 relative shadow-[0px_2px_4px_rgba(16,24,40,0.04),0px_1px_2px_rgba(16,24,40,0.02)] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#005445_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<!-- Card 3 Graphic Concept -->
+<div class="w-full h-full flex flex-col items-center justify-center p-4">
+<div class="w-20 h-20 rounded-2xl bg-primary-fixed/30 border border-primary-fixed-dim flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-primary text-[40px]" style="font-variation-settings: 'FILL' 1;">cloud_sync</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container text-primary px-3 py-1.5 rounded-lg border border-outline-variant/40">
+<span class="material-symbols-outlined text-[16px]">wifi_off</span>
+<span class="font-label-md text-label-md font-bold">100% Offline Capable</span>
+</div>
+</div>
+<div class="absolute bottom-3 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-low border border-outline-variant/30 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm text-primary font-bold">Auto Sync</span>
+</div>
+</div>
+<div class="w-full mt-6 text-center px-2">
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+              Works offline, syncs later
+            </h2>
+<p class="mt-2.5 font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-[320px] mx-auto">
+              Never stop selling even when the internet drops in the market. Transactions automatically sync when reconnected.
+            </p>
+</div>
+</div>
+</div>
+<!-- Quick Feature Horizon Bar (Value Pill indicators) -->
+<div class="mt-4 flex items-center justify-center gap-2">
+<button class="text-xs px-2.5 py-1 rounded-full border transition-all duration-150 font-label-md text-label-md border-primary-container bg-primary-container/10 text-primary font-semibold" onclick="goToSlide(0)">
+          Speed POS
+        </button>
+<button class="text-xs px-2.5 py-1 rounded-full border transition-all duration-150 font-label-md text-label-md border-outline-variant/50 text-outline hover:text-on-surface" onclick="goToSlide(1)">
+          Stock Alerts
+        </button>
+<button class="text-xs px-2.5 py-1 rounded-full border transition-all duration-150 font-label-md text-label-md border-outline-variant/50 text-outline hover:text-on-surface" onclick="goToSlide(2)">
+          Offline Sync
+        </button>
+</div>
+</div>
+<!-- Sticky Bottom Navigation Tray -->
+<footer class="w-full bg-surface-container-lowest border-t border-outline-variant/30 pt-4 pb-7 px-gutter shadow-[0px_-4px_16px_rgba(16,24,40,0.06)] flex flex-col items-center gap-4 z-20">
+<!-- Pagination Dots (Indicator) -->
+<div class="flex items-center gap-2" id="pagination-dots">
+<!-- Active Wide Emerald Pill -->
+<span class="w-7 h-2 rounded-full bg-primary-container transition-all duration-300" data-dot="0"></span>
+<!-- Inactive Muted Circles -->
+<span class="w-2 h-2 rounded-full bg-surface-dim transition-all duration-300" data-dot="1"></span>
+<span class="w-2 h-2 rounded-full bg-surface-dim transition-all duration-300" data-dot="2"></span>
+</div>
+<!-- Primary Action CTA Button -->
+<button class="w-full h-[52px] bg-primary-container hover:bg-tertiary-container active:bg-primary text-on-primary font-title-md text-title-md font-bold rounded-xl flex items-center justify-center gap-2 transition-transform duration-150 active:scale-[0.98] shadow-sm" id="next-btn">
+<span id="next-label">Next</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<!-- Secondary Login Option -->
+<div class="flex items-center justify-center gap-1.5">
+<span class="font-body-sm text-body-sm text-outline">Already have an account?</span>
+<a class="font-label-lg text-label-lg font-bold text-primary hover:underline active:opacity-80" href="#login">Log in</a>
+</div>
+<!-- Android Home Bar indicator indicator -->
+<div class="w-32 h-1 bg-outline/20 rounded-full mt-1"></div>
+</footer>
+</main>
+<!-- Interactive Slide Controller Script -->
+<script>
+    let currentSlide = 0;
+    const totalSlides = 3;
+    const track = document.getElementById('carousel-track');
+    const dots = document.querySelectorAll('#pagination-dots span');
+    const nextBtn = document.getElementById('next-btn');
+    const nextLabel = document.getElementById('next-label');
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      // Update pagination indicators
+      dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+          dot.className = "w-7 h-2 rounded-full bg-primary-container transition-all duration-300";
+        } else {
+          dot.className = "w-2 h-2 rounded-full bg-surface-dim transition-all duration-300";
+        }
+      });
+
+      // Update Next button copy on final slide
+      if (currentSlide === totalSlides - 1) {
+        nextLabel.textContent = "Get Started";
+      } else {
+        nextLabel.textContent = "Next";
+      }
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateCarousel();
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateCarousel();
+      } else {
+        // Destination action after onboarding
+        alert("Proceeding to Store Setup & Khata Creation");
+      }
+    });
+
+    document.getElementById('skip-btn').addEventListener('click', () => {
+      currentSlide = totalSlides - 1;
+      updateCarousel();
+    });
+
+    // Touch swipe support for native mobile gesture feel
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    track.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (swipeDistance < -40 && currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateCarousel();
+      }
+      if (swipeDistance > 40 && currentSlide > 0) {
+        currentSlide--;
+        updateCarousel();
+      }
+    }
+  </script>
+</body></html>

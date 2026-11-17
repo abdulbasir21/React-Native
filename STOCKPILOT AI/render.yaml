@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: stockpilot-ai-server
+    runtime: node
+    rootDir: STOCKPILOT AI/server
+    plan: free
+    buildCommand: npm ci && npm run prisma:generate && npm run build
+    startCommand: npm run prisma:migrate && npm run start
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: Gemini_Key
+        sync: false

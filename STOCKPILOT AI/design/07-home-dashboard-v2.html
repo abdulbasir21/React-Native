@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StockPilot AI - Al-Madina Mobile Accessories</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-on-surface": "#edf0ff",
+            "outline-variant": "#bec9c4",
+            "on-primary-fixed-variant": "#005143",
+            "on-primary-container": "#9aedd6",
+            "on-secondary-fixed-variant": "#5f4100",
+            "tertiary-container": "#306b5e",
+            "outline": "#6e7975",
+            "on-tertiary-fixed-variant": "#0f5044",
+            "on-error-container": "#93000a",
+            "secondary": "#7d5700",
+            "on-background": "#141b2c",
+            "tertiary-fixed": "#b2efde",
+            "tertiary": "#135346",
+            "on-tertiary-fixed": "#00201a",
+            "surface-container": "#e9edff",
+            "on-tertiary": "#ffffff",
+            "primary-container": "#0b6e5c",
+            "on-secondary-container": "#725000",
+            "surface-container-high": "#e0e8ff",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "on-surface": "#141b2c",
+            "background": "#f9f9ff",
+            "on-error": "#ffffff",
+            "error-container": "#ffdad6",
+            "surface-dim": "#d2daf0",
+            "primary-fixed-dim": "#83d6c0",
+            "surface-container-highest": "#dbe2f9",
+            "on-surface-variant": "#3e4945",
+            "on-primary-fixed": "#002019",
+            "surface": "#f9f9ff",
+            "surface-container-low": "#f1f3ff",
+            "on-secondary-fixed": "#271900",
+            "on-tertiary-container": "#ade9d8",
+            "inverse-surface": "#293041",
+            "error": "#ba1a1a",
+            "surface-tint": "#036b59",
+            "tertiary-fixed-dim": "#97d2c2",
+            "on-secondary": "#ffffff",
+            "primary-fixed": "#9ff2db",
+            "inverse-primary": "#83d6c0",
+            "secondary-fixed-dim": "#f7bd4f",
+            "surface-variant": "#dbe2f9",
+            "primary": "#005445",
+            "secondary-container": "#fdc254",
+            "secondary-fixed": "#ffdeaa",
+            "surface-bright": "#f9f9ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "space-xl": "2rem",
+            "margin": "1rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem"
+          },
+          "fontFamily": {
+            "currency-display": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "label-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "currency-md": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "title-lg": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "currency-display": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "currency-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill-1 {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    /* Tabular figures for monetary clarity */
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    /* Hide scrollbar for category tabs */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#F7F8F6] text-on-surface antialiased flex justify-center items-start min-h-screen selection:bg-primary selection:text-white">
+<!-- Mobile Viewport Container 390x844 Frame -->
+<main class="w-full max-w-[390px] min-h-[844px] bg-[#F7F8F6] relative shadow-2xl flex flex-col pb-28 border-x border-[#E6E9E4]">
+<!-- Top Status Bar & Sync Pill -->
+<header class="pt-3 px-4 pb-2 bg-surface-container-lowest">
+<div class="flex items-center justify-between pb-2 border-b border-[#F2F4F7]">
+<!-- Sync Indicator Pill -->
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#ECFDF3] border border-[#D1FADF]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse"></span>
+<span class="material-symbols-outlined text-[14px] text-[#027A48]" data-icon="cloud_done">cloud_done</span>
+<span class="font-label-sm text-label-sm text-[#027A48] font-medium">Synced 2 min ago</span>
+</div>
+<!-- System Signal & Battery Simulation Indicator -->
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined text-[16px]" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="battery_full">battery_full</span>
+</div>
+</div>
+<!-- TopAppBar Shared Component Execution -->
+<div class="flex justify-between items-center w-full py-2.5">
+<div class="flex items-center gap-3">
+<div class="relative w-10 h-10 rounded-full bg-primary-container text-white flex items-center justify-center font-title-md text-title-md font-bold shadow-sm overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A refined portrait of Ahmed, a sharp middle-aged Pakistani store proprietor dressed in a neat light cream linen kurta, standing proudly inside a well-lit modern mobile phone electronics boutique with clean glass counters and neatly organized shelves. High-key natural commercial lighting with gentle emerald accents, radiating trust and swift entrepreneurial professionalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmqSY5G8lC6Akvxfbki1zzTibwDfW8sLFgNZonSCDryFK49t7WqO2v4YsWISQbBtgtNk-CfHOwqboPhYZaVFoDKjhS6Ykecp4qMLeXaLBCwennoCcrNPgVvYqe79Oq1fxcCpS7CT9oMi8vK-Co6Y5xhsTs_vZNUKgy8yBIOBWqXExWZBrwJmFoqzIDqa51fXhhDwPJQPpIRr1pK-UwSFmALH7zbm4qmtZ684V_0w"/>
+</div>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Good morning, Ahmed</span>
+<h1 class="font-title-lg text-title-lg font-bold text-on-surface leading-snug">Al-Madina Mobile Accessories</h1>
+</div>
+</div>
+<button aria-label="Notifications" class="w-10 h-10 rounded-xl bg-surface-container-low hover:bg-surface-container-high transition-colors flex items-center justify-center text-on-surface-variant relative active:scale-95 duration-150" type="button">
+<span class="material-symbols-outlined text-[22px]" data-icon="notifications">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-error ring-2 ring-white"></span>
+</button>
+</div>
+</header>
+<!-- Main Scrollable Dashboard Content -->
+<div class="px-4 pt-3 flex flex-col gap-4">
+<!-- Hero Card: Today's sales -->
+<section class="rounded-2xl p-5 text-white shadow-sm relative overflow-hidden bg-gradient-to-br from-[#064B3F] to-[#0B6E5C]">
+<!-- Decorative Ambient Geometric Mesh -->
+<div class="absolute -right-12 -top-12 w-44 h-44 rounded-full bg-white/5 pointer-events-none blur-xl"></div>
+<div class="absolute -left-10 -bottom-10 w-36 h-36 rounded-full bg-[#12B76A]/10 pointer-events-none blur-lg"></div>
+<div class="relative z-10 flex flex-col gap-3.5">
+<!-- Top Row: Period Switcher Pills -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 bg-black/20 p-1 rounded-xl backdrop-blur-sm border border-white/10">
+<button class="px-3 py-1 rounded-lg bg-white text-[#064B3F] font-label-md text-label-md font-bold shadow-xs">Today</button>
+<button class="px-3 py-1 rounded-lg text-white/80 hover:text-white font-label-md text-label-md transition-colors">Week</button>
+<button class="px-3 py-1 rounded-lg text-white/80 hover:text-white font-label-md text-label-md transition-colors">Month</button>
+</div>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[#ECFDF3]">
+<span class="material-symbols-outlined text-[16px] text-[#83D6C0]" data-icon="trending_up">trending_up</span>
+<span class="font-label-md text-label-md font-bold tabular-nums">+18.4%</span>
+</div>
+</div>
+<!-- Primary Sales Metric -->
+<div>
+<p class="text-white/80 font-label-md text-label-md font-medium tracking-wide">Today's sales</p>
+<div class="flex items-baseline gap-1.5 mt-0.5">
+<span class="font-currency-display text-currency-display text-white tabular-nums tracking-tight font-extrabold">Rs. 48,650</span>
+</div>
+</div>
+<!-- Trend Sparkline SVG (Intraday Upward Momentum) -->
+<div class="pt-1">
+<svg class="w-full h-11 overflow-visible" fill="none" viewbox="0 0 320 44" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="salesSparkline" x1="0" x2="0" y1="0" y2="44">
+<stop stop-color="#9FF2DB" stop-opacity="0.35"></stop>
+<stop offset="1" stop-color="#9FF2DB" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<path d="M0 38C25 36 45 32 70 30C95 28 115 34 140 24C165 14 185 20 210 16C235 12 255 18 280 8C295 2 308 3 320 1" stroke="#9FF2DB" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<path d="M0 38C25 36 45 32 70 30C95 28 115 34 140 24C165 14 185 20 210 16C235 12 255 18 280 8C295 2 308 3 320 1V44H0V38Z" fill="url(#salesSparkline)"></path>
+<circle cx="320" cy="1" fill="#FFFFFF" r="3.5" stroke="#0B6E5C" stroke-width="2"></circle>
+</svg>
+<div class="flex justify-between items-center text-[10px] text-white/70 font-label-sm pt-1 tracking-wider">
+<span>9:00 AM</span>
+<span>1:00 PM</span>
+<span>5:00 PM</span>
+<span>NOW</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 2x2 Operational Metric Cards Grid -->
+<section class="grid grid-cols-2 gap-2.5">
+<!-- 1. Expenses -->
+<div class="bg-surface-container-lowest border border-[#E6E9E4] rounded-xl p-3.5 shadow-[0px_2px_4px_rgba(16,24,40,0.04)] relative">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-md text-label-md text-[#667085]">Expenses</span>
+<div class="w-7 h-7 rounded-lg bg-[#FEF3F2] text-[#D92D20] flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" data-icon="receipt_long">receipt_long</span>
+</div>
+</div>
+<div class="font-currency-md text-currency-md font-bold text-[#101828] tabular-nums">Rs. 6,200</div>
+<div class="mt-1 flex items-center text-[#667085] font-body-sm text-body-sm">
+<span class="text-[11px]">Rent, tea & courier</span>
+</div>
+</div>
+<!-- 2. Estimated Profit -->
+<div class="bg-surface-container-lowest border border-[#E6E9E4] rounded-xl p-3.5 shadow-[0px_2px_4px_rgba(16,24,40,0.04)] relative">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-1">
+<span class="font-label-md text-label-md text-[#667085]">Net Profit</span>
+<span class="px-1.5 py-0.2 bg-[#ECFDF3] text-[#027A48] rounded text-[9px] font-bold tracking-tight">Est.</span>
+</div>
+<div class="w-7 h-7 rounded-lg bg-[#E6F4F1] text-[#0B6E5C] flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" data-icon="query_stats">query_stats</span>
+</div>
+</div>
+<div class="font-currency-md text-currency-md font-bold text-[#0B6E5C] tabular-nums">Rs. 14,320</div>
+<div class="mt-1 flex items-center gap-1 text-[#027A48] font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[12px]" data-icon="north_east">north_east</span>
+<span class="text-[11px] font-semibold">29.4% margin</span>
+</div>
+</div>
+<!-- 3. Cash Received -->
+<div class="bg-surface-container-lowest border border-[#E6E9E4] rounded-xl p-3.5 shadow-[0px_2px_4px_rgba(16,24,40,0.04)] relative">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-md text-label-md text-[#667085]">Cash received</span>
+<div class="w-7 h-7 rounded-lg bg-[#ECFDF3] text-[#027A48] flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" data-icon="payments">payments</span>
+</div>
+</div>
+<div class="font-currency-md text-currency-md font-bold text-[#101828] tabular-nums">Rs. 41,000</div>
+<div class="mt-1 flex items-center text-[#667085] font-body-sm text-body-sm">
+<span class="text-[11px]">84% drawer balance</span>
+</div>
+</div>
+<!-- 4. Customer Outstanding (Udhaar) -->
+<div class="bg-surface-container-lowest border border-[#E6E9E4] rounded-xl p-3.5 shadow-[0px_2px_4px_rgba(16,24,40,0.04)] relative">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-md text-label-md text-[#667085]">Udhaar balance</span>
+<div class="w-7 h-7 rounded-lg bg-[#FEF0C7] text-[#B54708] flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+</div>
+<div class="font-currency-md text-currency-md font-bold text-[#B54708] tabular-nums">Rs. 23,400</div>
+<div class="mt-1 flex items-center text-[#B54708] font-body-sm text-body-sm">
+<span class="text-[11px] font-medium">12 pending khata</span>
+</div>
+</div>
+</section>
+<!-- Inventory Status Strip -->
+<section class="bg-surface-container-lowest border border-[#E6E9E4] rounded-xl p-3.5 shadow-[0px_2px_4px_rgba(16,24,40,0.04)]">
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-[#F2F4F7]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="inventory_2">inventory_2</span>
+<span class="font-title-md text-title-md font-bold text-on-surface">Inventory snapshot</span>
+</div>
+<span class="text-[11px] font-label-md text-primary font-semibold flex items-center gap-0.5">
+            Manage <span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+</span>
+</div>
+<div class="grid grid-cols-3 divide-x divide-[#F2F4F7] text-center">
+<div class="px-1 flex flex-col items-center">
+<span class="font-body-sm text-body-sm text-[#667085]">Products</span>
+<span class="font-title-lg text-title-lg font-bold text-on-surface tabular-nums mt-0.5">124</span>
+</div>
+<div class="px-1 flex flex-col items-center">
+<span class="font-body-sm text-body-sm text-[#667085]">Low stock</span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-title-lg text-title-lg font-bold text-[#B54708] tabular-nums">7</span>
+<span class="w-2 h-2 rounded-full bg-[#B54708]"></span>
+</div>
+</div>
+<div class="px-1 flex flex-col items-center">
+<span class="font-body-sm text-body-sm text-[#667085]">Inventory value</span>
+<span class="font-label-lg text-label-lg font-bold text-[#101828] tabular-nums mt-0.5">Rs. 1,284,500</span>
+</div>
+</div>
+</section>
+<!-- Sales Hourly / Daily Bar Chart -->
+<section class="bg-surface-container-lowest border border-[#E6E9E4] rounded-xl p-4 shadow-[0px_2px_4px_rgba(16,24,40,0.04)]">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface">Hourly sales trend</h3>
+<p class="font-body-sm text-body-sm text-[#667085]">Peak rush: 4:00 PM - 7:00 PM</p>
+</div>
+<div class="px-2.5 py-1 rounded-lg bg-[#E6F4F1] text-[#0B6E5C] font-label-md text-label-md font-semibold">
+            Today
+          </div>
+</div>
+<!-- Clean modern Bar Chart -->
+<div class="h-32 flex items-end justify-between gap-2.5 pt-2 pb-1 border-b border-[#F2F4F7] relative">
+<!-- Horizontal subtle guide lines -->
+<div class="absolute inset-x-0 top-2 border-b border-dashed border-[#F2F4F7]"></div>
+<div class="absolute inset-x-0 top-14 border-b border-dashed border-[#F2F4F7]"></div>
+<!-- Bar 1: 10am -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full bg-[#D1FADF]/60 rounded-t-md hover:bg-[#0B6E5C] transition-all duration-200" style="height: 28%;"></div>
+</div>
+<!-- Bar 2: 12pm -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full bg-[#D1FADF]/60 rounded-t-md hover:bg-[#0B6E5C] transition-all duration-200" style="height: 45%;"></div>
+</div>
+<!-- Bar 3: 2pm -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full bg-[#D1FADF]/60 rounded-t-md hover:bg-[#0B6E5C] transition-all duration-200" style="height: 35%;"></div>
+</div>
+<!-- Bar 4: 4pm -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full bg-[#D1FADF]/60 rounded-t-md hover:bg-[#0B6E5C] transition-all duration-200" style="height: 62%;"></div>
+</div>
+<!-- Bar 5: 6pm (Peak - Highlighted Emerald) -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group relative">
+<span class="absolute -top-6 text-[10px] font-bold text-[#0B6E5C] bg-[#E6F4F1] px-1 rounded shadow-xs">Rs.12.8k</span>
+<div class="w-full bg-[#0B6E5C] rounded-t-md shadow-sm" style="height: 92%;"></div>
+</div>
+<!-- Bar 6: 8pm -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full bg-[#D1FADF]/60 rounded-t-md hover:bg-[#0B6E5C] transition-all duration-200" style="height: 52%;"></div>
+</div>
+<!-- Bar 7: 10pm -->
+<div class="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
+<div class="w-full bg-[#D1FADF]/60 rounded-t-md hover:bg-[#0B6E5C] transition-all duration-200" style="height: 38%;"></div>
+</div>
+</div>
+<!-- Axis Labels -->
+<div class="flex justify-between items-center text-[10px] text-[#667085] font-medium pt-1.5">
+<span>10 AM</span>
+<span>12 PM</span>
+<span>2 PM</span>
+<span>4 PM</span>
+<span class="font-bold text-[#0B6E5C]">6 PM</span>
+<span>8 PM</span>
+<span>10 PM</span>
+</div>
+</section>
+<!-- Quick Action Buttons -->
+<section>
+<h3 class="font-title-md text-title-md font-bold text-on-surface mb-2.5">Fast actions</h3>
+<div class="grid grid-cols-4 gap-2">
+<!-- 1. New Sale (Emphasized Primary Button) -->
+<button class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-[#0B6E5C] text-white shadow-sm active:scale-95 transition-transform duration-150 min-h-[58px]" type="button">
+<span class="material-symbols-outlined text-[20px] mb-1" data-icon="add_shopping_cart">add_shopping_cart</span>
+<span class="font-label-sm text-label-sm font-bold text-center leading-tight">New sale</span>
+</button>
+<!-- 2. Add Product -->
+<button class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-surface-container-lowest border border-[#E6E9E4] text-on-surface hover:bg-[#E6F4F1] hover:text-[#0B6E5C] transition-colors active:scale-95 duration-150 min-h-[58px]" type="button">
+<span class="material-symbols-outlined text-[20px] text-[#0B6E5C] mb-1" data-icon="post_add">post_add</span>
+<span class="font-label-sm text-label-sm font-semibold text-center leading-tight">Add product</span>
+</button>
+<!-- 3. Add Purchase -->
+<button class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-surface-container-lowest border border-[#E6E9E4] text-on-surface hover:bg-[#E6F4F1] hover:text-[#0B6E5C] transition-colors active:scale-95 duration-150 min-h-[58px]" type="button">
+<span class="material-symbols-outlined text-[20px] text-secondary mb-1" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-sm text-label-sm font-semibold text-center leading-tight">Purchase</span>
+</button>
+<!-- 4. Add Expense -->
+<button class="flex flex-col items-center justify-center p-2.5 rounded-xl bg-surface-container-lowest border border-[#E6E9E4] text-on-surface hover:bg-[#FEF3F2] hover:text-[#D92D20] transition-colors active:scale-95 duration-150 min-h-[58px]" type="button">
+<span class="material-symbols-outlined text-[20px] text-[#D92D20] mb-1" data-icon="payments">payments</span>
+<span class="font-label-sm text-label-sm font-semibold text-center leading-tight">Expense</span>
+</button>
+</div>
+</section>
+<!-- Activity Lists: Toggle between Sales and Purchases -->
+<section class="bg-surface-container-lowest border border-[#E6E9E4] rounded-xl p-4 shadow-[0px_2px_4px_rgba(16,24,40,0.04)] mb-2">
+<div class="flex items-center justify-between mb-3 border-b border-[#F2F4F7] pb-2.5">
+<div class="flex items-center gap-2">
+<button class="font-title-md text-title-md font-bold text-[#0B6E5C] pb-0.5 border-b-2 border-[#0B6E5C]" id="tab-sales-btn">Recent sales</button>
+<span class="text-[#bec9c4]">|</span>
+<button class="font-title-md text-title-md font-medium text-[#667085] hover:text-on-surface pb-0.5 border-b-2 border-transparent" id="tab-purchases-btn">Recent purchases</button>
+</div>
+<span class="text-[12px] font-label-md text-primary font-semibold">View all</span>
+</div>
+<!-- Sales Rows List -->
+<div class="flex flex-col divide-y divide-[#F2F4F7]" id="sales-list">
+<!-- Sale Item 1 -->
+<div class="py-2.5 flex items-center justify-between first:pt-0">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-[#E6F4F1] text-[#0B6E5C] flex items-center justify-center font-bold text-[13px]">
+                #1048
+              </div>
+<div class="flex flex-col">
+<span class="font-title-md text-[14px] font-semibold text-on-surface">Bilal Khan</span>
+<span class="font-body-sm text-[11px] text-[#667085]">Glass protector + 65W Fast Charger</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-currency-md text-[15px] font-bold text-[#101828] tabular-nums">Rs. 3,500</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ECFDF3] text-[#027A48]">
+                Paid
+              </span>
+</div>
+</div>
+<!-- Sale Item 2 -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-[#E6F4F1] text-[#0B6E5C] flex items-center justify-center font-bold text-[13px]">
+                #1047
+              </div>
+<div class="flex flex-col">
+<span class="font-title-md text-[14px] font-semibold text-on-surface">Zubair Traders</span>
+<span class="font-body-sm text-[11px] text-[#667085]">10x Silicone Covers (Wholesale)</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-currency-md text-[15px] font-bold text-[#101828] tabular-nums">Rs. 8,200</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FEF0C7] text-[#B54708]">
+                Partially paid
+              </span>
+</div>
+</div>
+<!-- Sale Item 3 -->
+<div class="py-2.5 flex items-center justify-between last:pb-0">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-[#E6F4F1] text-[#0B6E5C] flex items-center justify-center font-bold text-[13px]">
+                #1046
+              </div>
+<div class="flex flex-col">
+<span class="font-title-md text-[14px] font-semibold text-on-surface">Walk-in Customer</span>
+<span class="font-body-sm text-[11px] text-[#667085]">Bluetooth Earbuds Pro TWS</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-currency-md text-[15px] font-bold text-[#101828] tabular-nums">Rs. 2,400</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ECFDF3] text-[#027A48]">
+                Paid
+              </span>
+</div>
+</div>
+</div>
+<!-- Supplier Purchase List (Hidden or Accessible) -->
+<div class="hidden flex-col divide-y divide-[#F2F4F7]" id="purchases-list">
+<!-- Purchase Item 1 -->
+<div class="py-2.5 flex items-center justify-between first:pt-0">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-[#F1F3FF] text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="local_shipping">local_shipping</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-[14px] font-semibold text-on-surface">Karachi Mobile Traders</span>
+<span class="font-body-sm text-[11px] text-[#667085]">Tempered Glass Bulk Lot (500 pcs)</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-currency-md text-[15px] font-bold text-[#101828] tabular-nums">Rs. 18,500</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#ECFDF3] text-[#027A48]">
+                Received
+              </span>
+</div>
+</div>
+<!-- Purchase Item 2 -->
+<div class="py-2.5 flex items-center justify-between last:pb-0">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-[#F1F3FF] text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="local_shipping">local_shipping</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-[14px] font-semibold text-on-surface">Peshawar Accessories House</span>
+<span class="font-body-sm text-[11px] text-[#667085]">Fast Charging Type-C Cables (100 pcs)</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-currency-md text-[15px] font-bold text-[#101828] tabular-nums">Rs. 12,000</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FEF0C7] text-[#B54708]">
+                On Delivery
+              </span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Floating AI Action Button (Bottom Right above Navbar) -->
+<div class="fixed bottom-20 right-4 z-40 max-w-[390px] pointer-events-auto">
+<button aria-label="Ask StockPilot AI Copilot" class="flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-[#0B6E5C] text-white shadow-[0px_4px_16px_rgba(11,110,92,0.35)] hover:bg-[#064B3F] active:scale-95 transition-all duration-150 border border-white/20" type="button">
+<span class="material-symbols-outlined fill-1 text-[20px] text-[#FDC254]" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-md text-label-md font-bold tracking-tight">AI Copilot</span>
+</button>
+</div>
+<!-- BottomNavBar Shared Component Execution -->
+<!-- Docked full-width bottom nav with strict active state "Home" -->
+<nav class="fixed bottom-0 left-0 right-0 w-full z-50 bg-surface-container-lowest shadow-[0px_-4px_16px_rgba(16,24,40,0.06)] max-w-[390px] mx-auto border-t border-[#E6E9E4]">
+<div class="flex justify-around items-center px-2 py-1.5">
+<!-- Tab 1: Home (ACTIVE DESTINATION) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1.5 transition-all active:scale-95 duration-150" href="#home">
+<span class="material-symbols-outlined fill-1 text-[22px] text-white" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm font-bold text-white mt-0.5">Home</span>
+</a>
+<!-- Tab 2: Products -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1.5 hover:text-on-surface transition-colors active:scale-95 duration-150" href="#products">
+<span class="material-symbols-outlined text-[22px]" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-sm text-label-sm text-[#667085] mt-0.5">Products</span>
+</a>
+<!-- Tab 3: Sales -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1.5 hover:text-on-surface transition-colors active:scale-95 duration-150" href="#sales">
+<span class="material-symbols-outlined text-[22px]" data-icon="point_of_sale">point_of_sale</span>
+<span class="font-label-sm text-label-sm text-[#667085] mt-0.5">Sales</span>
+</a>
+<!-- Tab 4: Reports -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1.5 hover:text-on-surface transition-colors active:scale-95 duration-150" href="#reports">
+<span class="material-symbols-outlined text-[22px]" data-icon="bar_chart">bar_chart</span>
+<span class="font-label-sm text-label-sm text-[#667085] mt-0.5">Reports</span>
+</a>
+<!-- Tab 5: More -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1.5 hover:text-on-surface transition-colors active:scale-95 duration-150" href="#more">
+<span class="material-symbols-outlined text-[22px]" data-icon="more_horiz">more_horiz</span>
+<span class="font-label-sm text-label-sm text-[#667085] mt-0.5">More</span>
+</a>
+</div>
+</nav>
+</main>
+<!-- Interactive script for tabs -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const salesBtn = document.getElementById('tab-sales-btn');
+      const purchasesBtn = document.getElementById('tab-purchases-btn');
+      const salesList = document.getElementById('sales-list');
+      const purchasesList = document.getElementById('purchases-list');
+
+      salesBtn.addEventListener('click', () => {
+        salesBtn.className = "font-title-md text-title-md font-bold text-[#0B6E5C] pb-0.5 border-b-2 border-[#0B6E5C]";
+        purchasesBtn.className = "font-title-md text-title-md font-medium text-[#667085] hover:text-on-surface pb-0.5 border-b-2 border-transparent";
+        salesList.classList.remove('hidden');
+        salesList.classList.add('flex');
+        purchasesList.classList.add('hidden');
+        purchasesList.classList.remove('flex');
+      });
+
+      purchasesBtn.addEventListener('click', () => {
+        purchasesBtn.className = "font-title-md text-title-md font-bold text-[#0B6E5C] pb-0.5 border-b-2 border-[#0B6E5C]";
+        salesBtn.className = "font-title-md text-title-md font-medium text-[#667085] hover:text-on-surface pb-0.5 border-b-2 border-transparent";
+        purchasesList.classList.remove('hidden');
+        purchasesList.classList.add('flex');
+        salesList.classList.add('hidden');
+        salesList.classList.remove('flex');
+      });
+    });
+  </script>
+</body></html>

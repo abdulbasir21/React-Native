@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=390, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>StockPilot AI - Shop Registration</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-container": "#ade9d8",
+            "secondary-fixed": "#ffdeaa",
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#fdc254",
+            "primary-fixed-dim": "#83d6c0",
+            "on-error": "#ffffff",
+            "primary-container": "#0b6e5c",
+            "outline": "#6e7975",
+            "surface-tint": "#036b59",
+            "inverse-surface": "#293041",
+            "surface-container": "#e9edff",
+            "background": "#f9f9ff",
+            "secondary-fixed-dim": "#f7bd4f",
+            "surface-container-low": "#f1f3ff",
+            "on-surface-variant": "#3e4945",
+            "surface-container-high": "#e0e8ff",
+            "inverse-on-surface": "#edf0ff",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#00201a",
+            "tertiary": "#135346",
+            "on-secondary-fixed-variant": "#5f4100",
+            "surface-container-highest": "#dbe2f9",
+            "on-background": "#141b2c",
+            "primary": "#005445",
+            "surface": "#f9f9ff",
+            "on-error-container": "#93000a",
+            "on-surface": "#141b2c",
+            "on-primary-container": "#9aedd6",
+            "surface-variant": "#dbe2f9",
+            "on-secondary-fixed": "#271900",
+            "outline-variant": "#bec9c4",
+            "tertiary-fixed-dim": "#97d2c2",
+            "surface-bright": "#f9f9ff",
+            "on-secondary-container": "#725000",
+            "tertiary-fixed": "#b2efde",
+            "surface-dim": "#d2daf0",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed-variant": "#0f5044",
+            "secondary": "#7d5700",
+            "tertiary-container": "#306b5e",
+            "on-primary-fixed-variant": "#005143",
+            "primary-fixed": "#9ff2db",
+            "on-primary-fixed": "#002019",
+            "inverse-primary": "#83d6c0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "space-md": "1rem",
+            "margin": "1rem"
+          },
+          "fontFamily": {
+            "title-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "currency-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "label-lg": ["Inter"],
+            "currency-display": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "currency-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+            "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+            "currency-display": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+            "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "700"}],
+            "title-md": ["16px", {"lineHeight": "22px", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    /* Hide scrollbars for slick native app look */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    * {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#F7F8F6] text-on-surface antialiased min-h-screen flex justify-center selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Mobile Viewport Frame (390px x 844px baseline) -->
+<main class="w-full max-w-[390px] min-h-screen bg-[#F7F8F6] flex flex-col justify-between relative shadow-2xl">
+<!-- Top Action / Context Header (Registration Flow: BottomNav suppressed as per Linear/Task rule) -->
+<header class="w-full px-gutter pt-4 pb-2 bg-[#F7F8F6] sticky top-0 z-30">
+<div class="flex items-center justify-between h-12">
+<!-- Back Navigation Target (48px envelope) -->
+<button aria-label="Go back" class="w-12 h-12 -ml-2 rounded-xl flex items-center justify-center text-on-surface hover:bg-surface-container-highest/40 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<!-- Step Indicator Pill -->
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest rounded-full border border-outline-variant/30 shadow-[0px_2px_4px_rgba(16,24,40,0.04)]">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Step 1 of 2: Account &amp; Business Details</span>
+</div>
+</div>
+<!-- Linear Step Progress Bar -->
+<div class="w-full bg-surface-container-highest/60 h-1 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary-container h-full w-1/2 rounded-full transition-all duration-300"></div>
+</div>
+</header>
+<!-- Scrollable Content Canvas -->
+<div class="px-gutter pt-2 pb-32 flex-1 flex flex-col">
+<!-- Headline & Value Anchor -->
+<section class="mt-2 mb-6">
+<div class="inline-flex items-center gap-1.5 text-primary-container mb-1">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-bold">StockPilot Retail Engine</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-[#101828] tracking-tight">Create shop account</h1>
+<p class="font-body-md text-body-md text-[#667085] mt-1 leading-snug">Start running your retail shop faster with local offline backup</p>
+</section>
+<!-- Registration Form -->
+<form class="space-y-4" onsubmit="event.preventDefault();">
+<!-- 1. Owner Name -->
+<div class="space-y-1.5">
+<label class="block font-label-md text-label-md text-on-surface font-semibold" for="owner-name">
+            Owner full name <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center bg-surface-container-lowest rounded-xl border border-[#E6E9E4] transition-all focus-within:border-primary-container focus-within:ring-1 focus-within:ring-primary-container shadow-[0px_2px_4px_rgba(16,24,40,0.02)]">
+<div class="w-12 h-12 flex items-center justify-center text-outline pointer-events-none">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+<input class="w-full h-12 pr-4 bg-transparent border-0 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-0 focus:outline-none" id="owner-name" placeholder="e.g. Ahmed Raza" required="" type="text"/>
+</div>
+</div>
+<!-- 2. Shop Name -->
+<div class="space-y-1.5">
+<label class="block font-label-md text-label-md text-on-surface font-semibold" for="shop-name">
+            Shop / Business name <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center bg-surface-container-lowest rounded-xl border border-[#E6E9E4] transition-all focus-within:border-primary-container focus-within:ring-1 focus-within:ring-primary-container shadow-[0px_2px_4px_rgba(16,24,40,0.02)]">
+<div class="w-12 h-12 flex items-center justify-center text-outline pointer-events-none">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+</div>
+<input class="w-full h-12 pr-4 bg-transparent border-0 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-0 focus:outline-none" id="shop-name" placeholder="e.g. Al-Madina Mobile Accessories" required="" type="text"/>
+</div>
+</div>
+<!-- 3. Email Address -->
+<div class="space-y-1.5">
+<label class="block font-label-md text-label-md text-on-surface font-semibold" for="email-address">
+            Email address <span class="text-error">*</span>
+</label>
+<div class="relative flex items-center bg-surface-container-lowest rounded-xl border border-[#E6E9E4] transition-all focus-within:border-primary-container focus-within:ring-1 focus-within:ring-primary-container shadow-[0px_2px_4px_rgba(16,24,40,0.02)]">
+<div class="w-12 h-12 flex items-center justify-center text-outline pointer-events-none">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<input class="w-full h-12 pr-4 bg-transparent border-0 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-0 focus:outline-none" id="email-address" placeholder="ahmed.retail@gmail.com" required="" type="email"/>
+</div>
+</div>
+<!-- 4. Password -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="block font-label-md text-label-md text-on-surface font-semibold" for="password">
+              Password <span class="text-error">*</span>
+</label>
+<span class="font-label-sm text-label-sm text-outline">Min. 8 chars</span>
+</div>
+<div class="relative flex items-center bg-surface-container-lowest rounded-xl border border-[#E6E9E4] transition-all focus-within:border-primary-container focus-within:ring-1 focus-within:ring-primary-container shadow-[0px_2px_4px_rgba(16,24,40,0.02)]">
+<div class="w-12 h-12 flex items-center justify-center text-outline pointer-events-none">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<input class="w-full h-12 pr-12 bg-transparent border-0 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-0 focus:outline-none" id="password" placeholder="Create a secure password (min. 8 characters)" required="" type="password"/>
+<button aria-label="Toggle password visibility" class="absolute right-0 w-12 h-12 flex items-center justify-center text-outline hover:text-on-surface transition-colors" id="toggle-password" onclick="const pwd = document.getElementById('password'); const icon = this.querySelector('span'); if (pwd.type === 'password') { pwd.type = 'text'; icon.innerText = 'visibility_off'; } else { pwd.type = 'password'; icon.innerText = 'visibility'; }" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- 5. Phone Number (Optional with Pakistan prefix) -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="block font-label-md text-label-md text-on-surface font-semibold" for="phone-number">
+              Phone number (optional for SMS khata)
+            </label>
+<span class="font-label-sm text-label-sm text-tertiary-container font-medium">Auto-sync</span>
+</div>
+<div class="relative flex items-center bg-surface-container-lowest rounded-xl border border-[#E6E9E4] transition-all focus-within:border-primary-container focus-within:ring-1 focus-within:ring-primary-container shadow-[0px_2px_4px_rgba(16,24,40,0.02)]">
+<!-- Pakistan flag & code badge -->
+<div class="pl-3 pr-2 h-12 flex items-center gap-1.5 border-r border-[#E6E9E4] text-on-surface">
+<span aria-label="Pakistan Flag" class="text-base select-none" role="img">🇵🇰</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface-variant">+92</span>
+</div>
+<input class="w-full h-12 px-3 bg-transparent border-0 font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:ring-0 focus:outline-none font-currency-md tabular-nums tracking-wide" id="phone-number" placeholder="300 1234567" type="tel"/>
+</div>
+</div>
+<!-- 6. Shop Type Selection Chips -->
+<div class="space-y-2 pt-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Shop category</span>
+<span class="font-label-sm text-label-sm text-outline">Select one</span>
+</div>
+<div class="flex flex-wrap gap-2" id="shop-type-chips">
+<!-- Selected item: Mobile accessories -->
+<button class="shop-chip flex items-center gap-1.5 h-9 px-3.5 rounded-xl border text-[13px] font-semibold transition-all bg-[#E6F4F1] border-[#0B6E5C] text-[#0B6E5C] active:scale-95" data-selected="true" type="button">
+<span class="material-symbols-outlined text-[16px] leading-none" style="font-variation-settings: 'FILL' 1;">check</span>
+<span>Mobile accessories</span>
+</button>
+<!-- Grocery -->
+<button class="shop-chip flex items-center gap-1.5 h-9 px-3.5 rounded-xl border text-[13px] font-medium transition-all bg-surface-container-lowest border-[#E6E9E4] text-[#667085] hover:border-outline-variant active:scale-95" data-selected="false" type="button">
+<span>Grocery</span>
+</button>
+<!-- Electronics -->
+<button class="shop-chip flex items-center gap-1.5 h-9 px-3.5 rounded-xl border text-[13px] font-medium transition-all bg-surface-container-lowest border-[#E6E9E4] text-[#667085] hover:border-outline-variant active:scale-95" data-selected="false" type="button">
+<span>Electronics</span>
+</button>
+<!-- General retail -->
+<button class="shop-chip flex items-center gap-1.5 h-9 px-3.5 rounded-xl border text-[13px] font-medium transition-all bg-surface-container-lowest border-[#E6E9E4] text-[#667085] hover:border-outline-variant active:scale-95" data-selected="false" type="button">
+<span>General retail</span>
+</button>
+<!-- Other -->
+<button class="shop-chip flex items-center gap-1.5 h-9 px-3.5 rounded-xl border text-[13px] font-medium transition-all bg-surface-container-lowest border-[#E6E9E4] text-[#667085] hover:border-outline-variant active:scale-95" data-selected="false" type="button">
+<span>Other</span>
+</button>
+</div>
+</div>
+<!-- Offline Sync Trust Assurance Banner -->
+<div class="mt-4 p-3.5 bg-surface-container-lowest rounded-xl border border-[#E6E9E4] flex items-start gap-3 shadow-[0px_2px_4px_rgba(16,24,40,0.03)]">
+<div class="w-8 h-8 rounded-lg bg-[#E6F4F1] flex items-center justify-center shrink-0 text-[#0B6E5C]">
+<span class="material-symbols-outlined text-[18px]">wifi_off</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface font-semibold">100% Offline-Ready Billing</h4>
+<p class="font-body-sm text-body-sm text-[#667085] mt-0.5">Keep scanning and printing receipts even when load shedding cuts the internet.</p>
+</div>
+</div>
+</form>
+</div>
+<!-- Sticky Persistent Action Tray (Level 3 Elevation) -->
+<footer class="fixed bottom-0 left-0 right-0 w-full max-w-[390px] mx-auto bg-surface-container-lowest border-t border-[#E6E9E4] px-gutter pt-3 pb-6 shadow-[0px_-4px_16px_rgba(16,24,40,0.06)] z-40">
+<!-- Terms & Privacy notice -->
+<p class="text-center font-body-sm text-body-sm text-[#667085] mb-3 leading-tight">
+        By signing up, you agree to <a class="text-primary-container font-semibold underline decoration-primary-container/40 underline-offset-2" href="#">StockPilot terms</a>
+</p>
+<!-- Primary POS Setup Action Button (52px ergonomic target) -->
+<button class="w-full h-[52px] bg-[#0B6E5C] hover:bg-[#064B3F] text-white rounded-xl font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-[0px_4px_12px_rgba(11,110,92,0.25)]" type="button">
+<span>Continue to Shop Setup</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<!-- Secondary Login Navigation Link -->
+<div class="mt-3 text-center">
+<a class="inline-flex items-center justify-center min-h-[40px] px-3 font-body-md text-body-md text-[#667085] hover:text-on-surface transition-colors" href="#">
+          Already registered? <span class="text-primary-container font-bold">Log in</span>
+</a>
+</div>
+</footer>
+</main>
+<!-- Interactive script for Shop Category Chip Selection -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const chipContainer = document.getElementById('shop-type-chips');
+      const chips = chipContainer.querySelectorAll('.shop-chip');
+
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          // Deselect all
+          chips.forEach(c => {
+            c.setAttribute('data-selected', 'false');
+            c.className = 'shop-chip flex items-center gap-1.5 h-9 px-3.5 rounded-xl border text-[13px] font-medium transition-all bg-surface-container-lowest border-[#E6E9E4] text-[#667085] hover:border-outline-variant active:scale-95';
+            const check = c.querySelector('.check-icon');
+            if (check) check.remove();
+          });
+
+          // Select clicked
+          chip.setAttribute('data-selected', 'true');
+          chip.className = 'shop-chip flex items-center gap-1.5 h-9 px-3.5 rounded-xl border text-[13px] font-semibold transition-all bg-[#E6F4F1] border-[#0B6E5C] text-[#0B6E5C] active:scale-95';
+          
+          // Insert checkmark
+          const checkIcon = document.createElement('span');
+          checkIcon.className = 'material-symbols-outlined check-icon text-[16px] leading-none';
+          checkIcon.style.fontVariationSettings = "'FILL' 1";
+          checkIcon.textContent = 'check';
+          chip.prepend(checkIcon);
+        });
+      });
+    });
+  </script>
+</body></html>

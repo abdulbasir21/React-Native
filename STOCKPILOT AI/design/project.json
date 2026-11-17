@@ -1,0 +1,256 @@
+{
+    "name":  "projects/7077951261909249455",
+    "title":  "StockPilot AI Dashboard",
+    "visibility":  "PRIVATE",
+    "createTime":  "2026-11-14T07:41:16.562182Z",
+    "updateTime":  "2026-11-14T07:49:22.182309Z",
+    "projectType":  "TEXT_TO_UI_PRO",
+    "thumbnailScreenshot":  {
+                                "name":  "projects/7077951261909249455/screens/78fac22e662e497c86358bfa3f7d1164/fileEntries/screenshot",
+                                "downloadUrl":  "https://lh3.googleusercontent.com/aida/ALJJyrCc7EkhFny70ZlsLv_pMU7gQABpsxlHAecay-ATZahIvxoyXN-qsXwb32FzmVrBdxbh_LuMopoU3jXB8l2Pa-yHvUpKf3kdTQkHl-OM-6Miu1uSEfuhDiXNKZXj8dX5NJpHGaF22lHexHDRJZeQGRJZAHoF_xmIJ8j2WDcU9vnotUkQ5DpuYpTFq5gfdztbX4YMHUU3IP76HmG7M57G93kRCqJp52nW7Q9Qljmn1-kmC3BZfxZimlT5ug"
+                            },
+    "origin":  "WEB",
+    "deviceType":  "MOBILE",
+    "designTheme":  {
+                        "colorMode":  "LIGHT",
+                        "font":  "PLUS_JAKARTA_SANS",
+                        "roundness":  "ROUND_EIGHT",
+                        "customColor":  "#0b6e5c",
+                        "headlineFont":  "PLUS_JAKARTA_SANS",
+                        "bodyFont":  "INTER",
+                        "labelFont":  "INTER",
+                        "namedColors":  {
+                                            "surface_variant":  "#dbe2f9",
+                                            "on_secondary_fixed":  "#271900",
+                                            "inverse_surface":  "#293041",
+                                            "inverse_on_surface":  "#edf0ff",
+                                            "primary":  "#005445",
+                                            "tertiary_container":  "#306b5e",
+                                            "on_error":  "#ffffff",
+                                            "on_primary_fixed":  "#002019",
+                                            "secondary":  "#7d5700",
+                                            "on_primary":  "#ffffff",
+                                            "tertiary":  "#135346",
+                                            "on_secondary":  "#ffffff",
+                                            "on_tertiary_fixed":  "#00201a",
+                                            "error_container":  "#ffdad6",
+                                            "surface_container_high":  "#e0e8ff",
+                                            "primary_fixed":  "#9ff2db",
+                                            "secondary_container":  "#fdc254",
+                                            "error":  "#ba1a1a",
+                                            "background":  "#f9f9ff",
+                                            "on_background":  "#141b2c",
+                                            "on_tertiary_container":  "#ade9d8",
+                                            "surface_container_highest":  "#dbe2f9",
+                                            "on_secondary_container":  "#725000",
+                                            "outline_variant":  "#bec9c4",
+                                            "surface":  "#f9f9ff",
+                                            "surface_container_low":  "#f1f3ff",
+                                            "on_primary_container":  "#9aedd6",
+                                            "surface_container":  "#e9edff",
+                                            "inverse_primary":  "#83d6c0",
+                                            "secondary_fixed_dim":  "#f7bd4f",
+                                            "on_tertiary_fixed_variant":  "#0f5044",
+                                            "primary_fixed_dim":  "#83d6c0",
+                                            "surface_dim":  "#d2daf0",
+                                            "tertiary_fixed":  "#b2efde",
+                                            "on_primary_fixed_variant":  "#005143",
+                                            "primary_container":  "#0b6e5c",
+                                            "secondary_fixed":  "#ffdeaa",
+                                            "tertiary_fixed_dim":  "#97d2c2",
+                                            "surface_tint":  "#036b59",
+                                            "surface_bright":  "#f9f9ff",
+                                            "on_surface":  "#141b2c",
+                                            "on_secondary_fixed_variant":  "#5f4100",
+                                            "outline":  "#6e7975",
+                                            "on_error_container":  "#93000a",
+                                            "on_surface_variant":  "#3e4945",
+                                            "on_tertiary":  "#ffffff",
+                                            "surface_container_lowest":  "#ffffff"
+                                        },
+                        "designMd":  "---\nname: StockPilot Retail Engine\ncolors:\n  surface: \u0027#f9f9ff\u0027\n  surface-dim: \u0027#d2daf0\u0027\n  surface-bright: \u0027#f9f9ff\u0027\n  surface-container-lowest: \u0027#ffffff\u0027\n  surface-container-low: \u0027#f1f3ff\u0027\n  surface-container: \u0027#e9edff\u0027\n  surface-container-high: \u0027#e0e8ff\u0027\n  surface-container-highest: \u0027#dbe2f9\u0027\n  on-surface: \u0027#141b2c\u0027\n  on-surface-variant: \u0027#3e4945\u0027\n  inverse-surface: \u0027#293041\u0027\n  inverse-on-surface: \u0027#edf0ff\u0027\n  outline: \u0027#6e7975\u0027\n  outline-variant: \u0027#bec9c4\u0027\n  surface-tint: \u0027#036b59\u0027\n  primary: \u0027#005445\u0027\n  on-primary: \u0027#ffffff\u0027\n  primary-container: \u0027#0b6e5c\u0027\n  on-primary-container: \u0027#9aedd6\u0027\n  inverse-primary: \u0027#83d6c0\u0027\n  secondary: \u0027#7d5700\u0027\n  on-secondary: \u0027#ffffff\u0027\n  secondary-container: \u0027#fdc254\u0027\n  on-secondary-container: \u0027#725000\u0027\n  tertiary: \u0027#135346\u0027\n  on-tertiary: \u0027#ffffff\u0027\n  tertiary-container: \u0027#306b5e\u0027\n  on-tertiary-container: \u0027#ade9d8\u0027\n  error: \u0027#ba1a1a\u0027\n  on-error: \u0027#ffffff\u0027\n  error-container: \u0027#ffdad6\u0027\n  on-error-container: \u0027#93000a\u0027\n  primary-fixed: \u0027#9ff2db\u0027\n  primary-fixed-dim: \u0027#83d6c0\u0027\n  on-primary-fixed: \u0027#002019\u0027\n  on-primary-fixed-variant: \u0027#005143\u0027\n  secondary-fixed: \u0027#ffdeaa\u0027\n  secondary-fixed-dim: \u0027#f7bd4f\u0027\n  on-secondary-fixed: \u0027#271900\u0027\n  on-secondary-fixed-variant: \u0027#5f4100\u0027\n  tertiary-fixed: \u0027#b2efde\u0027\n  tertiary-fixed-dim: \u0027#97d2c2\u0027\n  on-tertiary-fixed: \u0027#00201a\u0027\n  on-tertiary-fixed-variant: \u0027#0f5044\u0027\n  background: \u0027#f9f9ff\u0027\n  on-background: \u0027#141b2c\u0027\n  surface-variant: \u0027#dbe2f9\u0027\ntypography:\n  headline-lg:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 30px\n    fontWeight: \u0027700\u0027\n    lineHeight: 38px\n  headline-md:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 24px\n    fontWeight: \u0027700\u0027\n    lineHeight: 32px\n  headline-sm:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 20px\n    fontWeight: \u0027600\u0027\n    lineHeight: 28px\n  currency-display:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 28px\n    fontWeight: \u0027800\u0027\n    lineHeight: 34px\n    letterSpacing: -0.02em\n  currency-md:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 18px\n    fontWeight: \u0027700\u0027\n    lineHeight: 24px\n    letterSpacing: -0.01em\n  title-lg:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 18px\n    fontWeight: \u0027600\u0027\n    lineHeight: 24px\n  title-md:\n    fontFamily: Plus Jakarta Sans\n    fontSize: 16px\n    fontWeight: \u0027600\u0027\n    lineHeight: 22px\n  body-lg:\n    fontFamily: Inter\n    fontSize: 16px\n    fontWeight: \u0027400\u0027\n    lineHeight: 24px\n  body-md:\n    fontFamily: Inter\n    fontSize: 14px\n    fontWeight: \u0027400\u0027\n    lineHeight: 20px\n  body-sm:\n    fontFamily: Inter\n    fontSize: 12px\n    fontWeight: \u0027400\u0027\n    lineHeight: 18px\n  label-lg:\n    fontFamily: Inter\n    fontSize: 14px\n    fontWeight: \u0027600\u0027\n    lineHeight: 20px\n  label-md:\n    fontFamily: Inter\n    fontSize: 12px\n    fontWeight: \u0027500\u0027\n    lineHeight: 16px\n  label-sm:\n    fontFamily: Inter\n    fontSize: 10px\n    fontWeight: \u0027600\u0027\n    lineHeight: 14px\n    letterSpacing: 0.04em\nrounded:\n  sm: 0.25rem\n  DEFAULT: 0.5rem\n  md: 0.75rem\n  lg: 1rem\n  xl: 1.5rem\n  full: 9999px\nspacing:\n  gutter: 1rem\n  margin: 1rem\n  space-xs: 0.25rem\n  space-sm: 0.5rem\n  space-md: 1rem\n  space-lg: 1.5rem\n  space-xl: 2rem\n---\n\n## Brand \u0026 Style\nThe design system establishes a high-trust, swift, and resilient commercial interface tailored for point-of-sale and inventory operations under real-world retail conditions in Pakistan (such as high ambient light in shopfronts, dense catalog data, and rapid customer checkouts).\n\n### Brand Personality \u0026 Emotional Anchor\n- **Reliable \u0026 Unshakable:** Evokes the precision and safety of tier-1 institutional banking, eliminating transactional friction and inventory ambiguity.\n- **Immediate \u0026 Agile:** Designed for low latency interaction, one-thumb cashier ergonomics, and instant scan-to-cart confirmation.\n- **Calm Commercial Clarity:** Replaces visual chaos with structured hierarchy, giving shop owners total command over margins, stock levels, and daily bookkeeping.\n\n### Visual Style Direction\nA disciplined synthesis of modern utility and corporate fintech. The aesthetic avoids unnecessary ornamentation, relying instead on pure white surface planes, crisp hairline division, generous touch envelopes, and bold tabular numeric displays. Micro-interactions and touch targets are engineered to surpass the minimum 48px baseline to prevent mis-taps during peak store hours.\n\n## Colors\nThe palette balances institutional stability with vibrant, immediate feedback tokens designed for readability under direct fluorescent or daylight store conditions.\n\n### Palette Architecture\n- **Primary Emerald-Teal (`#0B6E5C`):** Drives primary actions, POS checkout triggers, active bottom navigation, and confirmed sale indicators.\n- **Primary Dark Deep Pine (`#064B3F`):** Dedicated to header navigation strips, modal action sheets, and heavy-contrast focal points.\n- **Primary Soft Tint (`#E6F4F1`):** Applied to active row selections, subtle badge backgrounds, and selected category filter chips.\n- **Secondary Warm Gold (`#F2B84B`):** Highlights sales incentives, AI inventory replenishment alerts, low stock nudges, and promotional triggers.\n- **Canvas (`#F7F8F6`):** A soft, warm off-white foundation that eliminates eye strain while framing stark white cards.\n- **Surfaces (`#FFFFFF`):** High-clarity sheet containers bordered by neutral stroke `#E6E9E4`.\n- **Text Tokens:** \n  - Primary: `#101828` for titles, critical data, and currency strings.\n  - Secondary: `#667085` for SKU labels, metadata, and timestamps.\n  - Tertiary / Muted: `#98A2B3` for placeholders and inactive icons.\n\n### Semantic Status Tokens\n- **Success (`#12B76A`):** Payment received, in-stock confirmation, day-end register reconciliation.\n- **Warning (`#F79009`):** Low inventory threshold, pending customer credit (Udhaar).\n- **Error (`#D92D20`):** Out of stock, payment declined, voided receipt.\n- **Info (`#2E90FA`):** Shift summaries, sync queues, system notifications.\n\n## Typography\nThe system adopts **Plus Jakarta Sans** for expressive, authoritative structural headlines and transaction totals, complemented by **Inter** for dense transactional tables, forms, and micro-copy.\n\n### Tabular Numbers \u0026 Financial Data\nAll monetary values (e.g., `Rs. 48,650`), barcode entries, quantity modifiers, and SKU figures must strictly enforce OpenType tabular figures (`font-variant-numeric: tabular-nums;` / `tnum`). This prevents visual jitter when numbers cycle on dynamic checkouts and keeps decimal points aligned in vertical audit rows.\n\n### Hierarchy \u0026 Mobile Readability\n- **Primary Metric Displays:** Large currency values sit at 28px–30px with heavy font weights (700–800) to ensure legibility when the terminal rests flat on a cashier counter.\n- **Labels \u0026 Micro-data:** Micro tags and SKU numbers maintain an optical minimum of 10px with increased letter spacing (`0.04em`) to prevent ink-trap blur on entry-level Android LCD screens.\n\n## Layout \u0026 Spacing\nThe layout adheres strictly to an **8-point grid**, tailored specifically for the native portrait mobile container (390px × 844px viewport).\n\n### Layout Geometry\n- **Outer Margins:** Fixed 16px (`1rem`) horizontal screen padding keeps critical edge taps safely away from Android bezel guards and system gestures.\n- **Internal Column Grid:** Dynamic 4-column layout for product catalog cards, inventory dashboards, and modal sheets with 16px gutter spacing.\n- **Vertical Rhythm:**\n  - Component stacks leverage 8px (`0.5rem`) for tightly bound pairs (e.g., input field and validation text).\n  - 16px (`1rem`) isolates sibling component blocks.\n  - 24px (`1.5rem`) sections off operational boundaries (e.g., Cart Items vs. Payment Method selector).\n\n### Ergonomic Envelopes\nEvery interactive touch target has an absolute hard floor of **48px × 48px**, extending touch targets past visual borders via invisible padding where compact visual chips (e.g., 36px) are required. Sticky footer bars (Charge / Pay action) feature a minimum vertical height of 64px with safe-area bottom insets.\n\n## Elevation \u0026 Depth\nDepth is communicated through crisp structural boundary lines matched with soft, ambient, low-contrast shadows. This ensures visual separation between cards and backgrounds without muddying screen brightness under harsh overhead shop lighting.\n\n### Elevation Levels\n- **Level 0 (Flat Canvas):** `#F7F8F6` background. No elevation or border.\n- **Level 1 (Card \u0026 Product Surface):** Pure `#FFFFFF` background with a mandatory `1px solid #E6E9E4` border and an ultra-soft tinted shadow:\n  `box-shadow: 0px 2px 4px rgba(16, 24, 40, 0.04), 0px 1px 2px rgba(16, 24, 40, 0.02);`\n- **Level 2 (Dropdowns, Menus \u0026 Filter Drawers):** Pure `#FFFFFF` background with `1px solid #E6E9E4` and ambient spread:\n  `box-shadow: 0px 8px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);`\n- **Level 3 (POS Checkout Drawers \u0026 Persistent Sticky Trays):** Pure `#FFFFFF` anchored to viewport bottom with upper border `1px solid #E6E9E4` and deep ground separation:\n  `box-shadow: 0px -4px 16px rgba(16, 24, 40, 0.06);`\n\n## Shapes\nThe system utilizes a balanced, approachable corner radius rhythm that maintains professional precision while remaining tactile and inviting.\n\n### Radius Scale Implementation\n- **Cards \u0026 Primary Modules:** 16px to 20px radius. Used on all top-level operational cards, transaction receipts, and dashboard metric summaries.\n- **Inputs \u0026 Category Chips:** 12px radius. Provides clear tactile affordance for data entry, barcode inputs, and catalog category selectors.\n- **Status Badges \u0026 Pill Indicators:** 9999px (full pill). Used exclusively for operational states (e.g., \"Paid\", \"Low Stock\", \"Returned\").\n- **Primary Buttons:** 12px radius, matching input field geometries for unified vertical form composition.\n\n## Components\n\n### Buttons\n- **Primary POS Action (e.g., \"Complete Sale - Rs. 4,500\"):** Solid `#0B6E5C` background, white label (`#FFFFFF`), 52px height, 12px corner radius. Pressed state shifts to `#064B3F`. Includes tabular bold pricing label on trailing edge.\n- **Secondary / Utility Button:** Background `#E6F4F1`, text `#0B6E5C`, border none, 48px height, 12px radius.\n- **Destructive (e.g., \"Void Bill\"):** Background `#FFFFFF`, border `1px solid #FDA29B`, text `#D92D20`.\n\n### Cards \u0026 Modules\n- **Inventory Product Card:** Pure `#FFFFFF` background, 16px radius, `1px solid #E6E9E4`. Displays thumbnail image, bold SKU title in `#101828`, secondary pack size in `#667085`, and distinct bold price in `currency-md`. Features an integrated 48px stepper button (+ / -) to increment cart counts instantly.\n- **Register Metric Card:** Contains subtle vertical status band (4px wide) on leading edge denoting cash vs. credit volume.\n\n### Chips \u0026 Filter Tabs\n- **Category Filter Chip:** Height 36px (touch target padded to 48px), 12px radius. Inactive: `#FFFFFF` with `1px solid #E6E9E4`, text `#667085`. Active: `#E6F4F1` with `1.5px solid #0B6E5C`, text `#0B6E5C` (Font weight: 600).\n- **Status Pills:** Height 24px, 9999px radius, padding 2px 10px. Uses semantic soft background and high-contrast text (e.g., Paid: `#ECFDF3` with `#027A48` text; Udhaar/Credit: `#FEF0C7` with `#B54708` text).\n\n### Form Inputs \u0026 Search\n- **Barcode / Product Search Bar:** Height 48px, 12px radius, `#FFFFFF` background, `1px solid #D0D5DD`. Leading barcode scan icon button (minimum 48px target). Active focus shifts border to 2px `#0B6E5C` with zero shadow.\n- **Numeric Keypad \u0026 Monetary Fields:** Right-aligned tabular text display with fixed `Rs.` prefix in `#667085`.\n\n### List Rows \u0026 Transaction Tables\n- **Cart Row Item:** 72px minimum height, border-bottom `1px solid #F2F4F7`. Displays item quantity badge, item name, unit pricing, and bold line total. Swipe actions reveal rapid quantity adjustments or deletion.\n- **Customer Ledger (Khata):** Two-column transaction summary with explicit color-coded debits (`#D92D20`) and credits (`#12B76A`), maintaining strict tabular vertical alignment.",
+                        "colorVariant":  "FIDELITY",
+                        "overridePrimaryColor":  "#0b6e5c",
+                        "overrideSecondaryColor":  "#f2b84b",
+                        "overrideTertiaryColor":  "#064b3f",
+                        "overrideNeutralColor":  "#101828",
+                        "spacingScale":  2,
+                        "typography":  {
+                                           "label-lg":  {
+                                                            "fontFamily":  "Inter",
+                                                            "fontSize":  "14px",
+                                                            "fontWeight":  "600",
+                                                            "lineHeight":  "20px"
+                                                        },
+                                           "label-md":  {
+                                                            "fontFamily":  "Inter",
+                                                            "fontSize":  "12px",
+                                                            "fontWeight":  "500",
+                                                            "lineHeight":  "16px"
+                                                        },
+                                           "currency-md":  {
+                                                               "fontFamily":  "Plus Jakarta Sans",
+                                                               "fontSize":  "18px",
+                                                               "fontWeight":  "700",
+                                                               "lineHeight":  "24px",
+                                                               "letterSpacing":  "-0.01em"
+                                                           },
+                                           "label-sm":  {
+                                                            "fontFamily":  "Inter",
+                                                            "fontSize":  "10px",
+                                                            "fontWeight":  "600",
+                                                            "lineHeight":  "14px",
+                                                            "letterSpacing":  "0.04em"
+                                                        },
+                                           "headline-lg":  {
+                                                               "fontFamily":  "Plus Jakarta Sans",
+                                                               "fontSize":  "30px",
+                                                               "fontWeight":  "700",
+                                                               "lineHeight":  "38px"
+                                                           },
+                                           "title-md":  {
+                                                            "fontFamily":  "Plus Jakarta Sans",
+                                                            "fontSize":  "16px",
+                                                            "fontWeight":  "600",
+                                                            "lineHeight":  "22px"
+                                                        },
+                                           "body-md":  {
+                                                           "fontFamily":  "Inter",
+                                                           "fontSize":  "14px",
+                                                           "fontWeight":  "400",
+                                                           "lineHeight":  "20px"
+                                                       },
+                                           "currency-display":  {
+                                                                    "fontFamily":  "Plus Jakarta Sans",
+                                                                    "fontSize":  "28px",
+                                                                    "fontWeight":  "800",
+                                                                    "lineHeight":  "34px",
+                                                                    "letterSpacing":  "-0.02em"
+                                                                },
+                                           "title-lg":  {
+                                                            "fontFamily":  "Plus Jakarta Sans",
+                                                            "fontSize":  "18px",
+                                                            "fontWeight":  "600",
+                                                            "lineHeight":  "24px"
+                                                        },
+                                           "headline-sm":  {
+                                                               "fontFamily":  "Plus Jakarta Sans",
+                                                               "fontSize":  "20px",
+                                                               "fontWeight":  "600",
+                                                               "lineHeight":  "28px"
+                                                           },
+                                           "body-lg":  {
+                                                           "fontFamily":  "Inter",
+                                                           "fontSize":  "16px",
+                                                           "fontWeight":  "400",
+                                                           "lineHeight":  "24px"
+                                                       },
+                                           "headline-md":  {
+                                                               "fontFamily":  "Plus Jakarta Sans",
+                                                               "fontSize":  "24px",
+                                                               "fontWeight":  "700",
+                                                               "lineHeight":  "32px"
+                                                           },
+                                           "body-sm":  {
+                                                           "fontFamily":  "Inter",
+                                                           "fontSize":  "12px",
+                                                           "fontWeight":  "400",
+                                                           "lineHeight":  "18px"
+                                                       }
+                                       },
+                        "spacing":  {
+                                        "space-xs":  "0.25rem",
+                                        "space-sm":  "0.5rem",
+                                        "space-lg":  "1.5rem",
+                                        "space-xl":  "2rem",
+                                        "gutter":  "1rem",
+                                        "space-md":  "1rem",
+                                        "margin":  "1rem"
+                                    },
+                        "headlineFontFamily":  "Plus Jakarta Sans",
+                        "bodyFontFamily":  "Inter",
+                        "labelFontFamily":  "Inter"
+                    },
+    "screenInstances":  [
+                            {
+                                "id":  "0de078a95e36446595a41fc2910012d0",
+                                "sourceScreen":  "projects/7077951261909249455/screens/0de078a95e36446595a41fc2910012d0",
+                                "x":  1816,
+                                "y":  1529,
+                                "width":  390,
+                                "height":  1014,
+                                "label":  "Shop Setup"
+                            },
+                            {
+                                "id":  "4bb032f0fb404996b025dd5d051ce4b5",
+                                "sourceScreen":  "projects/7077951261909249455/screens/4bb032f0fb404996b025dd5d051ce4b5",
+                                "x":  1362,
+                                "y":  1529,
+                                "width":  390,
+                                "height":  884,
+                                "label":  "Onboarding"
+                            },
+                            {
+                                "id":  "78fac22e662e497c86358bfa3f7d1164",
+                                "sourceScreen":  "projects/7077951261909249455/screens/78fac22e662e497c86358bfa3f7d1164",
+                                "x":  1024,
+                                "width":  390,
+                                "height":  1273,
+                                "label":  "Home Dashboard"
+                            },
+                            {
+                                "id":  "ac82e42f673a4127ac9bff55477d177c",
+                                "sourceScreen":  "projects/7077951261909249455/screens/ac82e42f673a4127ac9bff55477d177c",
+                                "x":  454,
+                                "y":  1529,
+                                "width":  390,
+                                "height":  884,
+                                "label":  "Login"
+                            },
+                            {
+                                "id":  "assets_d68930ac624c460cb03bc422a625de75",
+                                "width":  960,
+                                "height":  540,
+                                "sourceAsset":  "assets/d68930ac624c460cb03bc422a625de75",
+                                "type":  "DESIGN_SYSTEM_INSTANCE"
+                            },
+                            {
+                                "id":  "c06e2db3c1724c63a206178619f26a3d",
+                                "sourceScreen":  "projects/7077951261909249455/screens/c06e2db3c1724c63a206178619f26a3d",
+                                "y":  2951,
+                                "width":  390,
+                                "height":  1501,
+                                "label":  "Home Dashboard"
+                            },
+                            {
+                                "id":  "eec4224f147a432f9e25a48684e558f1",
+                                "sourceScreen":  "projects/7077951261909249455/screens/eec4224f147a432f9e25a48684e558f1",
+                                "x":  908,
+                                "y":  1529,
+                                "width":  390,
+                                "height":  1166,
+                                "label":  "Registration"
+                            },
+                            {
+                                "id":  "fad2f76d89cc49819a6afd3471ceb042",
+                                "sourceScreen":  "projects/7077951261909249455/screens/fad2f76d89cc49819a6afd3471ceb042",
+                                "y":  1529,
+                                "width":  390,
+                                "height":  884,
+                                "label":  "Splash Screen"
+                            }
+                        ],
+    "metadata":  {
+                     "userRole":  "OWNER"
+                 },
+    "sharingSettings":  {
+                            "permissions":  [
+                                                {
+                                                    "id":  "21194720999",
+                                                    "role":  "OWNER",
+                                                    "email":  "abdulbasir4211@gmail.com"
+                                                }
+                                            ],
+                            "accessType":  "RESTRICTED"
+                        }
+}

@@ -1,0 +1,15 @@
+node_modules/
+**/node_modules/
+.env
+.env.*
+!.env.example
+server/.env
+mobile/.env
+dist/
+build/
+.expo/
+web-build/
+coverage/
+*.log
+.DS_Store
+files.zip

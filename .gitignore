@@ -1,0 +1,34 @@
+# Other projects in parent workspace (excluded for now)
+SKILLCONNECT/
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment & Secrets
+.env
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Dependencies, Builds & Caches
+**/node_modules/
+**/dist/
+**/.expo/
+**/build/
+*.log
+*.tsbuildinfo
+files.zip
+**/.git_backup/
+
+# Internal AI/Agent/Planning files (kept local only)
+**/.planning/
+STOCKPILOT AI/AGENTS.md
+STOCKPILOT AI/REVIEW_CHECKLIST.md
+STOCKPILOT AI/docs/ANTIGRAVITY_PROMPTS.md
+STOCKPILOT AI/docs/MASTER_PROMPT.md
+STOCKPILOT AI/docs/PHASES.md
+STOCKPILOT AI/docs/PROGRESS.md
+STOCKPILOT AI/docs/ARCHITECTURE.md

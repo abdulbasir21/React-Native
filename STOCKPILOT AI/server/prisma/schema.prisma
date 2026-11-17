@@ -1,0 +1,486 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ShopType {
+  GROCERY
+  MOBILE_ACCESSORIES
+  ELECTRONICS
+  GENERAL_RETAIL
+  OTHER
+}
+
+enum UserRole {
+  OWNER
+}
+
+enum Unit {
+  PIECE
+  PACK
+  DOZEN
+  BOX
+  KG
+  LITRE
+  METRE
+}
+
+enum StockMovementType {
+  INITIAL_STOCK
+  PURCHASE
+  SALE
+  CUSTOMER_RETURN
+  DAMAGED
+  EXPIRED
+  ADJUSTMENT
+  SALE_CANCELLATION
+}
+
+enum PaymentMethod {
+  CASH
+  EASYPAISA
+  JAZZCASH
+  BANK_TRANSFER
+  CARD
+  CREDIT
+}
+
+enum PaymentKind {
+  SALE_PAYMENT
+  SALE_REFUND
+  PURCHASE_PAYMENT
+}
+
+enum PaymentDirection {
+  IN
+  OUT
+}
+
+enum ExpenseCategory {
+  RENT
+  ELECTRICITY
+  INTERNET
+  SALARIES
+  TRANSPORT
+  MAINTENANCE
+  OTHER
+}
+
+enum SaleStatus {
+  COMPLETED
+  CANCELLED
+}
+
+enum AIActionStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
+  EXPIRED
+  FAILED
+}
+
+model Shop {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  type      ShopType
+  currency  String   @default("PKR")
+  timezone  String   @default("Asia/Karachi")
+  address   String?
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users          User[]
+  categories     Category[]
+  products       Product[]
+  customers      Customer[]
+  suppliers      Supplier[]
+  stockMovements StockMovement[]
+  purchases      Purchase[]
+  sales          Sale[]
+  saleReturns    SaleReturn[]
+  payments       Payment[]
+  expenses        Expense[]
+  auditLogs       AuditLog[]
+  aiConversations AIAssistantConversation[]
+  aiActionLogs    AIActionLog[]
+
+  @@map("shops")
+}
+
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  shopId       String   @db.Uuid
+  email        String   @unique
+  passwordHash String
+  ownerName    String
+  phone        String?
+  role         UserRole @default(OWNER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Restrict)
+
+  @@index([shopId])
+  @@map("users")
+}
+
+model Category {
+  id        String   @id @default(uuid()) @db.Uuid
+  shopId    String   @db.Uuid
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  shop     Shop      @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  products Product[]
+
+  @@unique([shopId, name])
+  @@index([shopId])
+  @@map("categories")
+}
+
+model Product {
+  id               String    @id @default(uuid()) @db.Uuid
+  shopId           String    @db.Uuid
+  categoryId       String?   @db.Uuid
+  name             String
+  sku              String?
+  description      String?
+  unit             Unit
+  purchaseCost     Decimal   @db.Decimal(14, 2)
+  lastPurchaseCost Decimal   @db.Decimal(14, 2)
+  sellingPrice     Decimal   @db.Decimal(14, 2)
+  quantityOnHand   Decimal   @default(0) @db.Decimal(14, 3)
+  averageCost      Decimal   @db.Decimal(14, 4)
+  minStockLevel    Decimal   @default(0) @db.Decimal(14, 3)
+  imageUri         String?
+  archivedAt       DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  shop           Shop            @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  category       Category?       @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  stockMovements StockMovement[]
+  purchaseItems  PurchaseItem[]
+  saleItems      SaleItem[]
+
+  @@index([shopId])
+  @@index([shopId, archivedAt])
+  @@index([shopId, categoryId])
+  @@map("products")
+}
+
+model Customer {
+  id         String    @id @default(uuid()) @db.Uuid
+  shopId     String    @db.Uuid
+  name       String
+  phone      String?
+  archivedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  shop  Shop   @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  sales Sale[]
+
+  @@index([shopId])
+  @@index([shopId, archivedAt])
+  @@map("customers")
+}
+
+model Supplier {
+  id         String    @id @default(uuid()) @db.Uuid
+  shopId     String    @db.Uuid
+  name       String
+  phone      String?
+  address    String?
+  notes      String?
+  archivedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  shop      Shop       @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  purchases Purchase[]
+
+  @@index([shopId])
+  @@index([shopId, archivedAt])
+  @@map("suppliers")
+}
+
+model Purchase {
+  id             String   @id @default(uuid()) @db.Uuid
+  shopId         String   @db.Uuid
+  supplierId     String   @db.Uuid
+  total          Decimal  @db.Decimal(14, 2)
+  idempotencyKey String
+  occurredAt     DateTime
+  note           String?
+  createdAt      DateTime @default(now())
+
+  shop           Shop            @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  supplier       Supplier        @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  items          PurchaseItem[]
+  payments       Payment[]
+  stockMovements StockMovement[]
+
+  @@unique([shopId, idempotencyKey])
+  @@index([shopId, occurredAt])
+  @@index([shopId, supplierId])
+  @@map("purchases")
+}
+
+model PurchaseItem {
+  id                  String   @id @default(uuid()) @db.Uuid
+  purchaseId          String   @db.Uuid
+  productId           String   @db.Uuid
+  productNameSnapshot String
+  quantity            Decimal  @db.Decimal(14, 3)
+  unitCost            Decimal  @db.Decimal(14, 2)
+  lineTotal           Decimal  @db.Decimal(14, 2)
+  createdAt           DateTime @default(now())
+
+  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Restrict)
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@index([purchaseId])
+  @@index([productId])
+  @@map("purchase_items")
+}
+
+model Sale {
+  id             String        @id @default(uuid()) @db.Uuid
+  shopId         String        @db.Uuid
+  customerId     String?       @db.Uuid
+  receiptNo      String
+  status         SaleStatus    @default(COMPLETED)
+  subtotal       Decimal       @db.Decimal(14, 2)
+  discountAmount Decimal       @default(0) @db.Decimal(14, 2)
+  total          Decimal       @db.Decimal(14, 2)
+  paymentMethod  PaymentMethod
+  idempotencyKey String
+  occurredAt     DateTime
+  cancelledAt    DateTime?
+  cancelReason   String?
+  note           String?
+  warnings       String[]      @default([])
+  createdAt      DateTime      @default(now())
+
+  shop           Shop            @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  customer       Customer?       @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  items          SaleItem[]
+  returns        SaleReturn[]
+  payments       Payment[]
+  stockMovements StockMovement[]
+
+  @@unique([shopId, idempotencyKey])
+  @@unique([shopId, receiptNo])
+  @@index([shopId, occurredAt])
+  @@index([shopId, customerId])
+  @@index([shopId, status])
+  @@map("sales")
+}
+
+model SaleItem {
+  id                  String   @id @default(uuid()) @db.Uuid
+  saleId              String   @db.Uuid
+  productId           String   @db.Uuid
+  productNameSnapshot String
+  unitSnapshot        Unit
+  quantity            Decimal  @db.Decimal(14, 3)
+  unitPrice           Decimal  @db.Decimal(14, 2)
+  lineSubtotal        Decimal  @db.Decimal(14, 2)
+  allocatedDiscount   Decimal  @default(0) @db.Decimal(14, 2)
+  lineNet             Decimal  @db.Decimal(14, 2)
+  unitCostSnapshot    Decimal  @db.Decimal(14, 4)
+  lineCogs            Decimal  @db.Decimal(14, 2)
+  createdAt           DateTime @default(now())
+
+  sale        Sale             @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  product     Product          @relation(fields: [productId], references: [id], onDelete: Restrict)
+  returnItems SaleReturnItem[]
+
+  @@index([saleId])
+  @@index([productId])
+  @@map("sale_items")
+}
+
+model SaleReturn {
+  id         String   @id @default(uuid()) @db.Uuid
+  shopId     String   @db.Uuid
+  saleId     String   @db.Uuid
+  reason     String
+  occurredAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+
+  shop           Shop             @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  sale           Sale             @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  items          SaleReturnItem[]
+  stockMovements StockMovement[]
+
+  @@index([shopId, saleId])
+  @@index([shopId, occurredAt])
+  @@map("sale_returns")
+}
+
+model SaleReturnItem {
+  id           String   @id @default(uuid()) @db.Uuid
+  saleReturnId String   @db.Uuid
+  saleItemId   String   @db.Uuid
+  quantity     Decimal  @db.Decimal(14, 3)
+  refundValue  Decimal  @db.Decimal(14, 2)
+  cogsReversed Decimal  @db.Decimal(14, 2)
+  createdAt    DateTime @default(now())
+
+  saleReturn SaleReturn @relation(fields: [saleReturnId], references: [id], onDelete: Restrict)
+  saleItem   SaleItem   @relation(fields: [saleItemId], references: [id], onDelete: Restrict)
+
+  @@index([saleReturnId])
+  @@index([saleItemId])
+  @@map("sale_return_items")
+}
+
+model Payment {
+  id         String           @id @default(uuid()) @db.Uuid
+  shopId     String           @db.Uuid
+  kind       PaymentKind
+  direction  PaymentDirection
+  method     PaymentMethod
+  amount     Decimal          @db.Decimal(14, 2)
+  paidAt     DateTime         @default(now())
+  saleId     String?          @db.Uuid
+  purchaseId String?          @db.Uuid
+  note       String?
+  createdAt  DateTime         @default(now())
+
+  shop     Shop      @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  sale     Sale?     @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  purchase Purchase? @relation(fields: [purchaseId], references: [id], onDelete: Restrict)
+
+  @@index([shopId, paidAt])
+  @@index([shopId, kind])
+  @@index([saleId])
+  @@index([purchaseId])
+  @@map("payments")
+}
+
+model Expense {
+  id            String          @id @default(uuid()) @db.Uuid
+  shopId        String          @db.Uuid
+  title         String
+  category      ExpenseCategory
+  amount        Decimal         @db.Decimal(14, 2)
+  expenseDate   DateTime
+  paymentMethod PaymentMethod
+  description   String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Restrict)
+
+  @@index([shopId, expenseDate])
+  @@index([shopId, category])
+  @@map("expenses")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  shopId     String   @db.Uuid
+  entityType String
+  entityId   String   @db.Uuid
+  action     String
+  before     Json?
+  after      Json?
+  reason     String?
+  actor      String   @default("OWNER")
+  createdAt  DateTime @default(now())
+
+  shop Shop @relation(fields: [shopId], references: [id], onDelete: Restrict)
+
+  @@index([shopId, entityType, entityId])
+  @@index([shopId, createdAt])
+  @@map("audit_logs")
+}
+
+model StockMovement {
+  id             String            @id @default(uuid()) @db.Uuid
+  shopId         String            @db.Uuid
+  productId      String            @db.Uuid
+  type           StockMovementType
+  quantityChange Decimal           @db.Decimal(14, 3)
+  previousQty    Decimal           @db.Decimal(14, 3)
+  newQty         Decimal           @db.Decimal(14, 3)
+  saleId         String?           @db.Uuid
+  purchaseId     String?           @db.Uuid
+  saleReturnId   String?           @db.Uuid
+  reason         String?
+  occurredAt     DateTime          @default(now())
+  createdAt      DateTime          @default(now())
+
+  shop       Shop        @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  product    Product     @relation(fields: [productId], references: [id], onDelete: Restrict)
+  sale       Sale?       @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  purchase   Purchase?   @relation(fields: [purchaseId], references: [id], onDelete: Restrict)
+  saleReturn SaleReturn? @relation(fields: [saleReturnId], references: [id], onDelete: Restrict)
+
+  @@index([shopId, productId, occurredAt])
+  @@index([shopId, occurredAt])
+  @@index([saleId])
+  @@map("stock_movements")
+}
+
+model AIAssistantConversation {
+  id        String   @id @default(uuid()) @db.Uuid
+  shopId    String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  shop       Shop          @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  messages   AIMessage[]
+  actionLogs AIActionLog[]
+
+  @@index([shopId, createdAt])
+  @@map("ai_assistant_conversations")
+}
+
+model AIMessage {
+  id             String   @id @default(uuid()) @db.Uuid
+  conversationId String   @db.Uuid
+  role           String
+  content        String
+  structuredJson Json?
+  createdAt      DateTime @default(now())
+
+  conversation AIAssistantConversation @relation(fields: [conversationId], references: [id], onDelete: Restrict)
+
+  @@index([conversationId, createdAt])
+  @@map("ai_messages")
+}
+
+model AIActionLog {
+  id                    String         @id @default(uuid()) @db.Uuid
+  shopId                String         @db.Uuid
+  conversationId        String?        @db.Uuid
+  toolName              String
+  args                  Json
+  summary               String
+  requiresStrongConfirm Boolean        @default(false)
+  strongConfirmTarget   String?
+  status                AIActionStatus @default(PENDING)
+  result                Json?
+  error                 String?
+  expiresAt             DateTime
+  confirmedAt           DateTime?
+  rejectedAt            DateTime?
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+
+  shop         Shop                     @relation(fields: [shopId], references: [id], onDelete: Restrict)
+  conversation AIAssistantConversation? @relation(fields: [conversationId], references: [id], onDelete: Restrict)
+
+  @@index([shopId, status, createdAt])
+  @@index([conversationId])
+  @@map("ai_action_logs")
+}

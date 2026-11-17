@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StockPilot AI - Splash Screen</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-container": "#ade9d8",
+            "secondary-fixed": "#ffdeaa",
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#fdc254",
+            "primary-fixed-dim": "#83d6c0",
+            "on-error": "#ffffff",
+            "primary-container": "#0b6e5c",
+            "outline": "#6e7975",
+            "surface-tint": "#036b59",
+            "inverse-surface": "#293041",
+            "surface-container": "#e9edff",
+            "background": "#f9f9ff",
+            "secondary-fixed-dim": "#f7bd4f",
+            "surface-container-low": "#f1f3ff",
+            "on-surface-variant": "#3e4945",
+            "surface-container-high": "#e0e8ff",
+            "inverse-on-surface": "#edf0ff",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#00201a",
+            "tertiary": "#135346",
+            "on-secondary-fixed-variant": "#5f4100",
+            "surface-container-highest": "#dbe2f9",
+            "on-background": "#141b2c",
+            "primary": "#005445",
+            "surface": "#f9f9ff",
+            "on-error-container": "#93000a",
+            "on-surface": "#141b2c",
+            "on-primary-container": "#9aedd6",
+            "surface-variant": "#dbe2f9",
+            "on-secondary-fixed": "#271900",
+            "outline-variant": "#bec9c4",
+            "tertiary-fixed-dim": "#97d2c2",
+            "surface-bright": "#f9f9ff",
+            "on-secondary-container": "#725000",
+            "tertiary-fixed": "#b2efde",
+            "surface-dim": "#d2daf0",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed-variant": "#0f5044",
+            "secondary": "#7d5700",
+            "tertiary-container": "#306b5e",
+            "on-primary-fixed-variant": "#005143",
+            "primary-fixed": "#9ff2db",
+            "on-primary-fixed": "#002019",
+            "inverse-primary": "#83d6c0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "space-md": "1rem",
+            "margin": "1rem"
+          },
+          "fontFamily": {
+            "title-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "currency-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "label-lg": ["Inter"],
+            "currency-display": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "currency-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+            "currency-display": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.35; transform: scaleX(0.92); }
+      50% { opacity: 0.9; transform: scaleX(1); }
+    }
+    @keyframes radialDrift {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -52%) scale(1.08); }
+    }
+    .pulse-glow {
+      animation: radialDrift 7s ease-in-out infinite;
+    }
+    .load-track {
+      animation: subtlePulse 2.4s ease-in-out infinite;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex items-center justify-center p-0 select-none">
+<!-- Mobile Portrait Container (390px x 844px) -->
+<main class="relative w-full max-w-[390px] h-[844px] overflow-hidden flex flex-col justify-between shadow-2xl bg-gradient-to-b from-[#064B3F] via-[#085C4D] to-[#0B6E5C]">
+<!-- Ambient Geometric Radiance and Tech Grid Lines -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden">
+<!-- Primary Core Ambient Radial Center Glow -->
+<div class="pulse-glow absolute top-1/2 left-1/2 w-[360px] h-[360px] rounded-full bg-primary-fixed-dim/20 blur-[85px]"></div>
+<!-- Secondary Upper Accent Glow -->
+<div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-[#135346]/40 blur-[70px]"></div>
+<!-- Subtle Golden Ray Highlight in Top Corner -->
+<div class="absolute top-28 -left-20 w-48 h-48 rounded-full bg-secondary-fixed/10 blur-[60px]"></div>
+<!-- Precision Optical Grid Watermark (Refined Fintech Structure) -->
+<div class="absolute inset-0 opacity-[0.035]" style="background-image: linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px); background-size: 32px 32px;"></div>
+</div>
+<!-- Top Status Bar Area / Cellular & Hardware Safe Area -->
+<header class="relative z-10 w-full pt-3 px-6 flex justify-between items-center text-primary-fixed/80">
+<span class="font-body-sm text-body-sm font-semibold tracking-tight text-on-tertiary">09:41</span>
+<div class="flex items-center gap-1.5 text-on-tertiary">
+<span class="material-symbols-outlined text-[16px]" data-icon="signal_cellular_4_bar">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="battery_full">battery_full</span>
+</div>
+</header>
+<!-- Center Hero Identity Section -->
+<div class="relative z-10 flex-1 flex flex-col items-center justify-center px-gutter text-center -mt-6">
+<!-- Brand Logo Mark with Gold Accent & Layered Depth -->
+<div class="relative mb-6 group">
+<!-- Ambient outer halo -->
+<div class="absolute -inset-2 bg-primary-fixed/20 rounded-[28px] blur-md"></div>
+<!-- Premium Glassmorphic Tile Enclosure -->
+<div class="relative w-24 h-24 rounded-[24px] bg-gradient-to-br from-white/15 to-white/5 border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.22)] backdrop-blur-md flex items-center justify-center">
+<!-- Box/Package Stylized Icon -->
+<span class="material-symbols-outlined text-on-primary text-[46px]" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<!-- Modern Minimalist Gold Sparkle Badge (#F2B84B) -->
+<div class="absolute -top-1.5 -right-1.5 w-7 h-7 rounded-full bg-[#064B3F] border-2 border-[#0B6E5C] flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[#F2B84B] text-[18px]" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<!-- Micro Optical Accent Bar at bottom of card -->
+<div class="absolute bottom-2.5 w-8 h-1 rounded-full bg-primary-fixed-dim/60"></div>
+</div>
+</div>
+<!-- App Title in Crisp White Plus Jakarta Sans -->
+<h1 class="font-headline-lg text-headline-lg font-bold tracking-tight text-on-primary flex items-center justify-center gap-1.5 drop-shadow-sm">
+        StockPilot <span class="text-primary-fixed font-headline-lg text-headline-lg">AI</span>
+</h1>
+<!-- Subtitle / Tagline in Emerald Soft Tint -->
+<p class="font-body-md text-body-md text-[#E6F4F1] mt-2.5 max-w-[260px] leading-relaxed font-normal opacity-95">
+        Smart POS &amp; Retail Engine for Shopkeepers
+      </p>
+<!-- Institutional Readiness Chip (Subtle Trust Factor) -->
+<div class="mt-5 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm">
+<span class="material-symbols-outlined text-primary-fixed text-[14px]" data-icon="offline_pin">offline_pin</span>
+<span class="font-label-sm text-label-sm text-primary-fixed tracking-wide">ZERO DOWNTIME SYNC</span>
+</div>
+</div>
+<!-- Bottom Footer Section: Localization, Versioning & Indicator -->
+<footer class="relative z-10 pb-8 px-gutter flex flex-col items-center gap-3.5">
+<!-- Subtle Elegant Progress Bar Indicator -->
+<div class="w-28 h-1 bg-white/15 rounded-full overflow-hidden relative">
+<div class="load-track absolute inset-0 w-full h-full bg-gradient-to-r from-primary-fixed-dim via-on-tertiary to-primary-fixed rounded-full shadow-[0_0_8px_#83d6c0]"></div>
+</div>
+<!-- Pakistani Retailers Anchor with Green Heart Dot -->
+<div class="flex items-center gap-2 text-[#E6F4F1]/90">
+<span class="w-2 h-2 rounded-full bg-[#12B76A] ring-4 ring-[#12B76A]/20"></span>
+<span class="font-body-sm text-body-sm font-medium tracking-tight">
+          Made for Pakistani Retailers
+        </span>
+</div>
+<!-- Edition & Version Details -->
+<div class="flex items-center gap-2 text-primary-fixed-dim/75 font-label-sm text-label-sm">
+<span>Version 2.4.0</span>
+<span class="text-white/30">•</span>
+<span>Offline-First Edition</span>
+</div>
+<!-- Android Home Bar Safe Indicator -->
+<div class="w-32 h-1 bg-white/20 rounded-full mt-2"></div>
+</footer>
+</main>
+</body></html>

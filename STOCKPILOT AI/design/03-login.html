@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - StockPilot AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-container": "#ade9d8",
+            "secondary-fixed": "#ffdeaa",
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#fdc254",
+            "primary-fixed-dim": "#83d6c0",
+            "on-error": "#ffffff",
+            "primary-container": "#0b6e5c",
+            "outline": "#6e7975",
+            "surface-tint": "#036b59",
+            "inverse-surface": "#293041",
+            "surface-container": "#e9edff",
+            "background": "#f9f9ff",
+            "secondary-fixed-dim": "#f7bd4f",
+            "surface-container-low": "#f1f3ff",
+            "on-surface-variant": "#3e4945",
+            "surface-container-high": "#e0e8ff",
+            "inverse-on-surface": "#edf0ff",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#00201a",
+            "tertiary": "#135346",
+            "on-secondary-fixed-variant": "#5f4100",
+            "surface-container-highest": "#dbe2f9",
+            "on-background": "#141b2c",
+            "primary": "#005445",
+            "surface": "#f9f9ff",
+            "on-error-container": "#93000a",
+            "on-surface": "#141b2c",
+            "on-primary-container": "#9aedd6",
+            "surface-variant": "#dbe2f9",
+            "on-secondary-fixed": "#271900",
+            "outline-variant": "#bec9c4",
+            "tertiary-fixed-dim": "#97d2c2",
+            "surface-bright": "#f9f9ff",
+            "on-secondary-container": "#725000",
+            "tertiary-fixed": "#b2efde",
+            "surface-dim": "#d2daf0",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed-variant": "#0f5044",
+            "secondary": "#7d5700",
+            "tertiary-container": "#306b5e",
+            "on-primary-fixed-variant": "#005143",
+            "primary-fixed": "#9ff2db",
+            "on-primary-fixed": "#002019",
+            "inverse-primary": "#83d6c0"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "gutter": "1rem",
+            "space-md": "1rem",
+            "margin": "1rem"
+          },
+          "fontFamily": {
+            "title-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "currency-md": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "label-lg": ["Inter"],
+            "currency-display": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "currency-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+            "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+            "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+            "currency-display": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "label-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+            "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "700"}],
+            "title-md": ["16px", {"lineHeight": "22px", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      background-color: #F7F8F6;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[#F7F8F6] text-on-surface antialiased min-h-screen flex justify-center selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Mobile Viewport Container 390px x 844px -->
+<main class="w-full max-w-[390px] min-h-[844px] bg-[#F7F8F6] flex flex-col justify-between px-gutter py-space-md relative overflow-x-hidden">
+<!-- Top Bar: Navigation & Brand Pill -->
+<header class="w-full pt-2">
+<div class="flex items-center justify-between h-12">
+<!-- Back Navigation Button -->
+<button aria-label="Go back" class="w-12 h-12 -ml-2 rounded-xl flex items-center justify-center text-on-surface hover:bg-surface-container-low active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<!-- Brand Mark Mini Badge -->
+<div class="flex items-center gap-1.5 bg-surface-container-lowest border border-outline-variant/30 px-3 py-1.5 rounded-full shadow-[0px_2px_4px_rgba(16,24,40,0.04)]">
+<div class="w-5 h-5 rounded-md bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[15px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+</div>
+<span class="font-title-md text-[13px] font-bold text-on-surface tracking-tight">StockPilot AI</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container ml-0.5 animate-pulse"></span>
+</div>
+<!-- Right Spacer for Balance -->
+<div class="w-10"></div>
+</div>
+<!-- Header Typography Banner -->
+<div class="mt-6 mb-6">
+<h1 class="font-headline-md text-[26px] leading-tight text-on-surface font-bold tracking-tight">
+          Welcome back
+        </h1>
+<p class="font-body-md text-on-surface-variant text-[14px] mt-1.5 leading-relaxed">
+          Log in to manage <span class="font-label-lg text-on-surface font-semibold">Al-Madina Mobile Accessories</span> or your registered shop
+        </p>
+</div>
+</header>
+<!-- Content & Form Section -->
+<section class="flex-1 flex flex-col justify-start">
+<!-- Active Store Status Banner -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-3.5 mb-5 flex items-center gap-3 shadow-[0px_2px_4px_rgba(16,24,40,0.03)]">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[22px]">storefront</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-[14px] font-bold text-on-surface truncate">Al-Madina Mobile Accessories</span>
+</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Shop ID: PK-LHR-8841 • Cashier Shift 1</p>
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary-container" title="Terminal Ready"></div>
+</div>
+<form class="space-y-4" id="login-form" onsubmit="event.preventDefault();">
+<!-- Email Input Field -->
+<div class="space-y-1.5">
+<label class="block font-label-lg text-on-surface text-[14px] font-semibold" for="email">
+            Email address
+          </label>
+<div class="relative flex items-center">
+<div class="absolute left-3.5 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<input class="w-full h-12 pl-11 pr-4 bg-surface-container-lowest border border-outline-variant/40 rounded-xl font-body-md text-on-surface text-[14px] placeholder:text-outline-variant focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all shadow-[0px_1px_2px_rgba(16,24,40,0.02)]" id="email" name="email" placeholder="ahmed@example.com" required="" type="email" value="ahmed@example.com"/>
+</div>
+</div>
+<!-- Password Input Field -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="block font-label-lg text-on-surface text-[14px] font-semibold" for="password">
+              Password
+            </label>
+<a class="font-label-lg text-primary-container text-[14px] font-medium hover:underline active:opacity-80 transition-opacity" href="#forgot">
+              Forgot password?
+            </a>
+</div>
+<div class="relative flex items-center">
+<div class="absolute left-3.5 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<input class="w-full h-12 pl-11 pr-12 bg-surface-container-lowest border border-outline-variant/40 rounded-xl font-body-md text-on-surface text-[14px] placeholder:text-outline-variant focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all shadow-[0px_1px_2px_rgba(16,24,40,0.02)]" id="password" name="password" placeholder="••••••••••••" required="" type="password" value="securepassword123"/>
+<!-- Interactive Password Reveal Button -->
+<button aria-label="Toggle password visibility" class="absolute right-0 top-0 h-12 w-12 flex items-center justify-center text-outline hover:text-on-surface active:scale-95 transition-all" id="toggle-password" type="button">
+<span class="material-symbols-outlined text-[20px]" id="eye-icon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Primary Action Button -->
+<div class="pt-2">
+<button class="w-full h-12 bg-primary-container text-on-primary rounded-xl font-title-md text-[15px] font-bold shadow-[0px_4px_12px_rgba(11,110,92,0.25)] hover:bg-primary active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
+<span>Log in to StockPilot</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+<!-- Divider with subtle line -->
+<div class="relative py-2 flex items-center justify-center">
+<div class="w-full border-t border-outline-variant/30"></div>
+<span class="absolute bg-[#F7F8F6] px-3 font-label-sm text-outline uppercase tracking-wider text-[11px]">
+            or cashier terminal
+          </span>
+</div>
+<!-- Quick Biometrics Card Option -->
+<button class="w-full h-12 bg-surface-container-lowest border border-outline-variant/40 rounded-xl px-4 flex items-center justify-between text-on-surface hover:bg-surface-container-low active:scale-[0.98] transition-all shadow-[0px_1px_2px_rgba(16,24,40,0.02)]" id="biometric-btn" type="button">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-[#E6F4F1] flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">fingerprint</span>
+</div>
+<span class="font-label-lg text-[13px] text-on-surface font-semibold text-left">
+              Quick Biometric Login for shop shift
+            </span>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">chevron_right</span>
+</button>
+</form>
+</section>
+<!-- Bottom Footer & Registration Link -->
+<footer class="pt-6 pb-2 space-y-4 text-center">
+<div>
+<p class="font-body-md text-on-surface-variant text-[14px]">
+          Don't have a shop account? 
+          <a class="font-label-lg text-primary-container font-semibold hover:underline inline-flex items-center ml-1" href="#register">
+            Register your shop
+          </a>
+</p>
+</div>
+<!-- Security Trust Badge -->
+<div class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low border border-outline-variant/20 mx-auto">
+<span class="material-symbols-outlined text-primary-container text-[16px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label-sm text-on-surface-variant text-[11px] font-medium tracking-normal">
+          256-bit encrypted • Offline data stored locally
+        </span>
+</div>
+</footer>
+</main>
+<!-- Interactive Logic for Input Toggle & Visual Feedback -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleBtn = document.getElementById('toggle-password');
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eye-icon');
+
+      if (toggleBtn && passwordInput && eyeIcon) {
+        toggleBtn.addEventListener('click', () => {
+          const isPassword = passwordInput.getAttribute('type') === 'password';
+          passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+          eyeIcon.textContent = isPassword ? 'visibility_off' : 'visibility';
+        });
+      }
+
+      // Biometric click micro-interaction feedback
+      const biometricBtn = document.getElementById('biometric-btn');
+      if (biometricBtn) {
+        biometricBtn.addEventListener('click', () => {
+          const originalText = biometricBtn.querySelector('.font-label-lg').textContent;
+          const textElem = biometricBtn.querySelector('.font-label-lg');
+          textElem.textContent = 'Scanning hardware reader...';
+          setTimeout(() => {
+            textElem.textContent = originalText;
+          }, 1500);
+        });
+      }
+    });
+  </script>
+</body></html>

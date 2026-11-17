@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "StockPilot AI",
+    "slug": "stockpilot-ai",
+    "version": "1.0.0",
+    "scheme": "stockpilot",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "android": {
+      "package": "com.stockpilot.ai",
+      "adaptiveIcon": {
+        "backgroundColor": "#0B6E5C"
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      "expo-secure-store",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

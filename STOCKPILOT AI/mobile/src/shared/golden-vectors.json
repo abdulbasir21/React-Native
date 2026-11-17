@@ -1,0 +1,191 @@
+{
+  "roundingHalfUp": [
+    { "input": "10.005", "expectedRound2": "10.01" },
+    { "input": "10.004", "expectedRound2": "10.00" },
+    { "input": "110.12345", "expectedRound4": "110.1235" },
+    { "input": "110.12344", "expectedRound4": "110.1234" }
+  ],
+  "lineSubtotals": [
+    { "quantity": "3", "unitPrice": "33.335", "expected": "100.01" },
+    { "quantity": "1.255", "unitPrice": "400.00", "expected": "502.00" },
+    { "quantity": "0.333", "unitPrice": "100.00", "expected": "33.30" }
+  ],
+  "discounts": [
+    {
+      "subtotal": "500.00",
+      "discount": { "type": "PERCENT", "value": "15" },
+      "expectedDiscountAmount": "75.00",
+      "expectedTotal": "425.00"
+    },
+    {
+      "subtotal": "333.33",
+      "discount": { "type": "PERCENT", "value": "10" },
+      "expectedDiscountAmount": "33.33",
+      "expectedTotal": "300.00"
+    },
+    {
+      "subtotal": "5000.00",
+      "discount": { "type": "AMOUNT", "value": "250.505" },
+      "expectedDiscountAmount": "250.51",
+      "expectedTotal": "4749.49"
+    }
+  ],
+  "unevenDiscountAllocation": {
+    "lineSubtotals": ["100.00", "100.00", "100.00"],
+    "discountAmount": "10.00",
+    "expectedLines": [
+      { "lineSubtotal": "100.00", "allocatedDiscount": "3.33", "lineNet": "96.67" },
+      { "lineSubtotal": "100.00", "allocatedDiscount": "3.33", "lineNet": "96.67" },
+      { "lineSubtotal": "100.00", "allocatedDiscount": "3.34", "lineNet": "96.66" }
+    ]
+  },
+  "weightedAverage": [
+    {
+      "label": "normal equal batch",
+      "currentQty": "10",
+      "currentAvgCost": "100.0000",
+      "addedQty": "10",
+      "addedUnitCost": "120.00",
+      "expected": "110.0000"
+    },
+    {
+      "label": "negative stock counts as 0 (BR-C6)",
+      "currentQty": "-5",
+      "currentAvgCost": "80.0000",
+      "addedQty": "10",
+      "addedUnitCost": "120.00",
+      "expected": "120.0000"
+    },
+    {
+      "label": "4-decimal half up rounding (BR-C2)",
+      "currentQty": "3",
+      "currentAvgCost": "100.0000",
+      "addedQty": "4",
+      "addedUnitCost": "115.00",
+      "expected": "108.5714"
+    }
+  ],
+  "multiStepPartialReturnWithRemainder": {
+    "lineNet": "100.00",
+    "lineCogs": "60.00",
+    "soldQty": "3",
+    "steps": [
+      {
+        "returnQty": "1",
+        "alreadyReturnedQty": "0",
+        "alreadyRefundedValue": "0.00",
+        "alreadyReversedCogs": "0.00",
+        "expectedRefundValue": "33.33",
+        "expectedCogsReversed": "20.00"
+      },
+      {
+        "returnQty": "1",
+        "alreadyReturnedQty": "1",
+        "alreadyRefundedValue": "33.33",
+        "alreadyReversedCogs": "20.00",
+        "expectedRefundValue": "33.33",
+        "expectedCogsReversed": "20.00"
+      },
+      {
+        "returnQty": "1",
+        "alreadyReturnedQty": "2",
+        "alreadyRefundedValue": "66.66",
+        "alreadyReversedCogs": "40.00",
+        "expectedRefundValue": "33.34",
+        "expectedCogsReversed": "20.00"
+      }
+    ]
+  },
+  "saleFinancials": [
+    {
+      "label": "Rs 5000 sale with Rs 3000 cash -> PARTIAL, balance 2000",
+      "total": "5000.00",
+      "returnedValue": "0.00",
+      "status": "COMPLETED",
+      "payments": [{ "kind": "SALE_PAYMENT", "amount": "3000.00" }],
+      "expected": {
+        "amountPaid": "3000.00",
+        "netTotal": "5000.00",
+        "balanceDue": "2000.00",
+        "paymentStatus": "PARTIAL"
+      }
+    },
+    {
+      "label": "Credit sale with 0 payment -> UNPAID",
+      "total": "2500.00",
+      "returnedValue": "0.00",
+      "status": "COMPLETED",
+      "payments": [],
+      "expected": {
+        "amountPaid": "0.00",
+        "netTotal": "2500.00",
+        "balanceDue": "2500.00",
+        "paymentStatus": "UNPAID"
+      }
+    },
+    {
+      "label": "Full return reduces netTotal to 0 -> NOT_APPLICABLE",
+      "total": "1000.00",
+      "returnedValue": "1000.00",
+      "status": "COMPLETED",
+      "payments": [
+        { "kind": "SALE_PAYMENT", "amount": "1000.00" },
+        { "kind": "SALE_REFUND", "amount": "1000.00" }
+      ],
+      "expected": {
+        "amountPaid": "0.00",
+        "netTotal": "0.00",
+        "balanceDue": "0.00",
+        "paymentStatus": "NOT_APPLICABLE"
+      }
+    },
+    {
+      "label": "Cancelled sale -> NOT_APPLICABLE",
+      "total": "1200.00",
+      "returnedValue": "0.00",
+      "status": "CANCELLED",
+      "payments": [
+        { "kind": "SALE_PAYMENT", "amount": "1200.00" },
+        { "kind": "SALE_REFUND", "amount": "1200.00" }
+      ],
+      "expected": {
+        "amountPaid": "0.00",
+        "netTotal": "0.00",
+        "balanceDue": "0.00",
+        "paymentStatus": "NOT_APPLICABLE"
+      }
+    }
+  ],
+  "periodBoundsAsiaKarachi": [
+    {
+      "label": "month-end late evening UTC belongs to next Karachi day (2026-01-31T20:30:00Z is 2026-02-01 01:30 PKT)",
+      "nowIso": "2026-01-31T20:30:00.000Z",
+      "timeZone": "Asia/Karachi",
+      "period": "today",
+      "expectedStartUtcIso": "2026-01-31T19:00:00.000Z",
+      "expectedEndUtcIso": "2026-02-01T19:00:00.000Z",
+      "expectedStartLocalDate": "2026-02-01",
+      "expectedEndLocalDate": "2026-02-01"
+    },
+    {
+      "label": "week start Sunday evening PKT (2026-11-15 is Sunday; week is Mon 2026-11-09 to Sun 2026-11-15)",
+      "nowIso": "2026-11-15T10:00:00.000Z",
+      "timeZone": "Asia/Karachi",
+      "period": "week",
+      "expectedStartUtcIso": "2026-11-08T19:00:00.000Z",
+      "expectedEndUtcIso": "2026-11-15T19:00:00.000Z",
+      "expectedStartLocalDate": "2026-11-09",
+      "expectedEndLocalDate": "2026-11-15"
+    },
+    {
+      "label": "calendar month February 2026 (28 days)",
+      "nowIso": "2026-02-15T12:00:00.000Z",
+      "timeZone": "Asia/Karachi",
+      "period": "month",
+      "expectedStartUtcIso": "2026-01-31T19:00:00.000Z",
+      "expectedEndUtcIso": "2026-02-28T19:00:00.000Z",
+      "expectedStartLocalDate": "2026-02-01",
+      "expectedEndLocalDate": "2026-02-28"
+    }
+  ]
+}
