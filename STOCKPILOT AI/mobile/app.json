@@ -21,6 +21,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "bf5edd8b-e8fb-4314-a1f9-60dca803fd82"
+      }
+    },
+    "owner": "abdul-basir-dev"
   }
 }
