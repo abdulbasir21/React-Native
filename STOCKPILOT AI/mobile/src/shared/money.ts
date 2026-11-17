@@ -1,5 +1,5 @@
 import { Decimal } from 'decimal.js';
-import { DECIMAL_UNITS, type Unit } from './enums.js';
+import { DECIMAL_UNITS, type Unit } from './enums';
 
 export const ExactDecimal = Decimal.clone({
   precision: 28,

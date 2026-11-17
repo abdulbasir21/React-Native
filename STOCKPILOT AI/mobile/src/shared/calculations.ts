@@ -1,4 +1,4 @@
-import type { PaymentKind, PaymentStatus, SaleStatus, StockMovementType } from './enums.js';
+import type { PaymentKind, PaymentStatus, SaleStatus, StockMovementType } from './enums';
 import {
   dec,
   ExactDecimal,
@@ -7,7 +7,7 @@ import {
   round3,
   round4,
   sumMoney,
-} from './money.js';
+} from './money';
 
 export function lineSubtotal(quantity: string | number, unitPrice: string | number): string {
   const q = dec(quantity);
