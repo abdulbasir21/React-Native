@@ -1,15 +1,72 @@
 import '../global.css';
 import NetInfo from '@react-native-community/netinfo';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Stack } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { AppState } from 'react-native';
+import { Stack, useRouter, useSegments } from 'expo-router';
+import { Component, type ErrorInfo, type ReactNode, useEffect, useState } from 'react';
+import { ActivityIndicator, AppState, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SyncBanner } from '../src/components/SyncBanner';
 import { useSessionStore } from '../src/stores/sessionStore';
 import { useSyncStore } from '../src/stores/syncStore';
+import { colors, radii, spacing, typography } from '../src/theme/tokens';
+
+class AppErrorBoundary extends Component<
+  { children: ReactNode },
+  { error: Error | null }
+> {
+  state: { error: Error | null } = { error: null };
+
+  static getDerivedStateFromError(error: Error) {
+    return { error };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('AppErrorBoundary caught:', error, info.componentStack);
+  }
+
+  render() {
+    if (this.state.error) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: colors.background,
+            padding: spacing.lg,
+            justifyContent: 'center',
+            gap: spacing.md,
+          }}
+        >
+          <Text style={{ ...typography.headlineMd, color: colors.errorText }}>
+            Something went wrong
+          </Text>
+          <ScrollView style={{ maxHeight: 240 }}>
+            <Text style={{ ...typography.bodyMd, color: colors.textSecondary }}>
+              {this.state.error.message}
+            </Text>
+          </ScrollView>
+          <Pressable
+            onPress={() => this.setState({ error: null })}
+            style={{
+              minHeight: 48,
+              backgroundColor: colors.primary,
+              borderRadius: radii.md,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Text style={{ ...typography.titleMd, color: colors.white }}>Try Again</Text>
+          </Pressable>
+        </View>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 export default function RootLayout() {
+  const router = useRouter();
+  const segments = useSegments();
+
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -33,6 +90,16 @@ export default function RootLayout() {
   useEffect(() => {
     void hydrateSession();
   }, [hydrateSession]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    const inAuthGroup = segments[0] === '(auth)';
+    if (!token && !inAuthGroup && segments.length > 0) {
+      router.replace('/(auth)/login');
+    } else if (token && inAuthGroup) {
+      router.replace('/(tabs)');
+    }
+  }, [hydrated, token, segments, router]);
 
   useEffect(() => {
     const shopId = shop?.id;
@@ -61,13 +128,31 @@ export default function RootLayout() {
     };
   }, [hydrated, token, shop?.id, setOnline, refreshStatus, triggerSync]);
 
+  if (!hydrated) {
+    return (
+      <SafeAreaProvider>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: colors.background,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      </SafeAreaProvider>
+    );
+  }
+
   return (
-    <SafeAreaProvider>
-      <QueryClientProvider client={queryClient}>
-        {hydrated && !!token ? <SyncBanner /> : null}
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" />
-          <Stack.Protected guard={hydrated && !!token}>
+    <AppErrorBoundary>
+      <SafeAreaProvider>
+        <QueryClientProvider client={queryClient}>
+          {token ? <SyncBanner /> : null}
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="index" />
+            <Stack.Screen name="(auth)" />
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="products/form" />
             <Stack.Screen name="products/[id]" />
@@ -90,12 +175,9 @@ export default function RootLayout() {
             <Stack.Screen name="sync/index" />
             <Stack.Screen name="ai/index" />
             <Stack.Screen name="settings/index" />
-          </Stack.Protected>
-          <Stack.Protected guard={!hydrated || !token}>
-            <Stack.Screen name="(auth)" />
-          </Stack.Protected>
-        </Stack>
-      </QueryClientProvider>
-    </SafeAreaProvider>
+          </Stack>
+        </QueryClientProvider>
+      </SafeAreaProvider>
+    </AppErrorBoundary>
   );
 }

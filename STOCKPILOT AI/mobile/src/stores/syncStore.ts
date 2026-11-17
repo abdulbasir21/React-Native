@@ -30,19 +30,25 @@ export const useSyncStore = create<SyncStoreState>((set, get) => ({
   },
 
   async refreshStatus(shopId) {
-    const [entries, state] = await Promise.all([
-      listLocalOutboxEntries(shopId),
-      getLocalSyncState(shopId),
-    ]);
-    const pendingCount = entries.filter(
-      (e) => e.status === 'PENDING' || e.status === 'FAILED' || e.status === 'IN_FLIGHT',
-    ).length;
-    const needsReviewCount = entries.filter((e) => e.status === 'NEEDS_REVIEW').length;
-    set({
-      pendingCount,
-      needsReviewCount,
-      lastSuccessfulSyncAt: state.lastSuccessfulSyncAt,
-    });
+    try {
+      const [entries, state] = await Promise.all([
+        listLocalOutboxEntries(shopId),
+        getLocalSyncState(shopId),
+      ]);
+      const pendingCount = entries.filter(
+        (e) => e.status === 'PENDING' || e.status === 'FAILED' || e.status === 'IN_FLIGHT',
+      ).length;
+      const needsReviewCount = entries.filter((e) => e.status === 'NEEDS_REVIEW').length;
+      set({
+        pendingCount,
+        needsReviewCount,
+        lastSuccessfulSyncAt: state.lastSuccessfulSyncAt,
+      });
+    } catch (err) {
+      set({
+        lastError: err instanceof Error ? err.message : 'Unable to load local sync status',
+      });
+    }
   },
 
   async triggerSync(shopId) {
@@ -55,6 +61,10 @@ export const useSyncStore = create<SyncStoreState>((set, get) => ({
         lastWarnings: result.warnings,
       });
       await get().refreshStatus(shopId);
+    } catch (err) {
+      set({
+        lastError: err instanceof Error ? err.message : 'Background sync failed',
+      });
     } finally {
       set({ isSyncing: false });
     }
