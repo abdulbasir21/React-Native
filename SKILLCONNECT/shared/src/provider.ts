@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PROVIDER_STATUSES, type ProviderStatus } from "./index.js";
+import { PROVIDER_STATUSES, type ProviderStatus } from "./constants.js";
 
 const normalizeText = (val: string) => val.trim().normalize("NFC");
 

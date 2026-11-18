@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { ProviderStatus, Role, UserStatus } from "./index.js";
+import type { ProviderStatus, Role, UserStatus } from "./constants.js";
 
 export const adminUsersQuerySchema = z.object({
   q: z.string().trim().max(100).optional(),
