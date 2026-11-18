@@ -37,7 +37,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "eas-build-pre-install": "cd ../shared && npm ci --include=dev && npm run build"
   },
   "private": true
 }
