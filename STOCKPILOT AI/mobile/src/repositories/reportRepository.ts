@@ -219,61 +219,61 @@ export function validateCustomDateRange(from: string, to: string): string | null
 export const reportRepository = {
   async getDashboard(period: ReportPeriod = 'today'): Promise<DashboardSummaryDTO> {
     const res = await apiClient.get<{ data: DashboardSummaryDTO }>(
-      `/api/v1/dashboard?period=${period}`,
+      `/dashboard?period=${period}`,
     );
     return res.data.data;
   },
 
   async getSalesReport(filter: ReportDateFilter = {}): Promise<SalesReportDTO> {
     const res = await apiClient.get<{ data: SalesReportDTO }>(
-      `/api/v1/reports/sales${buildFilterQuery(filter)}`,
+      `/reports/sales${buildFilterQuery(filter)}`,
     );
     return res.data.data;
   },
 
   async getPurchasesReport(filter: ReportDateFilter = {}): Promise<PurchasesReportDTO> {
     const res = await apiClient.get<{ data: PurchasesReportDTO }>(
-      `/api/v1/reports/purchases${buildFilterQuery(filter)}`,
+      `/reports/purchases${buildFilterQuery(filter)}`,
     );
     return res.data.data;
   },
 
   async getExpenseReport(filter: ReportDateFilter = {}): Promise<ExpenseReportDTO> {
     const res = await apiClient.get<{ data: ExpenseReportDTO }>(
-      `/api/v1/reports/expenses${buildFilterQuery(filter)}`,
+      `/reports/expenses${buildFilterQuery(filter)}`,
     );
     return res.data.data;
   },
 
   async getProfitReport(filter: ReportDateFilter = {}): Promise<ProfitReportDTO> {
     const res = await apiClient.get<{ data: ProfitReportDTO }>(
-      `/api/v1/reports/profit${buildFilterQuery(filter)}`,
+      `/reports/profit${buildFilterQuery(filter)}`,
     );
     return res.data.data;
   },
 
   async getProductPerformanceReport(filter: ReportDateFilter = {}): Promise<ProductPerformanceDTO> {
     const res = await apiClient.get<{ data: ProductPerformanceDTO }>(
-      `/api/v1/reports/products${buildFilterQuery(filter)}`,
+      `/reports/products${buildFilterQuery(filter)}`,
     );
     return res.data.data;
   },
 
   async getInventoryValuationReport(): Promise<InventoryValuationDTO> {
     const res = await apiClient.get<{ data: InventoryValuationDTO }>(
-      '/api/v1/reports/inventory-valuation',
+      '/reports/inventory-valuation',
     );
     return res.data.data;
   },
 
   async getBalancesReport(): Promise<BalancesReportDTO> {
-    const res = await apiClient.get<{ data: BalancesReportDTO }>('/api/v1/reports/balances');
+    const res = await apiClient.get<{ data: BalancesReportDTO }>('/reports/balances');
     return res.data.data;
   },
 
   async getWriteOffsReport(filter: ReportDateFilter = {}): Promise<WriteOffsReportDTO> {
     const res = await apiClient.get<{ data: WriteOffsReportDTO }>(
-      `/api/v1/reports/write-offs${buildFilterQuery(filter)}`,
+      `/reports/write-offs${buildFilterQuery(filter)}`,
     );
     return res.data.data;
   },

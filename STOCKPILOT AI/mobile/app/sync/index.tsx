@@ -68,7 +68,7 @@ export default function SyncStatusScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top', 'bottom']}>
       <ScreenHeader title="Synchronization" />
       <ScrollView
         contentContainerStyle={{

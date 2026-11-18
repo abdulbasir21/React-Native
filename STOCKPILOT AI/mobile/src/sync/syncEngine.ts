@@ -93,12 +93,12 @@ export const defaultSyncTransport: SyncTransport = {
   async push(operations) {
     const res = await apiClient.post<{
       data: { results: SyncPushResultItemDTO[]; serverTime: string };
-    }>('/api/v1/sync/push', { operations });
+    }>('/sync/push', { operations });
     return res.data.data;
   },
   async pull(since) {
     const qs = since ? `?since=${encodeURIComponent(since)}` : '';
-    const res = await apiClient.get<{ data: SyncPullPayloadDTO }>(`/api/v1/sync/pull${qs}`);
+    const res = await apiClient.get<{ data: SyncPullPayloadDTO }>(`/sync/pull${qs}`);
     return res.data.data;
   },
 };

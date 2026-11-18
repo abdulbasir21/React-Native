@@ -51,7 +51,7 @@ export const aiRepository = {
   }> {
     const res = await apiClient.post<{
       data: { conversationId: string; answer: AIStructuredAnswerDTO };
-    }>('/api/v1/ai/chat', {
+    }>('/ai/chat', {
       message,
       conversationId: conversationId ?? undefined,
     });
@@ -60,14 +60,14 @@ export const aiRepository = {
 
   async listConversations(): Promise<AIConversationDTO[]> {
     const res = await apiClient.get<{ data: { conversations: AIConversationDTO[] } }>(
-      '/api/v1/ai/conversations',
+      '/ai/conversations',
     );
     return res.data.data.conversations;
   },
 
   async confirmAction(actionId: string, confirmInput?: string): Promise<AIPendingActionDTO> {
     const res = await apiClient.post<{ data: { action: AIPendingActionDTO } }>(
-      `/api/v1/ai/actions/${actionId}/confirm`,
+      `/ai/actions/${actionId}/confirm`,
       confirmInput ? { confirmInput } : {},
     );
     return res.data.data.action;
@@ -75,7 +75,7 @@ export const aiRepository = {
 
   async rejectAction(actionId: string): Promise<AIPendingActionDTO> {
     const res = await apiClient.post<{ data: { action: AIPendingActionDTO } }>(
-      `/api/v1/ai/actions/${actionId}/reject`,
+      `/ai/actions/${actionId}/reject`,
     );
     return res.data.data.action;
   },

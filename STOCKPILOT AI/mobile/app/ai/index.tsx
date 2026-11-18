@@ -115,7 +115,7 @@ export default function AIAssistantScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top', 'bottom']}>
       <ScreenHeader title="AI Business Assistant" />
       <KeyboardAvoidingView
         style={{ flex: 1 }}

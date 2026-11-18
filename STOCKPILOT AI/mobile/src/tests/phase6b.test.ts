@@ -28,15 +28,15 @@ describe('Phase 6b — Mobile reportRepository & custom date range validation', 
 
     const dash = await reportRepository.getDashboard('today');
     expect(dash.estimatedProfit).toBe('160.00');
-    expect(getSpy).toHaveBeenCalledWith('/api/v1/dashboard?period=today');
+    expect(getSpy).toHaveBeenCalledWith('/dashboard?period=today');
 
     await reportRepository.getSalesReport({ from: '2026-10-01', to: '2026-10-31' });
-    expect(getSpy).toHaveBeenCalledWith('/api/v1/reports/sales?from=2026-10-01&to=2026-10-31');
+    expect(getSpy).toHaveBeenCalledWith('/reports/sales?from=2026-10-01&to=2026-10-31');
 
     await reportRepository.getInventoryValuationReport();
-    expect(getSpy).toHaveBeenCalledWith('/api/v1/reports/inventory-valuation');
+    expect(getSpy).toHaveBeenCalledWith('/reports/inventory-valuation');
 
     await reportRepository.getBalancesReport();
-    expect(getSpy).toHaveBeenCalledWith('/api/v1/reports/balances');
+    expect(getSpy).toHaveBeenCalledWith('/reports/balances');
   });
 });

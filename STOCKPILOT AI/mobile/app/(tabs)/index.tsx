@@ -148,6 +148,8 @@ export default function HomeDashboardScreen() {
                 }}
               >
                 <Text
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
                   style={{
                     ...typography.labelMd,
                     color: active ? colors.primary : colors.textSecondary,

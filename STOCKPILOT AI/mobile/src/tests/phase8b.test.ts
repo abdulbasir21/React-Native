@@ -49,7 +49,7 @@ describe('Phase 8b — Mobile AI Assistant repository & strong confirmation vali
 
     const chatRes = await aiRepository.chat('What are my sales?', null);
     expect(chatRes.conversationId).toBe('conv-1');
-    expect(postSpy).toHaveBeenCalledWith('/api/v1/ai/chat', {
+    expect(postSpy).toHaveBeenCalledWith('/ai/chat', {
       message: 'What are my sales?',
       conversationId: undefined,
     });
@@ -59,7 +59,7 @@ describe('Phase 8b — Mobile AI Assistant repository & strong confirmation vali
     } as never);
     const conf = await aiRepository.confirmAction('act-1', '60000.00');
     expect(conf.status).toBe('CONFIRMED');
-    expect(postSpy).toHaveBeenCalledWith('/api/v1/ai/actions/act-1/confirm', {
+    expect(postSpy).toHaveBeenCalledWith('/ai/actions/act-1/confirm', {
       confirmInput: '60000.00',
     });
 
@@ -68,6 +68,6 @@ describe('Phase 8b — Mobile AI Assistant repository & strong confirmation vali
     } as never);
     const rej = await aiRepository.rejectAction('act-1');
     expect(rej.status).toBe('REJECTED');
-    expect(postSpy).toHaveBeenCalledWith('/api/v1/ai/actions/act-1/reject');
+    expect(postSpy).toHaveBeenCalledWith('/ai/actions/act-1/reject');
   });
 });
