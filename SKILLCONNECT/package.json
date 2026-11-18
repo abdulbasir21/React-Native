@@ -1,0 +1,10 @@
+{
+  "name": "skillconnect",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "typecheck": "npm --prefix shared run typecheck && npm --prefix server run typecheck && npm --prefix admin run typecheck && npm --prefix mobile run typecheck",
+    "lint": "npm --prefix shared run lint && npm --prefix server run lint && npm --prefix admin run lint && npm --prefix mobile run lint",
+    "test": "npm --prefix server run test"
+  }
+}

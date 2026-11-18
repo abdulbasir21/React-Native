@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillConnect - District Buner Trade Marketplace</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-fixed": "#00201f",
+            "inverse-surface": "#2f3130",
+            "on-primary-fixed-variant": "#00504e",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#8fd2cf",
+            "surface-tint": "#216866",
+            "on-background": "#1a1c1c",
+            "surface-container-high": "#e8e8e7",
+            "on-surface": "#1a1c1c",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#3f4948",
+            "surface-container-highest": "#e2e2e2",
+            "outline-variant": "#bec9c7",
+            "primary": "#004341",
+            "surface": "#f9f9f8",
+            "secondary-fixed-dim": "#ffb77d",
+            "surface-dim": "#dadad9",
+            "surface-variant": "#e2e2e2",
+            "primary-container": "#0d5c5a",
+            "outline": "#6f7978",
+            "surface-container-low": "#f3f4f3",
+            "on-primary": "#ffffff",
+            "secondary-container": "#fe932c",
+            "secondary": "#904d00",
+            "surface-container-lowest": "#ffffff",
+            "error": "#ba1a1a",
+            "tertiary-fixed-dim": "#bdc9c8",
+            "tertiary-fixed": "#d9e5e4",
+            "on-tertiary-container": "#bcc8c7",
+            "on-error-container": "#93000a",
+            "on-secondary": "#ffffff",
+            "inverse-on-surface": "#f1f1f0",
+            "tertiary-container": "#495454",
+            "inverse-primary": "#8fd2cf",
+            "on-primary-container": "#8fd2cf",
+            "on-error": "#ffffff",
+            "surface-bright": "#f9f9f8",
+            "on-tertiary-fixed-variant": "#3e4948",
+            "secondary-fixed": "#ffdcc3",
+            "on-secondary-fixed-variant": "#6e3900",
+            "surface-container": "#eeeeed",
+            "on-tertiary-fixed": "#131d1d",
+            "tertiary": "#323d3d",
+            "on-secondary-container": "#663500",
+            "primary-fixed": "#abefeb",
+            "background": "#f9f9f8",
+            "on-secondary-fixed": "#2f1500"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-desktop": "1.5rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "margin": "1rem",
+            "margin-desktop": "2rem",
+            "space-xs": "0.25rem",
+            "gutter": "1rem"
+          },
+          "fontFamily": {
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "headline-xl": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Inter"],
+            "label-lg": ["Inter"]
+          },
+          "fontSize": {
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased font-body-md min-h-screen pb-24 selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TOP APP BAR (Shared Component Anchor) -->
+<header class="sticky top-0 z-40 bg-surface-container-lowest border-b border-outline-variant/40 shadow-[0_1px_2px_rgba(17,24,39,0.03)]">
+<div class="flex justify-between items-center w-full px-margin min-h-[56px] max-w-md mx-auto">
+<!-- Location Selector Chip -->
+<button class="flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container active:scale-[0.98] transition-all text-left">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="location_on">location_on</span>
+<span class="text-headline-sm font-headline-sm font-bold text-primary tracking-tight">Daggar, Buner</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]" data-icon="expand_more">expand_more</span>
+</button>
+<!-- Discreet Notification Trigger -->
+<button aria-label="Notifications" class="relative w-11 h-11 flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container active:scale-[0.98] transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="notifications">notifications</span>
+<span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-secondary-container ring-2 ring-surface-container-lowest"></span>
+</button>
+</div>
+</header>
+<!-- MAIN CANVAS -->
+<main class="max-w-md mx-auto px-margin pt-space-md space-y-space-lg">
+<!-- SEARCH & DISCOVERY PROMPT -->
+<section class="space-y-space-sm">
+<div class="space-y-0.5">
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile text-primary tracking-tight">Find trusted local technicians in Buner</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Verified craftsmen across Daggar, Swari, Gadezai, and Pir Baba.</p>
+</div>
+<!-- Functional Search Bar -->
+<div class="relative flex items-center mt-space-sm">
+<span class="material-symbols-outlined absolute left-3.5 text-outline pointer-events-none text-[22px]" data-icon="search">search</span>
+<input class="w-full min-h-[48px] pl-11 pr-4 bg-surface-container-lowest border border-outline-variant/60 rounded-xl text-body-md font-body-md text-on-surface placeholder:text-outline focus:border-primary-container focus:ring-0 focus:outline-none shadow-[0_1px_2px_rgba(17,24,39,0.04)] transition-all" placeholder="Search electricians, solar, plumbers..." type="text"/>
+</div>
+<!-- Buner Region Quick Filter Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+<button class="flex-shrink-0 px-3 py-1.5 rounded-full bg-primary-fixed/40 border border-primary-container/30 text-primary font-label-md text-label-md">All Buner</button>
+<button class="flex-shrink-0 px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors">Daggar</button>
+<button class="flex-shrink-0 px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors">Swari</button>
+<button class="flex-shrink-0 px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors">Gadezai</button>
+<button class="flex-shrink-0 px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors">Pir Baba</button>
+</div>
+</section>
+<!-- TRUST STRIP / LOCAL CIVIC AFFORDANCES -->
+<section class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-space-sm shadow-[0_1px_2px_rgba(17,24,39,0.03)]">
+<div class="grid grid-cols-3 gap-2 divide-x divide-outline-variant/40 text-center">
+<div class="flex flex-col items-center justify-center px-1">
+<span class="material-symbols-outlined text-primary text-[20px] mb-1" data-icon="handshake">handshake</span>
+<span class="text-label-sm font-label-sm text-on-surface font-semibold leading-tight">100% Cash on Completion</span>
+<span class="text-[10px] text-outline mt-0.5">Pay after work done</span>
+</div>
+<div class="flex flex-col items-center justify-center px-1">
+<span class="material-symbols-outlined text-primary text-[20px] mb-1" data-icon="verified_user">verified_user</span>
+<span class="text-label-sm font-label-sm text-on-surface font-semibold leading-tight">Verified Technicians</span>
+<span class="text-[10px] text-outline mt-0.5">District Buner registered</span>
+</div>
+<div class="flex flex-col items-center justify-center px-1">
+<span class="material-symbols-outlined text-primary text-[20px] mb-1" data-icon="lock">lock</span>
+<span class="text-label-sm font-label-sm text-on-surface font-semibold leading-tight">Strict In-App Privacy</span>
+<span class="text-[10px] text-outline mt-0.5">Direct chat only</span>
+</div>
+</div>
+</section>
+<!-- SERVICE CATEGORIES GRID (Utilitarian, clean 12px rounded cards) -->
+<section class="space-y-space-sm">
+<div class="flex items-center justify-between">
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Essential Services</h2>
+<span class="text-label-md font-label-md text-outline">8 Specializations</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Category 1: Solar -->
+<a class="group bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-3.5 hover:border-primary-container/40 active:scale-[0.98] transition-all flex flex-col justify-between min-h-[110px] shadow-[0_1px_2px_rgba(17,24,39,0.03)]" href="#solar">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-fixed/40 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="solar_power">solar_power</span>
+</div>
+<span class="text-[10px] font-label-sm text-outline">Buner Solar</span>
+</div>
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface leading-tight">Solar Technicians</h3>
+<p class="text-body-sm font-body-sm text-outline text-[12px] truncate mt-0.5">Inverter &amp; Panels</p>
+</div>
+</a>
+<!-- Category 2: Electricians -->
+<a class="group bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-3.5 hover:border-primary-container/40 active:scale-[0.98] transition-all flex flex-col justify-between min-h-[110px] shadow-[0_1px_2px_rgba(17,24,39,0.03)]" href="#electrician">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-fixed/40 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="electric_bolt">electric_bolt</span>
+</div>
+<span class="text-[10px] font-label-sm text-outline">High Demand</span>
+</div>
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface leading-tight">Electricians</h3>
+<p class="text-body-sm font-body-sm text-outline text-[12px] truncate mt-0.5">Wiring &amp; Repairs</p>
+</div>
+</a>
+<!-- Category 3: Plumbers -->
+<a class="group bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-3.5 hover:border-primary-container/40 active:scale-[0.98] transition-all flex flex-col justify-between min-h-[110px] shadow-[0_1px_2px_rgba(17,24,39,0.03)]" href="#plumber">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-fixed/40 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="plumbing">plumbing</span>
+</div>
+<span class="text-[10px] font-label-sm text-outline">Sanitary</span>
+</div>
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface leading-tight">Plumbers</h3>
+<p class="text-body-sm font-body-sm text-outline text-[12px] truncate mt-0.5">Motor &amp; Pipe Fitting</p>
+</div>
+</a>
+<!-- Category 4: AC & Refrigeration -->
+<a class="group bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-3.5 hover:border-primary-container/40 active:scale-[0.98] transition-all flex flex-col justify-between min-h-[110px] shadow-[0_1px_2px_rgba(17,24,39,0.03)]" href="#ac">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-fixed/40 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="ac_unit">ac_unit</span>
+</div>
+<span class="text-[10px] font-label-sm text-outline">Seasonal</span>
+</div>
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface leading-tight">AC &amp; Refrigeration</h3>
+<p class="text-body-sm font-body-sm text-outline text-[12px] truncate mt-0.5">Split AC &amp; Gas Refill</p>
+</div>
+</a>
+<!-- Category 5: Mechanics -->
+<a class="group bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-3.5 hover:border-primary-container/40 active:scale-[0.98] transition-all flex flex-col justify-between min-h-[110px] shadow-[0_1px_2px_rgba(17,24,39,0.03)]" href="#mechanics">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-fixed/40 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="car_repair">car_repair</span>
+</div>
+<span class="text-[10px] font-label-sm text-outline">Heavy/Light</span>
+</div>
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface leading-tight">Mechanics</h3>
+<p class="text-body-sm font-body-sm text-outline text-[12px] truncate mt-0.5">Auto &amp; Generator</p>
+</div>
+</a>
+<!-- Category 6: Carpenters -->
+<a class="group bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-3.5 hover:border-primary-container/40 active:scale-[0.98] transition-all flex flex-col justify-between min-h-[110px] shadow-[0_1px_2px_rgba(17,24,39,0.03)]" href="#carpenter">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-fixed/40 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="carpenter">carpenter</span>
+</div>
+<span class="text-[10px] font-label-sm text-outline">Artisanal</span>
+</div>
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface leading-tight">Carpenters</h3>
+<p class="text-body-sm font-body-sm text-outline text-[12px] truncate mt-0.5">Woodwork &amp; Fittings</p>
+</div>
+</a>
+<!-- Category 7: Painters & Polishers -->
+<a class="group bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-3.5 hover:border-primary-container/40 active:scale-[0.98] transition-all flex flex-col justify-between min-h-[110px] shadow-[0_1px_2px_rgba(17,24,39,0.03)]" href="#painters">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-fixed/40 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="format_paint">format_paint</span>
+</div>
+<span class="text-[10px] font-label-sm text-outline">Finishing</span>
+</div>
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface leading-tight">Painters &amp; Polishers</h3>
+<p class="text-body-sm font-body-sm text-outline text-[12px] truncate mt-0.5">Interior &amp; Exterior</p>
+</div>
+</a>
+<!-- Category 8: Mobile & Electronics -->
+<a class="group bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-3.5 hover:border-primary-container/40 active:scale-[0.98] transition-all flex flex-col justify-between min-h-[110px] shadow-[0_1px_2px_rgba(17,24,39,0.03)]" href="#electronics">
+<div class="flex items-start justify-between">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary group-hover:bg-primary-fixed/40 transition-colors">
+<span class="material-symbols-outlined text-[22px]" data-icon="devices">devices</span>
+</div>
+<span class="text-[10px] font-label-sm text-outline">Hardware</span>
+</div>
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface leading-tight">Mobile &amp; Electronics</h3>
+<p class="text-body-sm font-body-sm text-outline text-[12px] truncate mt-0.5">Component Repair</p>
+</div>
+</a>
+</div>
+</section>
+<!-- FEATURED NEARBY TECHNICIANS -->
+<section class="space-y-space-sm pt-1">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Featured Nearby Technicians</h2>
+<p class="text-body-sm font-body-sm text-outline">Active dispatch ready in District Buner</p>
+</div>
+<button class="text-label-md font-label-md text-primary hover:underline">View All</button>
+</div>
+<!-- TECHNICIAN CARD 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 space-y-3.5 shadow-[0_1px_3px_0_rgba(17,24,39,0.05)]">
+<div class="flex items-start gap-3">
+<!-- Craftsman Avatar -->
+<div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container border border-outline-variant/50">
+<img class="w-full h-full object-cover" data-alt="A portrait of a skilled Pashtun technician in Daggar Buner, wearing a traditional slate grey shalwar kameez and work vest, standing outdoors in clean natural daylight with mountains softly out of focus in the background. The lighting is crisp and sober, evoking trust and craftsmanship in a modern utilitarian aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAmCeiHY0AfpY18ks1gEYGFobNeid8GJuPWjREvbYxsAQ7IvT218xB2Of1BMrAC_zTj7nDA-YkSpL6QjBIbQoIoZrKFqCsNYaV9R1zYXsCiS-gkl3NFL4fdDo-8ahW0EdD-NQqcY-aHrdle7PDO1JZ7xTzceh6AYSIpWs6ty68AdLSy9VqvK9bQsoLfrn7WlBiumnVpvS4jVCLFd9vtXczzR3-Vl4tTRUxKj2cRg"/>
+</div>
+<!-- Metadata & Ratings -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h3 class="text-headline-sm font-headline-sm text-on-surface truncate">Khan Zada Electrician</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-label-sm bg-primary-fixed/50 text-primary border border-primary-container/20">
+                Available Today
+              </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant font-medium mt-0.5">Solar &amp; Home Inverter Specialist</p>
+<div class="flex items-center gap-3 mt-1.5 text-body-sm font-body-sm">
+<!-- Rating with Warm Amber Star -->
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[#D97706] text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-semibold text-on-surface">4.9</span>
+<span class="text-outline text-body-sm">(128)</span>
+</div>
+<span class="text-outline-variant">•</span>
+<!-- Distance & Sub-region -->
+<div class="flex items-center gap-1 text-on-surface-variant truncate">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="near_me">near_me</span>
+<span class="text-[12px]">Daggar Bazaar (~2.1 km)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tariff & Commercial Terms -->
+<div class="pt-2 border-t border-outline-variant/40 flex items-center justify-between text-body-sm">
+<div>
+<span class="text-outline text-label-sm font-label-sm block">Visiting / Diagnostic Fee</span>
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface">Rs. 500</span>
+</div>
+<div class="text-right">
+<span class="text-[11px] font-label-sm text-primary inline-flex items-center gap-1 bg-surface-container-low px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]" data-icon="payments">payments</span> Cash on Completion
+            </span>
+</div>
+</div>
+<!-- Primary Action Trigger -->
+<button class="w-full min-h-[48px] px-5 py-2.5 bg-primary-container hover:bg-primary active:scale-[0.98] text-on-primary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-2 transition-all shadow-[0_1px_2px_rgba(17,24,39,0.06)]">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat">chat</span>
+<span>Chat &amp; Check Availability</span>
+</button>
+</article>
+<!-- TECHNICIAN CARD 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 space-y-3.5 shadow-[0_1px_3px_0_rgba(17,24,39,0.05)]">
+<div class="flex items-start gap-3">
+<!-- Craftsman Avatar -->
+<div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container border border-outline-variant/50">
+<img class="w-full h-full object-cover" data-alt="A portrait of an experienced refrigeration mechanic in Swari Buner, holding diagnostic gauges, standing beside a structured workshop environment. High clarity, authentic professional lighting, realistic setting without studio embellishments, grounded in local tradesmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwrjRHk7LNPbh6WUxrTE6qTtj1BDycOfC32CZ0KpTN4rvEHQAcWPTRO8UNZtqpgJ795SpXg59P1OolDhfrqgGSZlbYLas3CD56lfJFlSiId9SikCe6futjjVe9BfJwtPr01EB7Uuk-FJBaZ70LN9YK2Dt6_5HxXLCWRQZ-cBVZ3k8ixZrB0LQEUmz6P8ldEwquSbUM3CvBDyPNtAkJ4iQ_Rwpdlq1y7-bzYF1skw"/>
+</div>
+<!-- Metadata & Ratings -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<h3 class="text-headline-sm font-headline-sm text-on-surface truncate">Mian Gul AC &amp; Refrigeration</h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant border border-outline-variant/30">
+                Responds ~10 mins
+              </span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant font-medium mt-0.5">Split AC Installation &amp; Gas Refill</p>
+<div class="flex items-center gap-3 mt-1.5 text-body-sm font-body-sm">
+<!-- Rating with Warm Amber Star -->
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[#D97706] text-[18px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-semibold text-on-surface">4.8</span>
+<span class="text-outline text-body-sm">(84)</span>
+</div>
+<span class="text-outline-variant">•</span>
+<!-- Distance & Sub-region -->
+<div class="flex items-center gap-1 text-on-surface-variant truncate">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="near_me">near_me</span>
+<span class="text-[12px]">Swari (~4.5 km)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tariff & Commercial Terms -->
+<div class="pt-2 border-t border-outline-variant/40 flex items-center justify-between text-body-sm">
+<div>
+<span class="text-outline text-label-sm font-label-sm block">Visiting / Diagnostic Fee</span>
+<span class="text-headline-sm font-headline-sm font-bold text-on-surface">Rs. 800</span>
+</div>
+<div class="text-right">
+<span class="text-[11px] font-label-sm text-primary inline-flex items-center gap-1 bg-surface-container-low px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]" data-icon="payments">payments</span> Cash on Completion
+            </span>
+</div>
+</div>
+<!-- Primary Action Trigger -->
+<button class="w-full min-h-[48px] px-5 py-2.5 bg-primary-container hover:bg-primary active:scale-[0.98] text-on-primary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-2 transition-all shadow-[0_1px_2px_rgba(17,24,39,0.06)]">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat">chat</span>
+<span>Chat &amp; Check Availability</span>
+</button>
+</article>
+</section>
+<!-- ASSURANCE BANNER (Utilitarian civic footer) -->
+<div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/40 text-center space-y-1 text-on-surface-variant">
+<p class="text-label-md font-label-md text-primary font-semibold">Buner Artisan Guild Standard</p>
+<p class="text-[11px] text-outline">Rates are transparently confirmed via in-app chat before dispatch. Pay direct cash to craftsman upon job satisfaction.</p>
+</div>
+</main>
+<!-- BOTTOM NAVIGATION BAR (Shared Component Anchor) -->
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-space-xs py-space-xs min-h-[64px] bg-surface-container-lowest border-t border-outline-variant shadow-[0_-1px_3px_rgba(17,24,39,0.03)]">
+<!-- Tab 1: Home (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-primary-container font-semibold min-h-[44px] min-w-[44px] active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<!-- Tab 2: Search (INACTIVE) -->
+<a class="flex flex-col items-center justify-center text-outline font-medium min-h-[44px] min-w-[44px] hover:text-primary transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="search">search</span>
+<span class="text-label-sm font-label-sm">Search</span>
+</a>
+<!-- Tab 3: Chats (INACTIVE) -->
+<a class="flex flex-col items-center justify-center text-outline font-medium min-h-[44px] min-w-[44px] hover:text-primary transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="chat">chat</span>
+<span class="text-label-sm font-label-sm">Chats</span>
+</a>
+<!-- Tab 4: Bookings (INACTIVE) -->
+<a class="flex flex-col items-center justify-center text-outline font-medium min-h-[44px] min-w-[44px] hover:text-primary transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="event_note">event_note</span>
+<span class="text-label-sm font-label-sm">Bookings</span>
+</a>
+<!-- Tab 5: Account (INACTIVE) -->
+<a class="flex flex-col items-center justify-center text-outline font-medium min-h-[44px] min-w-[44px] hover:text-primary transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="person">person</span>
+<span class="text-label-sm font-label-sm">Account</span>
+</a>
+</nav>
+<!-- Interactive Feedback Script -->
+<script>
+    // Region selector toggle behavior
+    document.querySelectorAll('.no-scrollbar button').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.no-scrollbar button').forEach(b => {
+          b.className = "flex-shrink-0 px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors";
+        });
+        this.className = "flex-shrink-0 px-3 py-1.5 rounded-full bg-primary-fixed/40 border border-primary-container/30 text-primary font-label-md text-label-md";
+      });
+    });
+  </script>
+</body></html>

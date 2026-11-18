@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillConnect - In-App Chat &amp; Offer Negotiation</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-fixed": "#00201f",
+            "inverse-surface": "#2f3130",
+            "on-primary-fixed-variant": "#00504e",
+            "error-container": "#ffdad6",
+            "primary-fixed-dim": "#8fd2cf",
+            "surface-tint": "#216866",
+            "on-background": "#1a1c1c",
+            "surface-container-high": "#e8e8e7",
+            "on-surface": "#1a1c1c",
+            "on-tertiary": "#ffffff",
+            "on-surface-variant": "#3f4948",
+            "surface-container-highest": "#e2e2e2",
+            "outline-variant": "#bec9c7",
+            "primary": "#004341",
+            "surface": "#f9f9f8",
+            "secondary-fixed-dim": "#ffb77d",
+            "surface-dim": "#dadad9",
+            "surface-variant": "#e2e2e2",
+            "primary-container": "#0d5c5a",
+            "outline": "#6f7978",
+            "surface-container-low": "#f3f4f3",
+            "on-primary": "#ffffff",
+            "secondary-container": "#fe932c",
+            "secondary": "#904d00",
+            "surface-container-lowest": "#ffffff",
+            "error": "#ba1a1a",
+            "tertiary-fixed-dim": "#bdc9c8",
+            "tertiary-fixed": "#d9e5e4",
+            "on-tertiary-container": "#bcc8c7",
+            "on-error-container": "#93000a",
+            "on-secondary": "#ffffff",
+            "inverse-on-surface": "#f1f1f0",
+            "tertiary-container": "#495454",
+            "inverse-primary": "#8fd2cf",
+            "on-primary-container": "#8fd2cf",
+            "on-error": "#ffffff",
+            "surface-bright": "#f9f9f8",
+            "on-tertiary-fixed-variant": "#3e4948",
+            "secondary-fixed": "#ffdcc3",
+            "on-secondary-fixed-variant": "#6e3900",
+            "surface-container": "#eeeeed",
+            "on-tertiary-fixed": "#131d1d",
+            "tertiary": "#323d3d",
+            "on-secondary-container": "#663500",
+            "primary-fixed": "#abefeb",
+            "background": "#f9f9f8",
+            "on-secondary-fixed": "#2f1500"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-desktop": "1.5rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "margin": "1rem",
+            "margin-desktop": "2rem",
+            "space-xs": "0.25rem",
+            "gutter": "1rem"
+          },
+          "fontFamily": {
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "headline-sm": ["Inter"],
+            "headline-xl-mobile": ["Inter"],
+            "headline-xl": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-md": ["Inter"],
+            "label-lg": ["Inter"]
+          },
+          "fontSize": {
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased flex justify-center min-h-screen">
+<!-- Mobile Device Shell Viewport Constraint -->
+<div class="w-full max-w-md bg-surface flex flex-col min-h-screen relative shadow-sm border-x border-outline-variant/30">
+<!-- Top App Bar (Task-Focused: Back Navigation, Suppression of global navigation shell per strict logic) -->
+<header class="sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant/40 flex items-center justify-between px-space-md py-space-sm min-h-[64px]">
+<div class="flex items-center space-x-space-sm flex-1 min-w-0">
+<button aria-label="Go back" class="p- space-xs -ml-1 text-on-surface hover:bg-surface-container rounded-full transition-colors flex items-center justify-center min-w-[40px] min-h-[40px]" type="button">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<!-- Technician Profile Meta -->
+<div class="relative flex-shrink-0">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant/60" data-alt="Dignified Pashtun electrician craftsman in his late thirties with a neatly trimmed beard wearing a traditional grey shalwar kameez and work vest, standing in an electrical workshop setting with natural daylight and a professional calm demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsAomB8jA3qY-Hmy5JP9RA6qLGBPzQc41rQWB196sFxjT8JwK4YIfEF1EGawjy-y998H948jtxQDJVFUMeCCTRFgr6EkvrwhZXgsaE2cWLn6eAuvk67cELfY3ay6vkO9JR7GI2JA_gXbfYE30CzB3cE3B2fhmyBeXVJqM6ljWYX3V1wpZbuoczQ3Q02Whb0OwD2_gmEJpA06TyqhvZoP0he7heEpj46XdGI2N8og"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary-container border-2 border-surface-container-lowest rounded-full"></span>
+</div>
+<div class="flex flex-col min-w-0 flex-1 pl-1">
+<div class="flex items-center space-x-1">
+<h1 class="text-label-lg font-label-lg text-on-surface truncate">Khan Zada (Electrician)</h1>
+<span class="material-symbols-outlined text-primary-container text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="flex items-center space-x-1 text-label-sm font-label-sm text-outline truncate">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-container flex-shrink-0"></span>
+<span class="truncate">Online • Typically replies in 5m</span>
+</div>
+</div>
+</div>
+<!-- Action Overflow Icon (Strictly no phone/voice dialers as per policy) -->
+<div class="flex items-center">
+<button aria-label="Chat options" class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[22px]">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Top Security & Trust Banner -->
+<div class="bg-surface-container-low px-space-md py-space-sm border-b border-outline-variant/30 flex items-start space-x-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px] flex-shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">security</span>
+<div class="flex-1">
+<p class="text-label-sm font-label-sm text-on-surface-variant leading-tight">
+<strong class="font-semibold text-primary">Protection notice:</strong> All agreements must be finalized via in-app offer. Cash payment is made only after service completion.
+        </p>
+</div>
+</div>
+<!-- Chat Message Stream Canvas -->
+<main class="flex-1 overflow-y-auto px-space-md py-space-md space-y-space-md pb-24">
+<!-- Timestamp Divider -->
+<div class="flex items-center justify-center my-space-xs">
+<span class="bg-surface-container px-space-md py-1 rounded-full text-label-sm font-label-sm text-outline border border-outline-variant/30">
+          Today 10:15 AM
+        </span>
+</div>
+<!-- Outgoing Message: User -->
+<div class="flex justify-end">
+<div class="max-w-[85%] bg-primary-container text-on-primary rounded-xl rounded-tr-none px-space-md py-2.5 shadow-sm">
+<p class="text-body-md font-body-md leading-relaxed">
+            Salam Khan lala! I have an issue with my solar hybrid inverter tripping whenever the tube well motor runs in Daggar.
+          </p>
+<div class="flex items-center justify-end space-x-1 mt-1 text-primary-fixed-dim">
+<span class="text-label-sm font-label-sm opacity-80">10:15 AM</span>
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+</div>
+</div>
+</div>
+<!-- Incoming Message: Technician -->
+<div class="flex justify-start items-end space-x-space-xs">
+<div class="max-w-[85%] bg-surface-container-lowest text-on-surface rounded-xl rounded-tl-none px-space-md py-2.5 border border-outline-variant/40 shadow-sm">
+<div class="flex items-center space-x-1 mb-1 text-primary">
+<span class="text-label-sm font-label-sm font-semibold">Khan Zada</span>
+<span class="text-label-sm font-label-sm text-outline">• Electrician</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface leading-relaxed">
+            Walaikum Assalam brother! Yes, this usually happens due to breaker amperage mismatch or surge relay fault. Can I inspect it today around 3:00 PM?
+          </p>
+<div class="flex items-center justify-end space-x-1 mt-1 text-outline">
+<span class="text-label-sm font-label-sm">10:17 AM</span>
+</div>
+</div>
+</div>
+<!-- Outgoing Message: User -->
+<div class="flex justify-end">
+<div class="max-w-[85%] bg-primary-container text-on-primary rounded-xl rounded-tr-none px-space-md py-2.5 shadow-sm">
+<p class="text-body-md font-body-md leading-relaxed">
+            Kha rasha lala (sure, please come). What will be the inspection and repair charge?
+          </p>
+<div class="flex items-center justify-end space-x-1 mt-1 text-primary-fixed-dim">
+<span class="text-label-sm font-label-sm opacity-80">10:19 AM</span>
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+</div>
+</div>
+</div>
+<!-- Special Custom In-Chat Component: Priced Service Offer Card -->
+<div class="my-space-md">
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm overflow-hidden transition-all duration-200">
+<!-- Card Header Banner -->
+<div class="bg-primary-container/10 border-b border-outline-variant/40 px-space-md py-2.5 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]" style="font-variation-settings: 'FILL' 1;">request_quote</span>
+<span class="text-label-md font-label-md text-primary font-bold tracking-tight">Official Service Offer #SC-4921</span>
+</div>
+<span class="bg-primary-container text-on-primary text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full">
+              Pending Acceptance
+            </span>
+</div>
+<!-- Card Body Content -->
+<div class="p-space-md space-y-space-sm">
+<!-- Provider Line -->
+<div>
+<span class="text-label-sm font-label-sm text-outline block">Dispatching Artisan</span>
+<p class="text-body-md font-body-md font-semibold text-on-surface">Khan Zada Solar Services</p>
+</div>
+<!-- Scope of Work -->
+<div class="bg-surface-container-low p-space-sm rounded-lg border border-outline-variant/30">
+<span class="text-label-sm font-label-sm font-semibold text-on-surface-variant flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-[16px] text-primary">build</span>
+                Scope of Work
+              </span>
+<p class="text-body-sm font-body-sm text-on-surface leading-snug">
+                On-site diagnosis &amp; repair of inverter tripping issue + 32A DC breaker replacement
+              </p>
+<div class="mt-2 flex items-center text-label-sm font-label-sm text-outline">
+<span class="material-symbols-outlined text-[15px] mr-1">schedule</span>
+<span>Estimated duration: 1 to 2 hours</span>
+</div>
+</div>
+<!-- Transparent Price Breakdown -->
+<div class="space-y-1.5 pt-1">
+<div class="flex justify-between items-center text-body-sm font-body-sm text-on-surface-variant">
+<span>Inspection &amp; Labor</span>
+<span class="font-medium text-on-surface">Rs. 800</span>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm text-on-surface-variant">
+<span>Heavy Duty DC Breaker (Original)</span>
+<span class="font-medium text-on-surface">Rs. 1,400</span>
+</div>
+<div class="border-t border-dashed border-outline-variant pt-2 flex justify-between items-baseline">
+<div>
+<span class="text-label-lg font-label-lg font-bold text-on-surface">Total Agreed Payable</span>
+<p class="text-label-sm font-label-sm text-primary font-medium">Direct Cash on Completion</p>
+</div>
+<div class="text-right">
+<span class="text-headline-sm font-headline-sm font-bold text-primary">Rs. 2,200</span>
+</div>
+</div>
+</div>
+<!-- Operational Logistics / Terms -->
+<div class="bg-surface-container px- space-sm py-2 rounded-lg flex items-start space-x-2 text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-outline flex-shrink-0 mt-0.5">pin_drop</span>
+<span>Approximate arrival: <strong class="text-on-surface font-semibold">Today, 3:30 PM (Daggar area)</strong>. Pay cash strictly after test run.</span>
+</div>
+<!-- Action Buttons Array -->
+<div class="pt-2 space-y-2">
+<button class="w-full bg-primary-container hover:bg-primary active:scale-[0.99] text-on-primary font-label-lg text-label-lg rounded-xl min-h-[48px] px-5 py-3 flex items-center justify-center space-x-2 transition-all shadow-sm" id="acceptOfferBtn" type="button">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Accept Offer &amp; Confirm Booking</span>
+</button>
+<button class="w-full bg-transparent hover:bg-surface-container border border-outline-variant active:scale-[0.99] text-on-surface-variant font-label-md text-label-md rounded-xl min-h-[44px] px-4 py-2.5 flex items-center justify-center space-x-1.5 transition-all" id="renegotiateBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span>Decline / Renegotiate</span>
+</button>
+</div>
+<!-- Cash Notice Affix -->
+<div class="text-center pt-1">
+<span class="inline-flex items-center text-[11px] font-medium text-outline">
+<span class="material-symbols-outlined text-[14px] mr-1 text-primary-container">payments</span>
+                Payment: Direct Cash on Completion (Rs. 2,200)
+              </span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Sticky Chat Input Bar -->
+<div class="sticky bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-outline-variant/40 px-space-md py-space-sm z-30">
+<form class="flex items-center space-x-2" onsubmit="event.preventDefault();">
+<!-- Attachment / Camera Action -->
+<button aria-label="Attach inverter image or document" class="flex items-center justify-center text-outline hover:text-primary-container hover:bg-surface-container p-2 rounded-xl transition-colors min-h-[44px] min-w-[44px] flex-shrink-0" type="button">
+<span class="material-symbols-outlined text-[24px]">photo_camera</span>
+</button>
+<!-- Message Input Field -->
+<div class="flex-1 relative flex items-center">
+<input class="w-full bg-surface-container-low border border-outline-variant/50 focus:border-primary-container focus:ring-0 rounded-xl px-3.5 py-2.5 text-body-md font-body-md text-on-surface placeholder:text-outline/70 min-h-[44px] pr-9 transition-colors" id="chatMessageInput" placeholder="Write a message in English, Urdu or Pashto..." type="text"/>
+<button aria-label="Attach file" class="absolute right-2 text-outline hover:text-primary min-h-[32px] min-w-[32px] flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">attach_file</span>
+</button>
+</div>
+<!-- Deep Teal Send Button -->
+<button aria-label="Send message" class="bg-primary-container hover:bg-primary active:scale-95 text-on-primary rounded-xl min-h-[44px] min-w-[44px] flex items-center justify-center transition-all shadow-sm flex-shrink-0" type="submit">
+<span class="material-symbols-outlined text-[20px] ml-0.5">send</span>
+</button>
+</form>
+<!-- Safe area indicator spacer for modern mobile browsers -->
+<div class="h-1 w-24 bg-outline-variant/30 rounded-full mx-auto mt-2"></div>
+</div>
+</div>
+<!-- Interactive script for state feedback -->
+<script>
+    const acceptBtn = document.getElementById('acceptOfferBtn');
+    const renegotiateBtn = document.getElementById('renegotiateBtn');
+    
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', () => {
+        acceptBtn.classList.remove('bg-primary-container');
+        acceptBtn.classList.add('bg-primary', 'opacity-90');
+        acceptBtn.innerHTML = `
+          <span class="material-symbols-outlined text-[20px]">check</span>
+          <span>Offer Accepted • Tech Dispatched</span>
+        `;
+        acceptBtn.disabled = true;
+        if (renegotiateBtn) renegotiateBtn.style.display = 'none';
+      });
+    }
+
+    if (renegotiateBtn) {
+      renegotiateBtn.addEventListener('click', () => {
+        const input = document.getElementById('chatMessageInput');
+        if (input) {
+          input.value = "Salam Khan lala, regarding offer #SC-4921, could we revise ";
+          input.focus();
+        }
+      });
+    }
+  </script>
+</body></html>
