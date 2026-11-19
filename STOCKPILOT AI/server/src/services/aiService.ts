@@ -55,7 +55,6 @@ const FUNCTION_DECLARATIONS: FunctionDeclaration[] = [
   {
     name: 'getInventory',
     description: 'Get total inventory valuation and stock counts',
-    parameters: { type: Type.OBJECT, properties: {} },
   },
   {
     name: 'getProductDetails',
@@ -107,12 +106,10 @@ const FUNCTION_DECLARATIONS: FunctionDeclaration[] = [
   {
     name: 'getLowStockProducts',
     description: 'List active products at or below minimum stock level',
-    parameters: { type: Type.OBJECT, properties: {} },
   },
   {
     name: 'getSlowMovingProducts',
     description: 'List active products with stock > 0 and no sales in 30 days',
-    parameters: { type: Type.OBJECT, properties: {} },
   },
   {
     name: 'getSupplierBalance',
@@ -236,7 +233,7 @@ const SYSTEM_INSTRUCTION = [
   '3. Return final answers as JSON with keys: reply (string), actualFigures (object of string->string), estimates (object of string->string), suggestions (array of strings).',
 ].join('\n');
 
-function createGeminiRunner(timeoutMs = 20_000): AIModelRunner {
+function createGeminiRunner(timeoutMs = 45_000): AIModelRunner {
   const env = getEnv();
   const apiKey = env.GEMINI_API_KEY;
   if (!apiKey) {
@@ -270,6 +267,10 @@ function createGeminiRunner(timeoutMs = 20_000): AIModelRunner {
       };
     } catch (err) {
       if (err instanceof AppError) throw err;
+      console.error(
+        '[aiService] Gemini request failed:',
+        err instanceof Error ? err.message : String(err),
+      );
       throw new AppError(
         503,
         'AI_UNAVAILABLE',
