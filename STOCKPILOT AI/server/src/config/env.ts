@@ -19,7 +19,7 @@ const envSchema = z
     JWT_EXPIRES_IN: z.string().trim().min(1).default('30d'),
     GEMINI_API_KEY: z.string().trim().optional(),
     Gemini_Key: z.string().trim().optional(),
-    GEMINI_MODEL: z.string().trim().min(1).default('gemini-3.8-flash'),
+    GEMINI_MODEL: z.string().trim().min(1).default('gemini-flash-lite-latest'),
     PORT: z.coerce.number().int().positive().default(4000),
     NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
     AI_DAILY_MESSAGE_LIMIT: z.coerce.number().int().positive().default(30),
