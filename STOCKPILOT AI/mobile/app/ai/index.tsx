@@ -119,7 +119,8 @@ export default function AIAssistantScreen() {
       <ScreenHeader title="AI Business Assistant" />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 24}
       >
         {!isOnline ? (
           <View
@@ -138,6 +139,7 @@ export default function AIAssistantScreen() {
 
         <ScrollView
           style={{ flex: 1 }}
+          keyboardShouldPersistTaps="handled"
           contentContainerStyle={{
             padding: spacing.screenPadding,
             gap: spacing.md,
