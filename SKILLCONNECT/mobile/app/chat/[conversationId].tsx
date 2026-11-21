@@ -9,13 +9,13 @@ import type {
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ComponentRef } from "react";
 import {
   ActivityIndicator,
   Image,
+  Keyboard,
   KeyboardAvoidingView,
   Modal,
-  Platform,
   Pressable,
   ScrollView,
   Text,
@@ -32,6 +32,7 @@ import {
 } from "../../src/api/client";
 import { Button } from "../../src/components/Button";
 import { Input } from "../../src/components/Input";
+import { KeyboardAwareView } from "../../src/components/KeyboardAwareView";
 import { useAuth } from "../../src/features/auth/AuthProvider";
 import { CARD_SHADOW } from "../../src/theme/tokens";
 
@@ -64,6 +65,7 @@ export default function ChatThreadScreen() {
   const [aiAssistBusy, setAiAssistBusy] = useState(false);
   const [serviceAddress, setServiceAddress] = useState("");
   const socketRef = useRef<Socket | null>(null);
+  const scrollRef = useRef<ComponentRef<typeof ScrollView>>(null);
 
   const { data: conversation } = useQuery({
     queryKey: ["chat", "conversation", conversationId],
@@ -296,11 +298,21 @@ export default function ChatThreadScreen() {
   const pendingOffer = offers.find((o) => o.status === "PENDING");
   const isProvider = conversation?.myRole === "PROVIDER";
 
+  useEffect(() => {
+    const sub = Keyboard.addListener("keyboardDidShow", () => {
+      setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 100);
+    });
+    return () => sub.remove();
+  }, []);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 80);
+    }
+  }, [messages.length]);
+
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-      className="flex-1 bg-canvas"
-    >
+    <KeyboardAwareView hasHeader className="flex-1 bg-canvas">
       {conversation ? (
         <View className="flex-row items-center justify-between border-b border-hairline bg-surface px-4 py-3">
           <View className="flex-row items-center gap-2.5">
@@ -398,7 +410,11 @@ export default function ChatThreadScreen() {
         </View>
       ) : null}
 
-      <ScrollView className="flex-1 px-4 py-3">
+      <ScrollView
+        ref={scrollRef}
+        className="flex-1 px-4 py-3"
+        keyboardShouldPersistTaps="handled"
+      >
         {isLoading ? (
           <View className="items-center py-8">
             <ActivityIndicator color="#0D16A8" />
@@ -474,7 +490,13 @@ export default function ChatThreadScreen() {
                     }
                   )
                     .then((res) => setAiAssistResult(res))
-                    .catch(() => undefined)
+                    .catch((err) => {
+                      setErrorMsg(
+                        err instanceof MobileApiError
+                          ? err.message
+                          : "AI chat assist failed."
+                      );
+                    })
                     .finally(() => setAiAssistBusy(false));
                 }}
                 className="min-h-[36px] flex-row items-center gap-1 rounded-xl border border-hairline bg-canvas px-3"
@@ -532,85 +554,100 @@ export default function ChatThreadScreen() {
       </View>
 
       <Modal visible={showOfferModal} animationType="slide" transparent>
-        <View className="flex-1 justify-end bg-black/40">
-          <View className="gap-3 rounded-t-3xl bg-surface p-6">
-            <Text className="text-lg font-bold text-ink">
-              Send Service Offer
-            </Text>
-            <View className="flex-row items-center gap-2">
-              <TextInput
-                value={offerRawText}
-                onChangeText={setOfferRawText}
-                placeholder="Optional: paste plain text to pre-fill"
-                placeholderTextColor="#94A3B8"
-                className="min-h-[44px] flex-1 rounded-xl border border-hairline bg-canvas px-3 text-xs text-ink"
+        <KeyboardAvoidingView
+          behavior="padding"
+          className="flex-1 justify-end bg-black/40"
+        >
+          <View className="rounded-t-3xl bg-surface" style={{ maxHeight: "88%" }}>
+            <ScrollView
+              keyboardShouldPersistTaps="handled"
+              contentContainerStyle={{ padding: 24, gap: 12 }}
+            >
+              <Text className="text-lg font-bold text-ink">
+                Send Service Offer
+              </Text>
+              <View className="flex-row items-center gap-2">
+                <TextInput
+                  value={offerRawText}
+                  onChangeText={setOfferRawText}
+                  placeholder="Optional: paste plain text to pre-fill"
+                  placeholderTextColor="#94A3B8"
+                  className="min-h-[44px] flex-1 rounded-xl border border-hairline bg-canvas px-3 text-xs text-ink"
+                />
+                <Pressable
+                  disabled={aiOfferBusy || offerRawText.trim().length < 5}
+                  onPress={() => {
+                    setAiOfferBusy(true);
+                    setErrorMsg(null);
+                    void apiRequest<AiStructureOfferOutputDto>(
+                      "/api/v1/ai/structure-offer",
+                      {
+                        method: "POST",
+                        body: JSON.stringify({ rawText: offerRawText.trim() }),
+                      }
+                    )
+                      .then((res) => {
+                        if (res.serviceName) setOfferName(res.serviceName);
+                        if (res.description) setOfferDesc(res.description);
+                        if (res.pricePkr !== null)
+                          setOfferPrice(String(res.pricePkr));
+                      })
+                      .catch((err) => {
+                        setErrorMsg(
+                          err instanceof MobileApiError
+                            ? err.message
+                            : "AI Fill unavailable."
+                        );
+                      })
+                      .finally(() => setAiOfferBusy(false));
+                  }}
+                  className="min-h-[44px] flex-row items-center gap-1 rounded-xl border border-brand px-3 disabled:opacity-50"
+                >
+                  <Ionicons name="sparkles" size={14} color="#0D16A8" />
+                  <Text className="text-xs font-bold text-brand">
+                    {aiOfferBusy ? "..." : "AI Fill"}
+                  </Text>
+                </Pressable>
+              </View>
+              <Input
+                label="Service name"
+                value={offerName}
+                onChangeText={setOfferName}
+                placeholder="e.g. Ceiling Fan Installation"
               />
-              <Pressable
-                disabled={aiOfferBusy || offerRawText.trim().length < 5}
-                onPress={() => {
-                  setAiOfferBusy(true);
-                  void apiRequest<AiStructureOfferOutputDto>(
-                    "/api/v1/ai/structure-offer",
-                    {
-                      method: "POST",
-                      body: JSON.stringify({ rawText: offerRawText.trim() }),
-                    }
-                  )
-                    .then((res) => {
-                      if (res.serviceName) setOfferName(res.serviceName);
-                      if (res.description) setOfferDesc(res.description);
-                      if (res.pricePkr !== null)
-                        setOfferPrice(String(res.pricePkr));
-                    })
-                    .catch(() => undefined)
-                    .finally(() => setAiOfferBusy(false));
-                }}
-                className="min-h-[44px] flex-row items-center gap-1 rounded-xl border border-brand px-3 disabled:opacity-50"
-              >
-                <Ionicons name="sparkles" size={14} color="#0D16A8" />
-                <Text className="text-xs font-bold text-brand">
-                  {aiOfferBusy ? "..." : "AI Fill"}
-                </Text>
-              </Pressable>
-            </View>
-            <Input
-              label="Service name"
-              value={offerName}
-              onChangeText={setOfferName}
-              placeholder="e.g. Ceiling Fan Installation"
-            />
-            <Input
-              label="Scope / description (min 10 chars)"
-              value={offerDesc}
-              onChangeText={setOfferDesc}
-              multiline
-            />
-            <Input
-              label="Price (whole PKR)"
-              value={offerPrice}
-              onChangeText={setOfferPrice}
-              keyboardType="number-pad"
-              placeholder="1500"
-            />
-            <Input
-              label="Hours from now"
-              value={offerHoursAhead}
-              onChangeText={setOfferHoursAhead}
-              keyboardType="number-pad"
-            />
-            <Button
-              title="Send Offer"
-              icon="send"
-              onPress={() => void handleCreateOffer()}
-            />
-            <Button
-              title="Cancel"
-              variant="secondary"
-              onPress={() => setShowOfferModal(false)}
-            />
+              <Input
+                label="Scope / description (min 10 chars)"
+                value={offerDesc}
+                onChangeText={setOfferDesc}
+                multiline
+              />
+              <Input
+                label="Price (whole PKR)"
+                value={offerPrice}
+                onChangeText={setOfferPrice}
+                keyboardType="number-pad"
+                placeholder="1500"
+              />
+              <Input
+                label="Hours from now"
+                value={offerHoursAhead}
+                onChangeText={setOfferHoursAhead}
+                keyboardType="number-pad"
+              />
+              <Button
+                title="Send Offer"
+                icon="send"
+                onPress={() => void handleCreateOffer()}
+              />
+              <Button
+                title="Cancel"
+                variant="secondary"
+                onPress={() => setShowOfferModal(false)}
+              />
+            </ScrollView>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
-    </KeyboardAvoidingView>
+    </KeyboardAwareView>
   );
 }

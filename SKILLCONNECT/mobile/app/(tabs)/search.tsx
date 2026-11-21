@@ -20,6 +20,7 @@ import { apiRequest, MobileApiError } from "../../src/api/client";
 import { Button } from "../../src/components/Button";
 import { CategoryIcon } from "../../src/components/CategoryIcon";
 import { HeroHeader } from "../../src/components/HeroHeader";
+import { KeyboardAwareView } from "../../src/components/KeyboardAwareView";
 import { LocationPill } from "../../src/components/LocationPill";
 import { ProviderCard } from "../../src/components/ProviderCard";
 import { useAuth } from "../../src/features/auth/AuthProvider";
@@ -131,11 +132,13 @@ export default function SearchTab() {
   };
 
   return (
-    <ScrollView
-      className="flex-1 bg-canvas"
-      showsVerticalScrollIndicator={false}
-      keyboardShouldPersistTaps="handled"
-    >
+    <KeyboardAwareView className="flex-1 bg-canvas">
+      <ScrollView
+        className="flex-1 bg-canvas"
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
+      >
       <HeroHeader
         title="Find Technicians"
         subtitle="Filter by trade, availability, or describe your problem"
@@ -474,5 +477,6 @@ export default function SearchTab() {
         </View>
       </View>
     </ScrollView>
+    </KeyboardAwareView>
   );
 }

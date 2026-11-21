@@ -25,6 +25,7 @@ import {
 } from "../../src/api/client";
 import { Button } from "../../src/components/Button";
 import { Input } from "../../src/components/Input";
+import { KeyboardAwareView } from "../../src/components/KeyboardAwareView";
 import { useAuth } from "../../src/features/auth/AuthProvider";
 import { CARD_SHADOW } from "../../src/theme/tokens";
 
@@ -322,7 +323,12 @@ export default function ProviderAreaScreen() {
   );
 
   return (
-    <ScrollView className="flex-1 bg-canvas px-4 py-5">
+    <KeyboardAwareView hasHeader className="flex-1 bg-canvas">
+      <ScrollView
+        className="flex-1 bg-canvas px-4 py-5"
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ paddingBottom: 64 }}
+      >
       <View style={CARD_SHADOW} className="rounded-2xl bg-surface p-4">
         <View className="flex-row items-center justify-between">
           <View className="rounded-full bg-brand-tint px-3 py-1">
@@ -557,5 +563,6 @@ export default function ProviderAreaScreen() {
         ) : null}
       </View>
     </ScrollView>
+    </KeyboardAwareView>
   );
 }

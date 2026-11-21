@@ -6,6 +6,7 @@ import type {
 } from "@skillconnect/shared";
 import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
+import { useState } from "react";
 import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
 import { apiRequest, MobileApiError } from "../../src/api/client";
 import { Button } from "../../src/components/Button";
@@ -20,6 +21,8 @@ export default function PublicProviderProfileScreen() {
   const router = useRouter();
   const { user } = useAuth();
   const { location } = useLocationSelection();
+  const [chatBusy, setChatBusy] = useState(false);
+  const [chatError, setChatError] = useState<string | null>(null);
 
   const {
     data: profile,
@@ -162,24 +165,39 @@ export default function PublicProviderProfileScreen() {
         ) : null}
 
         {!isOwnProfile ? (
-          <View className="mt-5">
+          <View className="mt-5 gap-2">
+            {chatError ? (
+              <Text className="text-xs font-medium text-danger">{chatError}</Text>
+            ) : null}
             <Button
               title="Message Worker"
               icon="chatbubbles-outline"
+              loading={chatBusy}
               onPress={() => {
                 if (!user) {
                   router.push("/(auth)/login");
                   return;
                 }
+                setChatError(null);
+                setChatBusy(true);
                 void apiRequest<{ conversation: { id: string } }>(
                   "/api/v1/conversations",
                   {
                     method: "POST",
                     body: JSON.stringify({ providerProfileId: profile.id }),
                   }
-                ).then((res) => {
-                  router.push(`/chat/${res.conversation.id}`);
-                });
+                )
+                  .then((res) => {
+                    router.push(`/chat/${res.conversation.id}`);
+                  })
+                  .catch((err) => {
+                    setChatError(
+                      err instanceof MobileApiError
+                        ? err.message
+                        : "Could not start conversation."
+                    );
+                  })
+                  .finally(() => setChatBusy(false));
               }}
             />
           </View>

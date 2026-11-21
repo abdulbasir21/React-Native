@@ -4,11 +4,12 @@ import { registerSchema, type RegisterInput } from "@skillconnect/shared";
 import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MobileApiError } from "../../src/api/client";
 import { Button } from "../../src/components/Button";
 import { Input } from "../../src/components/Input";
+import { KeyboardAwareView } from "../../src/components/KeyboardAwareView";
 import { useAuth } from "../../src/features/auth/AuthProvider";
 import { STRINGS } from "../../src/strings/en";
 import { CARD_SHADOW } from "../../src/theme/tokens";
@@ -41,12 +42,9 @@ export default function RegisterScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-      className="flex-1 bg-canvas"
-    >
+    <KeyboardAwareView className="flex-1 bg-canvas">
       <ScrollView
-        contentContainerClassName="flex-grow"
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 36 }}
         keyboardShouldPersistTaps="handled"
       >
         <View
@@ -147,6 +145,6 @@ export default function RegisterScreen() {
           </View>
         </View>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </KeyboardAwareView>
   );
 }

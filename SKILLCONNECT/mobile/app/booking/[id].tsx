@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import type { BookingDto, DisputeDto, ReviewDto } from "@skillconnect/shared";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { useRef, useState, type ComponentRef } from "react";
 import {
   ActivityIndicator,
   Pressable,
@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { apiRequest, MobileApiError } from "../../src/api/client";
 import { Button } from "../../src/components/Button";
+import { KeyboardAwareView } from "../../src/components/KeyboardAwareView";
 import { useAuth } from "../../src/features/auth/AuthProvider";
 import { CARD_SHADOW } from "../../src/theme/tokens";
 
@@ -29,6 +30,7 @@ export default function BookingDetailScreen() {
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
   const [submittedReview, setSubmittedReview] = useState<ReviewDto | null>(null);
+  const scrollRef = useRef<ComponentRef<typeof ScrollView>>(null);
 
   const {
     data: booking,
@@ -78,7 +80,13 @@ export default function BookingDetailScreen() {
   const isAccused = booking.activeDispute?.accusedUserId === user?.id;
 
   return (
-    <ScrollView className="flex-1 bg-canvas px-4 py-5">
+    <KeyboardAwareView hasHeader className="flex-1 bg-canvas">
+      <ScrollView
+        ref={scrollRef}
+        className="flex-1 bg-canvas px-4 py-5"
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ paddingBottom: 60 }}
+      >
       <View style={CARD_SHADOW} className="rounded-3xl bg-surface p-5">
         <View className="flex-row items-center justify-between">
           <View className="rounded-full bg-brand-tint px-3 py-1">
@@ -268,6 +276,11 @@ export default function BookingDetailScreen() {
               <TextInput
                 value={reviewComment}
                 onChangeText={setReviewComment}
+                onFocus={() => {
+                  setTimeout(() => {
+                    scrollRef.current?.scrollToEnd({ animated: true });
+                  }, 150);
+                }}
                 placeholder="Optional comment about your experience"
                 placeholderTextColor="#94A3B8"
                 multiline
@@ -334,5 +347,6 @@ export default function BookingDetailScreen() {
         </View>
       ) : null}
     </ScrollView>
+    </KeyboardAwareView>
   );
 }

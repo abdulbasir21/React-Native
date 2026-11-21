@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { apiRequest } from "../src/api/client";
 import { Button } from "../src/components/Button";
+import { KeyboardAwareView } from "../src/components/KeyboardAwareView";
 import { useLocationSelection } from "../src/features/location/LocationContext";
 import { STRINGS } from "../src/strings/en";
 import { CARD_SHADOW, SOFT_SHADOW } from "../src/theme/tokens";
@@ -90,10 +91,12 @@ export default function LocationPickerScreen() {
   const childLocalities = localities.filter((l) => l.level === "LOCALITY");
 
   return (
-    <ScrollView
-      className="flex-1 bg-canvas px-4 py-5"
-      keyboardShouldPersistTaps="handled"
-    >
+    <KeyboardAwareView hasHeader className="flex-1 bg-canvas">
+      <ScrollView
+        className="flex-1 bg-canvas px-4 py-5"
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ paddingBottom: 48 }}
+      >
       <View style={CARD_SHADOW} className="rounded-2xl bg-surface p-5">
         <View className="flex-row items-center gap-3">
           <View className="h-11 w-11 items-center justify-center rounded-2xl bg-location-tint">
@@ -260,5 +263,6 @@ export default function LocationPickerScreen() {
         </View>
       )}
     </ScrollView>
+    </KeyboardAwareView>
   );
 }

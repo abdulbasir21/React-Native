@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import type { ComponentProps } from "react";
-import { Pressable, Text, View } from "react-native";
+import { useEffect, useState, type ComponentProps } from "react";
+import { Keyboard, Platform, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FAB_SHADOW } from "../theme/tokens";
 
@@ -38,6 +38,28 @@ export function RoyalTabBar({
 }: RoyalTabBarProps) {
   const safeInsets = useSafeAreaInsets();
   const bottomPad = Math.max(tabInsets?.bottom ?? safeInsets.bottom, 10);
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const showEvent =
+      Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
+    const hideEvent =
+      Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
+    const showSub = Keyboard.addListener(showEvent, () =>
+      setKeyboardVisible(true)
+    );
+    const hideSub = Keyboard.addListener(hideEvent, () =>
+      setKeyboardVisible(false)
+    );
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
+
+  if (keyboardVisible) {
+    return null;
+  }
 
   return (
     <View
