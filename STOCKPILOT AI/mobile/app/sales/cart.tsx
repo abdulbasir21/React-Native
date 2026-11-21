@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useMemo } from 'react';
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FormField } from '../../src/components/FormField';
 import { PrimaryButton } from '../../src/components/PrimaryButton';
@@ -82,13 +82,18 @@ export default function PosCartScreen() {
         }
       />
 
-      <ScrollView
-        contentContainerStyle={{
-          padding: spacing.screenPadding,
-          gap: spacing.md,
-          paddingBottom: 120,
-        }}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{
+            padding: spacing.screenPadding,
+            gap: spacing.md,
+            paddingBottom: 120,
+          }}
+        >
         {summary.lines.map((line) => {
           const isOverridden = line.unitPriceOverride !== null;
           return (
@@ -323,7 +328,8 @@ export default function PosCartScreen() {
             </Text>
           </View>
         </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       <View
         style={{

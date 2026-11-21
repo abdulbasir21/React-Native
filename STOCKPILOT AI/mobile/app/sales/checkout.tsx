@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Modal, Pressable, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { extractApiErrorMessage } from '../../src/api/client';
 import { FormField } from '../../src/components/FormField';
@@ -166,13 +166,18 @@ export default function PosCheckoutScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <ScreenHeader title="Checkout" subtitle="Payment & customer details" />
 
-      <ScrollView
-        contentContainerStyle={{
-          padding: spacing.screenPadding,
-          gap: spacing.md,
-          paddingBottom: 120,
-        }}
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{
+            padding: spacing.screenPadding,
+            gap: spacing.md,
+            paddingBottom: 120,
+          }}
+        >
         <View
           style={{
             backgroundColor: colors.primaryDark,
@@ -388,7 +393,8 @@ export default function PosCheckoutScreen() {
             <Text style={{ ...typography.bodyMd, color: colors.errorText }}>{submitError}</Text>
           </View>
         ) : null}
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       <View
         style={{

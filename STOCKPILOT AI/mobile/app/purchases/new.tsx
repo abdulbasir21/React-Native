@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { extractApiErrorMessage } from '../../src/api/client';
 import { FormField } from '../../src/components/FormField';
@@ -205,7 +205,14 @@ export default function NewPurchaseScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <ScreenHeader title="New Purchase" subtitle="Updates stock & weighted average cost" />
 
-      <ScrollView contentContainerStyle={{ padding: spacing.screenPadding, gap: spacing.md, paddingBottom: 48 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{ padding: spacing.screenPadding, gap: spacing.md, paddingBottom: 48 }}
+        >
         {validationError || createMutation.isError ? (
           <View
             style={{
@@ -438,7 +445,8 @@ export default function NewPurchaseScreen() {
           loading={createMutation.isPending}
           onPress={handleConfirmPurchase}
         />
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

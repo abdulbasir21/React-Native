@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SHOP_TYPE_LABELS } from '../../src/api/authApi';
 import { extractApiErrorMessage } from '../../src/api/client';
@@ -111,7 +111,14 @@ export default function ShopSettingsScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <ScreenHeader title="Shop Settings" subtitle="Profile, currency & timezone" />
 
-      <ScrollView contentContainerStyle={{ padding: spacing.screenPadding, gap: spacing.md, paddingBottom: 40 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{ padding: spacing.screenPadding, gap: spacing.md, paddingBottom: 40 }}
+        >
         {saveMutation.isError ? (
           <View
             style={{
@@ -307,7 +314,8 @@ export default function ShopSettingsScreen() {
           loading={saveMutation.isPending}
           onPress={() => void handleSubmit((v) => saveMutation.mutate(v))()}
         />
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
