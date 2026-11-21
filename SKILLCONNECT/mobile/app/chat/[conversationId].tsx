@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import type {
   AiChatAssistOutputDto,
   AiStructureOfferOutputDto,
@@ -10,6 +11,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Image,
   KeyboardAvoidingView,
   Modal,
@@ -20,6 +22,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { io, type Socket } from "socket.io-client";
 import {
   apiRequest,
@@ -30,6 +33,7 @@ import {
 import { Button } from "../../src/components/Button";
 import { Input } from "../../src/components/Input";
 import { useAuth } from "../../src/features/auth/AuthProvider";
+import { CARD_SHADOW } from "../../src/theme/tokens";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL || "http://localhost:3000";
 
@@ -40,6 +44,7 @@ function makeClientId() {
 export default function ChatThreadScreen() {
   const { conversationId } = useLocalSearchParams<{ conversationId: string }>();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const { user } = useAuth();
   const queryClient = useQueryClient();
 
@@ -298,34 +303,43 @@ export default function ChatThreadScreen() {
     >
       {conversation ? (
         <View className="flex-row items-center justify-between border-b border-hairline bg-surface px-4 py-3">
-          <Text className="text-base font-semibold text-ink">
-            {conversation.otherParty.displayName}
-          </Text>
+          <View className="flex-row items-center gap-2.5">
+            <View className="h-9 w-9 items-center justify-center rounded-full bg-brand-tint">
+              <Text className="text-sm font-bold text-brand">
+                {conversation.otherParty.displayName.slice(0, 1).toUpperCase()}
+              </Text>
+            </View>
+            <Text className="text-base font-bold text-ink">
+              {conversation.otherParty.displayName}
+            </Text>
+          </View>
           {isProvider ? (
             <Pressable
               onPress={() => setShowOfferModal(true)}
-              className="min-h-[36px] justify-center rounded-xl bg-brand px-3"
+              className="min-h-[36px] flex-row items-center gap-1 rounded-xl bg-brand px-3"
             >
-              <Text className="text-xs font-semibold text-white">
-                Send Offer
-              </Text>
+              <Ionicons name="document-text-outline" size={14} color="#FFFFFF" />
+              <Text className="text-xs font-bold text-white">Send Offer</Text>
             </Pressable>
           ) : null}
         </View>
       ) : null}
 
       {pendingOffer ? (
-        <View className="mx-4 mt-3 rounded-xl border border-hairline bg-surface p-4">
-          <Text className="text-xs font-semibold uppercase text-brand">
+        <View
+          style={CARD_SHADOW}
+          className="mx-4 mt-3 rounded-2xl bg-surface p-4"
+        >
+          <Text className="text-xs font-bold uppercase text-brand">
             Active Service Offer
           </Text>
-          <Text className="mt-1 text-base font-semibold text-ink">
+          <Text className="mt-1 text-base font-bold text-ink">
             {pendingOffer.serviceName} · Rs. {pendingOffer.pricePkr}
           </Text>
           <Text className="mt-1 text-xs text-muted">
             {pendingOffer.description}
           </Text>
-          <Text className="mt-2 text-[11px] font-medium text-amber-trust">
+          <Text className="mt-2 text-[11px] font-semibold text-amber-trust">
             Pay with Cash upon satisfactory completion
           </Text>
           {isProvider ? (
@@ -351,13 +365,14 @@ export default function ChatThreadScreen() {
                 value={serviceAddress}
                 onChangeText={setServiceAddress}
                 placeholder="Enter service address (3-300 chars) to accept"
-                placeholderTextColor="#9CA3AF"
+                placeholderTextColor="#94A3B8"
                 className="min-h-[44px] rounded-xl border border-hairline bg-canvas px-3 text-sm text-ink"
               />
               <View className="flex-row gap-2">
                 <View className="flex-1">
                   <Button
                     title="Accept Offer"
+                    variant="green"
                     onPress={() => void handleAcceptOffer(pendingOffer.id)}
                   />
                 </View>
@@ -385,7 +400,9 @@ export default function ChatThreadScreen() {
 
       <ScrollView className="flex-1 px-4 py-3">
         {isLoading ? (
-          <Text className="text-sm text-muted">Loading messages...</Text>
+          <View className="items-center py-8">
+            <ActivityIndicator color="#0D16A8" />
+          </View>
         ) : (
           <View className="gap-2.5 pb-4">
             {messages.map((m) => {
@@ -393,16 +410,16 @@ export default function ChatThreadScreen() {
               return (
                 <View
                   key={m.id}
-                  className={`max-w-[82%] rounded-xl px-3.5 py-2.5 ${
+                  className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 ${
                     isMine
                       ? "self-end bg-brand"
-                      : "self-start border border-brand-tint-border bg-brand-tint"
+                      : "self-start border border-brand-tint-border bg-surface"
                   }`}
                 >
                   {m.type === "IMAGE" && m.imageUrl ? (
                     <Image
                       source={{ uri: m.imageUrl }}
-                      className="h-44 w-44 rounded-lg bg-canvas"
+                      className="h-44 w-44 rounded-xl bg-canvas"
                     />
                   ) : (
                     <Text
@@ -413,7 +430,7 @@ export default function ChatThreadScreen() {
                   )}
                   <Text
                     className={`mt-1 text-[10px] ${
-                      isMine ? "text-white/80" : "text-muted"
+                      isMine ? "text-white/75" : "text-muted"
                     }`}
                   >
                     {new Date(m.createdAt).toLocaleTimeString([], {
@@ -430,7 +447,7 @@ export default function ChatThreadScreen() {
 
       {errorMsg ? (
         <View className="bg-danger-bg px-4 py-2">
-          <Text className="text-xs text-danger">{errorMsg}</Text>
+          <Text className="text-xs font-medium text-danger">{errorMsg}</Text>
         </View>
       ) : null}
 
@@ -460,16 +477,15 @@ export default function ChatThreadScreen() {
                     .catch(() => undefined)
                     .finally(() => setAiAssistBusy(false));
                 }}
-                className="min-h-[36px] justify-center rounded-xl border border-hairline bg-canvas px-3"
+                className="min-h-[36px] flex-row items-center gap-1 rounded-xl border border-hairline bg-canvas px-3"
               >
-                <Text className="text-xs font-semibold text-brand">
-                  {label}
-                </Text>
+                <Ionicons name="sparkles" size={12} color="#F59E0B" />
+                <Text className="text-xs font-bold text-brand">{label}</Text>
               </Pressable>
             ))}
           </View>
           {aiAssistResult ? (
-            <View className="mt-2 rounded-xl border border-hairline bg-canvas p-2.5">
+            <View className="mt-2 rounded-xl bg-brand-tint p-3">
               <Text className="text-xs text-ink">
                 {aiAssistResult.resultText}
               </Text>
@@ -483,39 +499,42 @@ export default function ChatThreadScreen() {
         </View>
       ) : null}
 
-      <View className="flex-row items-center gap-2 border-t border-hairline bg-surface px-3 py-2.5">
+      <View
+        className="flex-row items-center gap-2 border-t border-hairline bg-surface px-3 pt-2.5"
+        style={{ paddingBottom: Math.max(insets.bottom, 10) }}
+      >
         <Pressable
           onPress={() => setShowAiAssist((v) => !v)}
-          className="min-h-[44px] items-center justify-center rounded-xl border border-hairline px-2.5"
+          className="h-11 w-11 items-center justify-center rounded-xl bg-amber-tint"
         >
-          <Text className="text-xs font-semibold text-ink">AI</Text>
+          <Ionicons name="sparkles" size={18} color="#F59E0B" />
         </Pressable>
         <Pressable
           onPress={() => void handleSendImage()}
-          className="min-h-[44px] min-w-[44px] items-center justify-center rounded-xl border border-hairline px-3"
+          className="h-11 w-11 items-center justify-center rounded-xl bg-brand-tint"
         >
-          <Text className="text-xs font-semibold text-brand">Photo</Text>
+          <Ionicons name="image-outline" size={20} color="#0D16A8" />
         </Pressable>
         <TextInput
           value={text}
           onChangeText={setText}
           placeholder="Write a message..."
-          placeholderTextColor="#9CA3AF"
+          placeholderTextColor="#94A3B8"
           className="min-h-[44px] flex-1 rounded-xl border border-hairline bg-canvas px-3.5 text-sm text-ink"
         />
         <Pressable
           onPress={() => void handleSendText()}
           disabled={sending || !text.trim()}
-          className="min-h-[44px] items-center justify-center rounded-xl bg-brand px-4 disabled:opacity-50"
+          className="h-11 w-11 items-center justify-center rounded-xl bg-brand disabled:opacity-50"
         >
-          <Text className="text-xs font-semibold text-white">Send</Text>
+          <Ionicons name="send" size={18} color="#FFFFFF" />
         </Pressable>
       </View>
 
       <Modal visible={showOfferModal} animationType="slide" transparent>
         <View className="flex-1 justify-end bg-black/40">
-          <View className="gap-3 rounded-t-2xl bg-surface p-6">
-            <Text className="text-lg font-semibold text-ink">
+          <View className="gap-3 rounded-t-3xl bg-surface p-6">
+            <Text className="text-lg font-bold text-ink">
               Send Service Offer
             </Text>
             <View className="flex-row items-center gap-2">
@@ -523,7 +542,7 @@ export default function ChatThreadScreen() {
                 value={offerRawText}
                 onChangeText={setOfferRawText}
                 placeholder="Optional: paste plain text to pre-fill"
-                placeholderTextColor="#9CA3AF"
+                placeholderTextColor="#94A3B8"
                 className="min-h-[44px] flex-1 rounded-xl border border-hairline bg-canvas px-3 text-xs text-ink"
               />
               <Pressable
@@ -546,9 +565,10 @@ export default function ChatThreadScreen() {
                     .catch(() => undefined)
                     .finally(() => setAiOfferBusy(false));
                 }}
-                className="min-h-[44px] items-center justify-center rounded-xl border border-brand px-3 disabled:opacity-50"
+                className="min-h-[44px] flex-row items-center gap-1 rounded-xl border border-brand px-3 disabled:opacity-50"
               >
-                <Text className="text-xs font-semibold text-brand">
+                <Ionicons name="sparkles" size={14} color="#0D16A8" />
+                <Text className="text-xs font-bold text-brand">
                   {aiOfferBusy ? "..." : "AI Fill"}
                 </Text>
               </Pressable>
@@ -580,6 +600,7 @@ export default function ChatThreadScreen() {
             />
             <Button
               title="Send Offer"
+              icon="send"
               onPress={() => void handleCreateOffer()}
             />
             <Button

@@ -1,6 +1,7 @@
 import "../global.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import { AuthProvider } from "../src/features/auth/AuthProvider";
 import { LocationProvider } from "../src/features/location/LocationContext";
@@ -26,13 +27,22 @@ export default function RootLayout() {
       <AuthProvider>
         <PushRegistrar />
         <LocationProvider>
-          <Stack screenOptions={{ headerShown: false }}>
+          <StatusBar style="light" />
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              headerStyle: { backgroundColor: "#0D16A8" },
+              headerTintColor: "#FFFFFF",
+              headerTitleStyle: { fontWeight: "700", fontSize: 17 },
+              headerShadowVisible: false,
+            }}
+          >
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="(auth)/login" />
             <Stack.Screen name="(auth)/register" />
             <Stack.Screen
               name="location"
-              options={{ headerShown: true, title: "Location" }}
+              options={{ headerShown: true, title: "Select Location" }}
             />
             <Stack.Screen
               name="become-provider/index"

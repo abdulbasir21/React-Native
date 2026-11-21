@@ -23,6 +23,11 @@ export type GeminiJsonGenerator = (
 const CACHE_TTL_MS = 15 * 60 * 1000;
 const RATE_WINDOW_MS = 60 * 60 * 1000;
 const DEFAULT_MAX_CALLS_PER_HOUR = 30;
+const GEMINI_MODELS = [
+  "gemini-3.5-flash-lite",
+  "gemini-3.8-flash",
+  "gemini-3.5-flash",
+] as const;
 
 export function createAiService(
   prisma: PrismaClient,
@@ -60,15 +65,25 @@ export function createAiService(
       throw new Error("GEMINI_API_KEY_NOT_CONFIGURED");
     }
     const ai = new GoogleGenAI({ apiKey: config.GEMINI_API_KEY });
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: prompt,
-      config: {
-        responseMimeType: "application/json",
-        responseJsonSchema: schema,
-      },
-    });
-    return response.text ?? "";
+    let lastError: unknown = new Error("GEMINI_NO_OUTPUT");
+    for (const model of GEMINI_MODELS) {
+      try {
+        const response = await ai.models.generateContent({
+          model,
+          contents: prompt,
+          config: {
+            responseMimeType: "application/json",
+            responseSchema: schema,
+          },
+        });
+        if (response.text) {
+          return response.text;
+        }
+      } catch (err) {
+        lastError = err;
+      }
+    }
+    throw lastError;
   };
 
   /**

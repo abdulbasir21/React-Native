@@ -1,11 +1,20 @@
+import { Ionicons } from "@expo/vector-icons";
 import type { BookingDto, DisputeDto, ReviewDto } from "@skillconnect/shared";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import { apiRequest, MobileApiError } from "../../src/api/client";
 import { Button } from "../../src/components/Button";
 import { useAuth } from "../../src/features/auth/AuthProvider";
+import { CARD_SHADOW } from "../../src/theme/tokens";
 
 type BookingDetailResponse = BookingDto & { activeDispute: DisputeDto | null };
 
@@ -59,7 +68,8 @@ export default function BookingDetailScreen() {
   if (isLoading || !booking) {
     return (
       <View className="flex-1 items-center justify-center bg-canvas">
-        <Text className="text-sm text-muted">Loading booking...</Text>
+        <ActivityIndicator color="#0D16A8" />
+        <Text className="mt-2 text-xs text-muted">Loading booking...</Text>
       </View>
     );
   }
@@ -68,40 +78,63 @@ export default function BookingDetailScreen() {
   const isAccused = booking.activeDispute?.accusedUserId === user?.id;
 
   return (
-    <ScrollView className="flex-1 bg-canvas px-4 py-4">
-      <View className="rounded-xl border border-hairline bg-surface p-5">
-        <Text className="text-xs font-semibold uppercase text-brand">
-          {booking.status}
-        </Text>
-        <Text className="mt-1 text-xl font-semibold text-ink">
+    <ScrollView className="flex-1 bg-canvas px-4 py-5">
+      <View style={CARD_SHADOW} className="rounded-3xl bg-surface p-5">
+        <View className="flex-row items-center justify-between">
+          <View className="rounded-full bg-brand-tint px-3 py-1">
+            <Text className="text-xs font-bold uppercase text-brand">
+              {booking.status.replace(/_/g, " ")}
+            </Text>
+          </View>
+          <Text className="text-base font-bold text-location-dark">
+            Rs. {booking.pricePkr}
+          </Text>
+        </View>
+
+        <Text className="mt-3 text-xl font-bold text-ink">
           {booking.serviceName}
         </Text>
-        <Text className="mt-1 text-base font-semibold text-ink">
-          Rs. {booking.pricePkr} (Cash on completion)
+        <Text className="mt-1 text-xs font-semibold text-amber-trust">
+          Cash on completion
         </Text>
-        <Text className="mt-2 text-sm text-muted">{booking.description}</Text>
-        <Text className="mt-3 text-xs text-muted">
-          Scheduled: {new Date(booking.scheduledStart).toLocaleString()}
+        <Text className="mt-2.5 text-sm leading-5 text-muted">
+          {booking.description}
         </Text>
-        {booking.serviceAddress ? (
-          <Text className="mt-1 text-xs font-medium text-ink">
-            Address: {booking.serviceAddress}
+
+        <View className="mt-3 flex-row items-center gap-1.5">
+          <Ionicons name="calendar-outline" size={14} color="#64748B" />
+          <Text className="text-xs text-muted">
+            Scheduled: {new Date(booking.scheduledStart).toLocaleString()}
           </Text>
+        </View>
+        {booking.serviceAddress ? (
+          <View className="mt-1.5 flex-row items-center gap-1.5">
+            <Ionicons name="location-outline" size={14} color="#0D16A8" />
+            <Text className="flex-1 text-xs font-semibold text-ink">
+              {booking.serviceAddress}
+            </Text>
+          </View>
         ) : null}
       </View>
 
       {actionError ? (
-        <View className="mt-3 rounded-xl bg-danger-bg p-3">
-          <Text className="text-sm text-danger">{actionError}</Text>
+        <View className="mt-3 flex-row items-center gap-2 rounded-2xl bg-danger-bg p-3.5">
+          <Ionicons name="alert-circle" size={18} color="#DC2626" />
+          <Text className="flex-1 text-sm text-danger">{actionError}</Text>
         </View>
       ) : null}
 
-      <View className="mt-4 gap-3 rounded-xl border border-hairline bg-surface p-4">
-        <Text className="text-sm font-semibold text-ink">Actions</Text>
+      <View
+        style={CARD_SHADOW}
+        className="mt-4 gap-3 rounded-2xl bg-surface p-5"
+      >
+        <Text className="text-sm font-bold text-ink">Actions</Text>
 
         {booking.status === "CONFIRMED" && !isCustomer ? (
           <Button
             title="Mark Work Completed"
+            variant="green"
+            icon="checkmark-done"
             loading={busy}
             onPress={() => void runAction("/complete")}
           />
@@ -110,6 +143,8 @@ export default function BookingDetailScreen() {
         {booking.status === "PROVIDER_COMPLETED" && isCustomer ? (
           <Button
             title="Confirm Completion"
+            variant="green"
+            icon="checkmark-circle"
             loading={busy}
             onPress={() => void runAction("/confirm")}
           />
@@ -121,7 +156,7 @@ export default function BookingDetailScreen() {
             value={reasonText}
             onChangeText={setReasonText}
             placeholder="Reason (required for cancel, no-show, or issue)"
-            placeholderTextColor="#9CA3AF"
+            placeholderTextColor="#94A3B8"
             className="min-h-[44px] rounded-xl border border-hairline bg-canvas px-3 text-sm text-ink"
           />
         )}
@@ -131,12 +166,14 @@ export default function BookingDetailScreen() {
             <Button
               title="Cancel Booking"
               variant="secondary"
+              icon="close-circle-outline"
               loading={busy}
               onPress={() => void runAction("/cancel", { reason: reasonText })}
             />
             <Button
               title="Report No-Show"
               variant="secondary"
+              icon="alert-circle-outline"
               loading={busy}
               onPress={() => void runAction("/no-show", { reason: reasonText })}
             />
@@ -147,6 +184,7 @@ export default function BookingDetailScreen() {
           <Button
             title="Report Issue"
             variant="secondary"
+            icon="warning-outline"
             loading={busy}
             onPress={() => void runAction("/issue", { reason: reasonText })}
           />
@@ -158,7 +196,7 @@ export default function BookingDetailScreen() {
               value={reasonText}
               onChangeText={setReasonText}
               placeholder="Explain if disputing (min 10 chars)"
-              placeholderTextColor="#9CA3AF"
+              placeholderTextColor="#94A3B8"
               className="min-h-[44px] rounded-xl border border-hairline bg-canvas px-3 text-sm text-ink"
             />
             <Button
@@ -184,13 +222,13 @@ export default function BookingDetailScreen() {
       </View>
 
       {booking.status === "COMPLETED" && isCustomer ? (
-        <View className="mt-4 rounded-xl border border-hairline bg-surface p-4">
-          <Text className="mb-2 text-sm font-semibold text-ink">
+        <View style={CARD_SHADOW} className="mt-4 rounded-2xl bg-surface p-5">
+          <Text className="mb-2 text-sm font-bold text-ink">
             Leave a Review
           </Text>
           {submittedReview ? (
             <View className="gap-1">
-              <Text className="text-sm font-medium text-ink">
+              <Text className="text-sm font-bold text-brand">
                 Submitted: {submittedReview.rating}/5 stars
               </Text>
               {submittedReview.comment ? (
@@ -206,19 +244,24 @@ export default function BookingDetailScreen() {
                   <Pressable
                     key={star}
                     onPress={() => setReviewRating(star)}
-                    className={`min-h-[44px] min-w-[44px] items-center justify-center rounded-xl border ${
+                    className={`min-h-[44px] min-w-[44px] flex-row items-center justify-center gap-1 rounded-xl border ${
                       reviewRating === star
-                        ? "border-primary bg-primary"
+                        ? "border-brand bg-brand"
                         : "border-hairline bg-canvas"
                     }`}
                   >
                     <Text
-                      className={`text-sm font-semibold ${
+                      className={`text-sm font-bold ${
                         reviewRating === star ? "text-white" : "text-ink"
                       }`}
                     >
-                      {star}★
+                      {star}
                     </Text>
+                    <Ionicons
+                      name="star"
+                      size={13}
+                      color={reviewRating === star ? "#FBB03B" : "#F59E0B"}
+                    />
                   </Pressable>
                 ))}
               </View>
@@ -226,12 +269,13 @@ export default function BookingDetailScreen() {
                 value={reviewComment}
                 onChangeText={setReviewComment}
                 placeholder="Optional comment about your experience"
-                placeholderTextColor="#9CA3AF"
+                placeholderTextColor="#94A3B8"
                 multiline
-                className="min-h-[64px] rounded-xl border border-hairline bg-canvas p-3 text-sm text-ink"
+                className="min-h-[68px] rounded-xl border border-hairline bg-canvas p-3 text-sm text-ink"
               />
               <Button
                 title="Submit Review"
+                icon="star"
                 loading={busy}
                 onPress={() => {
                   setActionError(null);
@@ -249,7 +293,11 @@ export default function BookingDetailScreen() {
                       setSubmittedReview(created);
                       setReviewComment("");
                       void queryClient.invalidateQueries({
-                        queryKey: ["provider", "reviews", booking.providerProfileId],
+                        queryKey: [
+                          "provider",
+                          "reviews",
+                          booking.providerProfileId,
+                        ],
                       });
                     })
                     .catch((err) => {
@@ -268,14 +316,17 @@ export default function BookingDetailScreen() {
       ) : null}
 
       {booking.history && booking.history.length > 0 ? (
-        <View className="mb-8 mt-4 rounded-xl border border-hairline bg-surface p-4">
-          <Text className="mb-2 text-sm font-semibold text-ink">
+        <View
+          style={CARD_SHADOW}
+          className="mb-10 mt-4 rounded-2xl bg-surface p-5"
+        >
+          <Text className="mb-2 text-sm font-bold text-ink">
             Status History
           </Text>
           <View className="gap-2">
             {booking.history.map((h) => (
               <Text key={h.id} className="text-xs text-muted">
-                {h.toStatus} ({h.actorType}) ·{" "}
+                • {h.toStatus} ({h.actorType}) ·{" "}
                 {new Date(h.createdAt).toLocaleString()}
               </Text>
             ))}

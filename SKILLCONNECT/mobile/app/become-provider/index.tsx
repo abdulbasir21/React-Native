@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import type {
   CategoryDto,
   LocalityDto,
@@ -8,7 +9,15 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, Pressable, ScrollView, Switch, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Image,
+  Pressable,
+  ScrollView,
+  Switch,
+  Text,
+  View,
+} from "react-native";
 import {
   apiRequest,
   MobileApiError,
@@ -17,6 +26,7 @@ import {
 import { Button } from "../../src/components/Button";
 import { Input } from "../../src/components/Input";
 import { useAuth } from "../../src/features/auth/AuthProvider";
+import { CARD_SHADOW } from "../../src/theme/tokens";
 
 export default function ProviderAreaScreen() {
   const router = useRouter();
@@ -247,11 +257,21 @@ export default function ProviderAreaScreen() {
   if (!user) {
     return (
       <View className="flex-1 items-center justify-center bg-canvas px-6">
-        <Text className="text-base font-semibold text-ink">
-          Sign in to become a provider
-        </Text>
-        <View className="mt-4 w-full">
-          <Button title="Sign in" onPress={() => router.push("/(auth)/login")} />
+        <View
+          style={CARD_SHADOW}
+          className="w-full max-w-sm items-center rounded-3xl bg-surface p-6"
+        >
+          <Ionicons name="briefcase" size={32} color="#0D16A8" />
+          <Text className="mt-3 text-base font-bold text-ink">
+            Sign in to become a provider
+          </Text>
+          <View className="mt-4 w-full">
+            <Button
+              title="Sign in"
+              icon="log-in-outline"
+              onPress={() => router.push("/(auth)/login")}
+            />
+          </View>
         </View>
       </View>
     );
@@ -260,16 +280,20 @@ export default function ProviderAreaScreen() {
   if (!isProvider) {
     return (
       <View className="flex-1 justify-center bg-canvas px-6">
-        <View className="rounded-xl border border-hairline bg-surface p-6">
-          <Text className="text-xl font-semibold text-ink">
+        <View style={CARD_SHADOW} className="rounded-3xl bg-surface p-6">
+          <View className="h-12 w-12 items-center justify-center rounded-2xl bg-brand-tint">
+            <Ionicons name="briefcase" size={24} color="#0D16A8" />
+          </View>
+          <Text className="mt-4 text-xl font-bold text-ink">
             Become a Service Provider
           </Text>
-          <Text className="mt-2 text-sm text-muted">
+          <Text className="mt-2 text-sm leading-5 text-muted">
             Offer your skilled trade services to nearby customers on the same account.
           </Text>
           <View className="mt-5">
             <Button
               title="Start Provider Onboarding"
+              icon="arrow-forward"
               loading={onboardMutation.isPending}
               onPress={() => onboardMutation.mutate()}
             />
@@ -282,7 +306,10 @@ export default function ProviderAreaScreen() {
   if (isLoading || !profile) {
     return (
       <View className="flex-1 items-center justify-center bg-canvas">
-        <Text className="text-sm text-muted">Loading provider profile...</Text>
+        <ActivityIndicator color="#0D16A8" />
+        <Text className="mt-2 text-xs text-muted">
+          Loading provider profile...
+        </Text>
       </View>
     );
   }
@@ -295,56 +322,68 @@ export default function ProviderAreaScreen() {
   );
 
   return (
-    <ScrollView className="flex-1 bg-canvas px-4 py-4">
-      <View className="rounded-xl border border-hairline bg-surface p-4">
-        <Text className="text-xs font-semibold uppercase text-brand">
-          Status: {profile.status}
-        </Text>
+    <ScrollView className="flex-1 bg-canvas px-4 py-5">
+      <View style={CARD_SHADOW} className="rounded-2xl bg-surface p-4">
+        <View className="flex-row items-center justify-between">
+          <View className="rounded-full bg-brand-tint px-3 py-1">
+            <Text className="text-xs font-bold uppercase text-brand">
+              Status: {profile.status}
+            </Text>
+          </View>
+          <Ionicons name="shield-checkmark" size={20} color="#0D16A8" />
+        </View>
         {profile.status === "REJECTED" && latestRejection?.reason ? (
-          <Text className="mt-1 text-sm text-danger">
+          <Text className="mt-2 text-sm text-danger">
             Feedback: {latestRejection.reason}
           </Text>
         ) : null}
         {providerStats ? (
           <View className="mt-3 flex-row flex-wrap gap-3 border-t border-hairline pt-3">
-            <Text className="text-xs text-muted">
+            <Text className="text-xs font-semibold text-muted">
               Active: {providerStats.activeBookings}
             </Text>
-            <Text className="text-xs text-muted">
+            <Text className="text-xs font-semibold text-muted">
               Completed: {providerStats.completedBookings}
             </Text>
-            <Text className="text-xs text-muted">
+            <Text className="text-xs font-semibold text-muted">
               Pending Offers: {providerStats.pendingOffers}
             </Text>
-            <Text className="text-xs text-muted">
-              Rating: {providerStats.averageRating ?? "—"} ({providerStats.reviewCount})
+            <Text className="text-xs font-semibold text-amber-trust">
+              Rating: {providerStats.averageRating ?? "—"} (
+              {providerStats.reviewCount})
             </Text>
           </View>
         ) : null}
       </View>
 
       {errorMsg ? (
-        <View className="mt-3 rounded-xl bg-danger-bg p-3">
+        <View className="mt-3 rounded-2xl bg-danger-bg p-3.5">
           <Text className="text-sm text-danger">{errorMsg}</Text>
         </View>
       ) : null}
       {statusMsg ? (
-        <View className="mt-3 rounded-xl bg-brand-tint p-3">
-          <Text className="text-sm text-brand">{statusMsg}</Text>
+        <View className="mt-3 rounded-2xl bg-location-tint p-3.5">
+          <Text className="text-sm font-medium text-location-dark">
+            {statusMsg}
+          </Text>
         </View>
       ) : null}
 
-      <View className="mt-4 gap-4 rounded-xl border border-hairline bg-surface p-4">
-        <Text className="text-base font-semibold text-ink">Profile</Text>
+      <View
+        style={CARD_SHADOW}
+        className="mt-4 gap-4 rounded-2xl bg-surface p-5"
+      >
+        <Text className="text-base font-bold text-ink">Profile</Text>
         {profile.photoUrl ? (
           <Image
             source={{ uri: profile.photoUrl }}
-            className="h-20 w-20 rounded-xl"
+            className="h-20 w-20 rounded-full"
           />
         ) : null}
         <Button
           title="Upload Profile Photo"
           variant="secondary"
+          icon="camera-outline"
           onPress={() => void handlePickPhoto("profile")}
         />
         <Input
@@ -372,22 +411,32 @@ export default function ProviderAreaScreen() {
         </View>
       </View>
 
-      <View className="mt-4 gap-3 rounded-xl border border-hairline bg-surface p-4">
-        <Text className="text-base font-semibold text-ink">Primary Service</Text>
+      <View
+        style={CARD_SHADOW}
+        className="mt-4 gap-3 rounded-2xl bg-surface p-5"
+      >
+        <Text className="text-base font-bold text-ink">Primary Service</Text>
         <View className="flex-row flex-wrap gap-2">
-          {categories.map((cat) => (
-            <Pressable
-              key={cat.id}
-              onPress={() => setSelectedCategoryId(cat.id)}
-              className={`min-h-[36px] justify-center rounded-full border px-3 ${
-                selectedCategoryId === cat.id
-                  ? "border-brand bg-brand-tint"
-                  : "border-hairline bg-surface"
-              }`}
-            >
-              <Text className="text-xs font-semibold text-ink">{cat.name}</Text>
-            </Pressable>
-          ))}
+          {categories.map((cat) => {
+            const active = selectedCategoryId === cat.id;
+            return (
+              <Pressable
+                key={cat.id}
+                onPress={() => setSelectedCategoryId(cat.id)}
+                className={`min-h-[36px] justify-center rounded-full px-3.5 ${
+                  active ? "bg-brand" : "border border-hairline bg-canvas"
+                }`}
+              >
+                <Text
+                  className={`text-xs font-bold ${
+                    active ? "text-white" : "text-ink"
+                  }`}
+                >
+                  {cat.name}
+                </Text>
+              </Pressable>
+            );
+          })}
         </View>
         <Input
           label="Service title"
@@ -401,22 +450,32 @@ export default function ProviderAreaScreen() {
         />
       </View>
 
-      <View className="mt-4 gap-3 rounded-xl border border-hairline bg-surface p-4">
-        <Text className="text-base font-semibold text-ink">Service Area</Text>
+      <View
+        style={CARD_SHADOW}
+        className="mt-4 gap-3 rounded-2xl bg-surface p-5"
+      >
+        <Text className="text-base font-bold text-ink">Service Area</Text>
         <View className="flex-row flex-wrap gap-2">
-          {serviceableLocalities.map((loc) => (
-            <Pressable
-              key={loc.id}
-              onPress={() => setSelectedLocalityId(loc.id)}
-              className={`min-h-[36px] justify-center rounded-full border px-3 ${
-                selectedLocalityId === loc.id
-                  ? "border-brand bg-brand-tint"
-                  : "border-hairline bg-surface"
-              }`}
-            >
-              <Text className="text-xs font-semibold text-ink">{loc.name}</Text>
-            </Pressable>
-          ))}
+          {serviceableLocalities.map((loc) => {
+            const active = selectedLocalityId === loc.id;
+            return (
+              <Pressable
+                key={loc.id}
+                onPress={() => setSelectedLocalityId(loc.id)}
+                className={`min-h-[36px] justify-center rounded-full px-3.5 ${
+                  active ? "bg-brand" : "border border-hairline bg-canvas"
+                }`}
+              >
+                <Text
+                  className={`text-xs font-bold ${
+                    active ? "text-white" : "text-ink"
+                  }`}
+                >
+                  {loc.name}
+                </Text>
+              </Pressable>
+            );
+          })}
         </View>
         <Input
           label="Service radius (1-30 km)"
@@ -426,8 +485,11 @@ export default function ProviderAreaScreen() {
         />
       </View>
 
-      <View className="mt-4 gap-3 rounded-xl border border-hairline bg-surface p-4">
-        <Text className="text-base font-semibold text-ink">
+      <View
+        style={CARD_SHADOW}
+        className="mt-4 gap-3 rounded-2xl bg-surface p-5"
+      >
+        <Text className="text-base font-bold text-ink">
           Availability (Asia/Karachi)
         </Text>
         <Input
@@ -444,13 +506,17 @@ export default function ProviderAreaScreen() {
         <Input label="End (HH:MM)" value={availEnd} onChangeText={setAvailEnd} />
       </View>
 
-      <View className="mt-4 gap-3 rounded-xl border border-hairline bg-surface p-4">
-        <Text className="text-base font-semibold text-ink">
+      <View
+        style={CARD_SHADOW}
+        className="mt-4 gap-3 rounded-2xl bg-surface p-5"
+      >
+        <Text className="text-base font-bold text-ink">
           Portfolio ({profile.portfolio.length}/10)
         </Text>
         <Button
           title="Add Portfolio Image"
           variant="secondary"
+          icon="images-outline"
           onPress={() => void handlePickPhoto("portfolio")}
         />
         <View className="flex-row flex-wrap gap-2">
@@ -468,19 +534,24 @@ export default function ProviderAreaScreen() {
                 }}
                 className="min-h-[36px] justify-center px-2"
               >
-                <Text className="text-xs text-danger">Remove</Text>
+                <Text className="text-xs font-medium text-danger">Remove</Text>
               </Pressable>
             </View>
           ))}
         </View>
       </View>
 
-      <View className="mb-10 mt-5 gap-3">
-        <Button title="Save Changes" onPress={() => void handleSaveAll()} />
+      <View className="mb-12 mt-5 gap-3">
+        <Button
+          title="Save Changes"
+          icon="save-outline"
+          onPress={() => void handleSaveAll()}
+        />
         {profile.status === "DRAFT" || profile.status === "REJECTED" ? (
           <Button
             title="Submit for Approval"
-            variant="secondary"
+            variant="green"
+            icon="checkmark-circle"
             onPress={() => void handleSubmitApproval()}
           />
         ) : null}

@@ -1,10 +1,18 @@
+import { Ionicons } from "@expo/vector-icons";
 import type { NotificationDto } from "@skillconnect/shared";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { FlatList, Pressable, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 import { apiRequest } from "../src/api/client";
 import { AuthGate } from "../src/components/AuthGate";
 import { Button } from "../src/components/Button";
 import { useAuth } from "../src/features/auth/AuthProvider";
+import { CARD_SHADOW } from "../src/theme/tokens";
 
 export default function NotificationsScreen() {
   const { user } = useAuth();
@@ -39,7 +47,10 @@ export default function NotificationsScreen() {
   if (isLoading) {
     return (
       <View className="flex-1 items-center justify-center bg-canvas">
-        <Text className="text-sm text-muted">Loading notifications...</Text>
+        <ActivityIndicator color="#0D16A8" />
+        <Text className="mt-2 text-xs text-muted">
+          Loading notifications...
+        </Text>
       </View>
     );
   }
@@ -47,13 +58,14 @@ export default function NotificationsScreen() {
   if (isError) {
     return (
       <View className="flex-1 items-center justify-center bg-canvas px-6">
-        <Text className="text-sm text-danger">
+        <Text className="text-sm font-medium text-danger">
           Could not load notifications.
         </Text>
         <View className="mt-4 w-full">
           <Button
             title="Retry"
             variant="secondary"
+            icon="refresh"
             onPress={() => void refetch()}
           />
         </View>
@@ -70,6 +82,7 @@ export default function NotificationsScreen() {
           <Button
             title={`Mark all read (${data.unreadCount})`}
             variant="secondary"
+            icon="checkmark-done"
             onPress={() => void markAllRead()}
           />
         </View>
@@ -78,10 +91,16 @@ export default function NotificationsScreen() {
       <FlatList
         data={items}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ padding: 16, gap: 10 }}
+        contentContainerStyle={{ padding: 16, gap: 12 }}
         ListEmptyComponent={
-          <View className="items-center py-12">
-            <Text className="text-base font-semibold text-ink">
+          <View
+            style={CARD_SHADOW}
+            className="items-center rounded-2xl bg-surface p-8"
+          >
+            <View className="h-14 w-14 items-center justify-center rounded-full bg-brand-tint">
+              <Ionicons name="notifications-outline" size={26} color="#0D16A8" />
+            </View>
+            <Text className="mt-3 text-base font-bold text-ink">
               No notifications yet
             </Text>
             <Text className="mt-1 text-center text-sm text-muted">
@@ -94,21 +113,29 @@ export default function NotificationsScreen() {
             onPress={() => {
               if (!item.isRead) void markRead(item.id);
             }}
-            className={`min-h-[44px] rounded-xl border p-4 ${
+            style={CARD_SHADOW}
+            className={`min-h-[44px] rounded-2xl border p-4 ${
               item.isRead
-                ? "border-hairline bg-surface"
-                : "border-primary bg-surface"
+                ? "border-transparent bg-surface"
+                : "border-brand-tint-border bg-surface"
             }`}
           >
-            <View className="flex-row items-center justify-between">
-              <Text className="text-sm font-semibold text-ink">
-                {item.title}
-              </Text>
+            <View className="flex-row items-center justify-between gap-2">
+              <View className="flex-1 flex-row items-center gap-2">
+                <Ionicons
+                  name={item.isRead ? "mail-open-outline" : "mail-unread"}
+                  size={16}
+                  color={item.isRead ? "#94A3B8" : "#0D16A8"}
+                />
+                <Text className="flex-1 text-sm font-bold text-ink">
+                  {item.title}
+                </Text>
+              </View>
               {!item.isRead ? (
-                <View className="h-2.5 w-2.5 rounded-full bg-primary" />
+                <View className="h-2.5 w-2.5 rounded-full bg-brand" />
               ) : null}
             </View>
-            <Text className="mt-1 text-sm text-muted">{item.body}</Text>
+            <Text className="mt-1.5 text-sm text-muted">{item.body}</Text>
             <Text className="mt-2 text-xs text-muted">
               {new Date(item.createdAt).toLocaleString()}
             </Text>
