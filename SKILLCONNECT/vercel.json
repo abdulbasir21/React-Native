@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm --prefix shared ci --include=dev && npm --prefix shared run build && npm --prefix admin ci --include=dev",
+  "buildCommand": "npm --prefix admin run build",
+  "outputDirectory": "admin/dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

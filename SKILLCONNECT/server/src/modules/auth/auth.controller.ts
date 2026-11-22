@@ -17,25 +17,38 @@ export function createAuthController(
     refreshToken: string
   ) => {
     const isProd = config.NODE_ENV === "production";
+    const sameSite = isProd ? ("none" as const) : ("lax" as const);
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: isProd,
-      sameSite: "lax",
+      sameSite,
       maxAge: config.ACCESS_TOKEN_TTL_MINUTES * 60 * 1000,
       path: "/",
     });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: isProd,
-      sameSite: "lax",
+      sameSite,
       maxAge: config.REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000,
       path: "/api/v1/auth",
     });
   };
 
   const clearAuthCookies = (res: Response) => {
-    res.clearCookie("accessToken", { path: "/" });
-    res.clearCookie("refreshToken", { path: "/api/v1/auth" });
+    const isProd = config.NODE_ENV === "production";
+    const sameSite = isProd ? ("none" as const) : ("lax" as const);
+    res.clearCookie("accessToken", {
+      httpOnly: true,
+      secure: isProd,
+      sameSite,
+      path: "/",
+    });
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: isProd,
+      sameSite,
+      path: "/api/v1/auth",
+    });
   };
 
   const register = async (req: Request, res: Response, next: NextFunction) => {
